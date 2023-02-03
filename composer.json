@@ -1,0 +1,19 @@
+{
+    "name": "studio1902/statamic-peak-seo",
+    "autoload": {
+        "psr-4": {
+            "Studio1902\\PeakSeo\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Peak Seo",
+            "description": "Statamic Peak Seo addon"
+        },
+        "laravel": {
+            "providers": [
+                "Studio1902\\PeakSeo\\ServiceProvider"
+            ]
+        }
+    }
+}
