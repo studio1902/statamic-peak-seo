@@ -1,0 +1,72 @@
+title: 'Globals SEO: Sitemap'
+fields:
+      -
+        handle: section_social_images
+        field:
+          type: section
+          instructions: 'Automatically generate Social Images'
+          display: Social
+      -
+        handle: use_social_image_generation
+        field:
+          display: 'Use Social Images generation'
+          type: toggle
+          icon: toggle
+          instructions: 'Enable auto Social Image generation. **Important**: you need to have Puppeteer and Browsershot installed.'
+          instructions_position: below
+          listable: hidden
+          width: 50
+      -
+        handle: social_images_collections
+        field:
+          mode: select
+          display: 'Social Images generation'
+          type: collections
+          icon: collections
+          instructions: 'Use auto Social Image generation for the following collections.'
+          instructions_position: below
+          listable: hidden
+          width: 50
+          if:
+            use_social_image_generation: 'equals true'
+      -
+        handle: section_og
+        field:
+          type: section
+          instructions: 'Default settings for Social Sharing.'
+          display: Defaults
+      -
+        handle: og_image
+        field: common.image
+        config:
+          container: social_images
+          localizable: true
+          listable: hidden
+          display: 'Social image'
+          instructions_position: below
+          instructions: 'The default OG image. Can be overridden per entry. The recommended size is 1200px x 630px. This image will be focal cropped to this dimension.'
+          width: 50
+      -
+        handle: twitter_image
+        field: common.image
+        config:
+          container: social_images
+          localizable: true
+          listable: hidden
+          display: 'Twitter image'
+          instructions_position: below
+          instructions: 'The default Twitter image. Can be overridden per entry. Images should have an aspect ratio of 2:1 with minimum dimensions of 300x157. This image will be focal cropped to this dimension.'
+          width: 50
+      -
+        handle: twitter_handle
+        field:
+          listable: hidden
+          display: 'Twitter handle'
+          width: 50
+          input_type: text
+          type: text
+          localizable: true
+          instructions: 'The Twitter user name that should be included with Twitter Card tags.'
+          instructions_position: below
+          prepend: '@'
+          antlers: false
