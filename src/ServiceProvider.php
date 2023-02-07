@@ -20,7 +20,15 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
+        $this->registerPublishableFieldsets();
         $this->registerPublishableViews();
+    }
+
+    protected function registerPublishableFieldsets()
+    {
+        $this->publishes([
+            __DIR__ . '/../resources/fieldsets' => resource_path('fieldsets/vendor/statamic-peak-seo'),
+        ], 'statamic-peak-seo-fieldsets');
     }
 
     protected function registerPublishableViews()
