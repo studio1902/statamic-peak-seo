@@ -7,8 +7,8 @@
     },
     "extra": {
         "statamic": {
-            "name": "Statamic Peak Seo",
-            "description": "Statamic Peak Seo addon"
+            "name": "Statamic Peak SEO",
+            "description": "Statamic Peak SEO addon"
         },
         "laravel": {
             "providers": [
