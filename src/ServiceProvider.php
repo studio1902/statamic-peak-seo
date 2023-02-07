@@ -6,6 +6,10 @@ use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
 {
+    protected $actions = [
+        \Studio1902\PeakSeo\Actions\GenerateSocialImages::class
+    ];
+
     protected $routes = [
         'web' => __DIR__ . '/../routes/web.php',
     ];
