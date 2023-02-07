@@ -12,6 +12,13 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
-        //
+        $this->registerPublishableViews();
+    }
+
+    protected function registerPublishableViews()
+    {
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/statamic-peak-seo'),
+        ], 'statamic-peak-seo-views');
     }
 }
