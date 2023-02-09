@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.1 (2023-02-09)
+
+### What's fixed
+- Fix ErrorPage handler creating endless loop. #3 by @marcorieser
+
 ## v1.2 (2023-02-09)
 
 ### What's new
