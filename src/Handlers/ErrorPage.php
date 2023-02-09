@@ -16,7 +16,7 @@ abstract class ErrorPage
     public static function handleErrorPageAsEntry(int $code, array|string $views): void
     {
         View::composer($views, static function (\Illuminate\View\View $view) use ($code) {
-            if (!($view['response_code'] ?? null === $code)) {
+            if ($view['response_code'] !== $code) {
                 return;
             }
 
