@@ -3,19 +3,16 @@
 namespace Studio1902\PeakSeo;
 
 use Statamic\Providers\AddonServiceProvider;
+use Studio1902\PeakSeo\Actions\GenerateSocialImages;
 
 class ServiceProvider extends AddonServiceProvider
 {
     protected $actions = [
-        \Studio1902\PeakSeo\Actions\GenerateSocialImages::class
+        GenerateSocialImages::class
     ];
 
     protected $routes = [
         'web' => __DIR__ . '/../routes/web.php',
-    ];
-
-    protected $widgets = [
-        \Studio1902\PeakSeo\Widgets\ImagesMissingAlt::class
     ];
 
     public function bootAddon()
