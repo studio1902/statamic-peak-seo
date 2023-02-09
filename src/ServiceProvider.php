@@ -14,10 +14,6 @@ class ServiceProvider extends AddonServiceProvider
         'web' => __DIR__ . '/../routes/web.php',
     ];
 
-    protected $widgets = [
-        \Studio1902\PeakSeo\Widgets\ImagesMissingAlt::class
-    ];
-
     public function bootAddon()
     {
         $this->registerPublishableFieldsets();
