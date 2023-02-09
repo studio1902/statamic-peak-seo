@@ -1,3 +1,8 @@
+{{#
+    @name Error: Redirects
+    @desc Handles the 404 page redirects
+#}}
+
 {{# Redirect if current_url is in the Redirects global. #}}
 {{ redirects:redirects | where('url_old', {current_uri}) }}
     {{ if internal_url }}
