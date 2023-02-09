@@ -3,7 +3,7 @@
     @desc The cookie banner component defined in `resources/views/snippets/_seo.antlers.html` and yielded in `resources/views/layout.antlers.html`.
 #}}
 
-<!-- /components/_cookie.antlers.html -->
+<!-- statamic-peak-seo::components/_cookie.antlers.html -->
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.store('cookieBanner', {
@@ -164,11 +164,11 @@
         </button>
     </div>
 </div>
-<!-- End: /components/_cookie_banner.antlers.html -->
+<!-- End: statamic-peak-seo::components/_cookie_banner.antlers.html -->
 
 {{# Yield this section in `resources/layouts/_footer.antlers.html` so users can reset their consent. #}}
 {{ section:reset_cookie_consent }}
-    <!-- /components/_cookie_banner.antlers.html -->
+    <!-- statamic-peak-seo::components/_cookie_banner.antlers.html -->
     {{ if seo:use_cookie_banner }}
         {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
         <span x-data x-cloak>
@@ -177,5 +177,5 @@
             </span>
         </span>
     {{ /if }}
-    <!-- End: /components/_cookie_banner.antlers.html -->
+    <!-- End: statamic-peak-seo::components/_cookie_banner.antlers.html -->
 {{ /section:reset_cookie_consent }}
