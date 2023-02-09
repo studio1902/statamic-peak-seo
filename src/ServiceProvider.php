@@ -3,11 +3,12 @@
 namespace Studio1902\PeakSeo;
 
 use Statamic\Providers\AddonServiceProvider;
+use Studio1902\PeakSeo\Actions\GenerateSocialImages;
 
 class ServiceProvider extends AddonServiceProvider
 {
     protected $actions = [
-        \Studio1902\PeakSeo\Actions\GenerateSocialImages::class
+        GenerateSocialImages::class
     ];
 
     protected $routes = [
