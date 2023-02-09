@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2 (2023-02-09)
+
+### What's new
+- Changes for addonification. #2 by @marcorieser
+
 ## v1.1 (2023-02-07)
 
 ### What's new
