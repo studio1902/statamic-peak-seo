@@ -12,7 +12,7 @@ fields:
           display: 'Use Social Images generation'
           type: toggle
           icon: toggle
-          instructions: 'Enable auto Social Image generation. **Important**: you need to have Puppeteer and Browsershot installed.'
+          instructions: 'Enable Social Image generation. **Important**: you need to have Puppeteer and Browsershot installed.'
           instructions_position: below
           listable: hidden
           width: 50
@@ -20,10 +20,10 @@ fields:
         handle: social_images_collections
         field:
           mode: select
-          display: 'Social Images generation'
+          display: 'Collections with Social Images'
           type: collections
           icon: collections
-          instructions: 'Use auto Social Image generation for the following collections.'
+          instructions: 'Chosen collections will show a _Generate Social Images_ button in the collections overview.'
           instructions_position: below
           listable: hidden
           width: 50
