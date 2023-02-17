@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3 (2023-02-17)
+
+### What's improved
+- Improve global labels for social image generation. #4 by @klickreflex
+
 ## v1.2.1 (2023-02-09)
 
 ### What's fixed
