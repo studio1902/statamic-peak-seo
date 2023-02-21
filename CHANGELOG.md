@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.4 (2023-02-21)
+
+### What's improved
+- Use Null-safe operator in Social Image route guard. #5 by @marcorieser
+
 ## v1.3 (2023-02-17)
 
 ### What's improved
