@@ -56,11 +56,12 @@ fields:
                 width: 33
                 listable: hidden
             -
-              handle: what_to_add
+              handle: manipulate_title
               field:
                 options:
-                  custom_text: 'Custom text'
-                  collection_title: 'The collection title'
+                  collection_title: 'Add collection title'
+                  custom_text: 'Add custom text'
+                  replace_title: 'Replace title'
                 multiple: false
                 max_items: 1
                 clearable: false
@@ -68,33 +69,33 @@ fields:
                 taggable: false
                 push_tags: false
                 cast_booleans: false
-                display: 'What to add'
+                display: 'Manipulate title'
                 type: select
                 icon: select
-                instructions: 'What to add.'
+                instructions: 'How to manipulate the title.'
                 width: 33
                 listable: hidden
             -
               handle: custom_text
               field:
                 input_type: text
-                antlers: false
+                antlers: true
                 display: Text
                 type: text
                 icon: text
-                instructions: 'The custom text.'
+                instructions: 'The custom text. You can use antlers tags in here.'
                 width: 33
                 listable: hidden
                 if:
-                  what_to_add: 'equals custom_text'
+                  what_to_add: 'isnt collection_title'
           mode: table
           add_row: 'Add collection default'
           reorderable: true
           type: grid
           icon: grid
           localizable: true
-          display: 'Change collection title'
-          instructions: 'Select collections where you want to add something to be part of the page title. For example: _Entry title - **Collection title** - Site title_.'
+          display: 'Manipulate collection title'
+          instructions: 'Select collections where you want to add something to be part of the page title. For example: _Entry title - **Custom text** - Site title_. You can also replace the whole title using the _Replace title_ option and optionally add Antlers tags.'
           listable: hidden
       -
         handle: section_environments_noindex
