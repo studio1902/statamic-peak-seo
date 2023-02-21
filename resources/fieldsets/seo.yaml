@@ -15,7 +15,7 @@ fields:
       listable: hidden
       display: 'Page title'
       character_limit: 70
-      instructions: 'This entries title, defaults to title. Max 70 characters including the site name.'
+      instructions: 'This entries title, defaults to title and site name.'
   -
     handle: seo_description
     field: common.text_plain

@@ -6,21 +6,22 @@
 <!-- statamic-peak-seo::snippets/_seo.antlers.html -->
 {{# Page title #}}
 <title>
+    {{ seperator = seo:title_separator ? seo:title_separator : " &#124; " }}
+    {{ site_name = seo:site_name ? seo:site_name : config:app:name }}
     {{ if seo_title }}
         {{ seo_title }}
-    {{ else }}
-        {{ yield:seo_title }}
-        {{ title }}
-        {{ seo:title_separator ? seo:title_separator : " &#124; " }}
+    {{ elseif seo:change_page_title | where('collection', {collection}) }}
         {{ seo:change_page_title | where('collection', {collection}) }}
-            {{ if what_to_add == 'collection_title' }}
-                {{ collection:title }}
-            {{ elseif what_to_add == 'custom_text' }}
+            {{ if manipulate_title == 'collection_title' }}
+                {{ title }} {{ seperator }} {{ collection:title }} {{ seperator }} {{ site_name }}
+            {{ elseif manipulate_title == 'custom_text' }}
+                {{ title }} {{ seperator }} {{ custom_text }} {{ seperator }} {{ site_name }}
+            {{ elseif manipulate_title == 'replace_title' }}
                 {{ custom_text }}
             {{ /if }}
-            {{ seo:title_separator ? seo:title_separator : " &#124; " }}
         {{ /seo:change_page_title }}
-        {{ seo:site_name ? seo:site_name : config:app:name }}
+    {{ else }}
+        {{ yield:seo_title }}{{ title }} {{ seperator }} {{ site_name }}
     {{ /if }}
 </title>
 
