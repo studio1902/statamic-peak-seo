@@ -15,6 +15,10 @@ class ServiceProvider extends AddonServiceProvider
         'web' => __DIR__ . '/../routes/web.php',
     ];
 
+    protected $updateScripts = [
+        \Studio1902\PeakSEO\Updates\UpdateGlobalRenameWhatToAdd::class,
+    ];
+
     public function bootAddon()
     {
         $this->registerPublishableFieldsets();
