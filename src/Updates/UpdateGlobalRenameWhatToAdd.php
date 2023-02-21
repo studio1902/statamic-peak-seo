@@ -10,7 +10,7 @@ class UpdateGlobalRenameWhatToAdd extends UpdateScript
 {
     public function shouldUpdate($newVersion, $oldVersion)
     {
-        return $this->isUpdatingTo('2.0');
+        return $this->isUpdatingTo('1.5');
     }
 
     public function update()

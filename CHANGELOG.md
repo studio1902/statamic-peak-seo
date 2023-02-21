@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5 (2023-02-21)
+
+### What's new
+- Add an option to fully replace collection titles. #6 by @robdekort
+
 ## v1.4 (2023-02-21)
 
 ### What's improved
