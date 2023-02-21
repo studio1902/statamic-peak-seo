@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5.1 (2023-02-21)
+
+### What's fixed
+- Restore conditional field logic regarding page titles. e8d3f157 by @robdekort
+
 ## v1.5 (2023-02-21)
 
 ### What's new
