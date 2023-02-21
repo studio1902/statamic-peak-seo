@@ -87,7 +87,7 @@ fields:
                 width: 33
                 listable: hidden
                 if:
-                  what_to_add: 'isnt collection_title'
+                  manipulate_title: 'isnt collection_title'
           mode: table
           add_row: 'Add collection default'
           reorderable: true
@@ -95,7 +95,7 @@ fields:
           icon: grid
           localizable: true
           display: 'Manipulate collection title'
-          instructions: 'Select collections where you want to add something to be part of the page title. For example: _Entry title - **Custom text** - Site title_. You can also replace the whole title using the _Replace title_ option and optionally add Antlers tags.'
+          instructions: 'Select collections where you want to add something to be part of the page title. For example: _Entry title - **Custom text** - Site title_. You can also replace the whole title using the _Replace title_ option and optionally add Antlers variables.'
           listable: hidden
       -
         handle: section_environments_noindex
