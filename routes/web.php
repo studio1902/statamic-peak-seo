@@ -23,7 +23,7 @@ Route::statamic('/{site_handle}/sitemap.xml', 'statamic-peak-seo::sitemap/sitema
 ]);
 
 // The Social Image route to generate social images.
-if (GlobalSet::findByHandle('seo')->inDefaultSite()->get('use_social_image_generation')) {
+if (GlobalSet::findByHandle('seo')?->inDefaultSite()?->get('use_social_image_generation')) {
     Site::all()->each(function ($site) {
         Route::statamic("{$site->url()}/social-images/{id}", 'statamic-peak-seo::social_images', [
             'layout' => null,
