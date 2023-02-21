@@ -15,6 +15,7 @@ class UpdateGlobalRenameWhatToAdd extends UpdateScript
     {
         Site::all()->each(function ($site) {
             $changePageTitles = GlobalSet::findByHandle('seo')->in($site->handle)->get('change_page_title');
+            // Rename `what_to_add` to `manipulate_title`.
         });
 
         $this->console()->info('Global "Change page title" configuration renamed `what_to_add` to `manipulate_title` succesfully.');
