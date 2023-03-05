@@ -56,7 +56,7 @@ class GenerateSocialImagesJob implements ShouldQueue
         ])
         ->filter()
         ->each(function ($image) use ($container) {
-            if($container->asset($image)->exists()){
+            if($container->asset($image) && $container->asset($image)->exists()){
                 $container->asset($image)->delete();
             }
         });
