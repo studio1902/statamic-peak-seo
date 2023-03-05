@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot;
@@ -26,6 +27,16 @@ class GenerateSocialImagesJob implements ShouldQueue
     public function __construct($item)
     {
         $this->item = $item;
+    }
+
+    /**
+     * Middleware to prevent jobs from overlapping.
+     *
+     * @return void
+     */
+    public function middleware(): array
+    {
+        return [(new WithoutOverlapping($this->item->id))->expireAfter(60)];
     }
 
     /**
