@@ -44,7 +44,9 @@ class GenerateSocialImages extends Action
      */
     public function run($items, $values)
     {
-        GenerateSocialImagesJob::dispatch($items);
+        $items->each(function ($item, $key) {
+            GenerateSocialImagesJob::dispatch($item);
+        });
 
         $queue = config('queue.default');
         $driver = config("queue.connections.$queue.driver");
