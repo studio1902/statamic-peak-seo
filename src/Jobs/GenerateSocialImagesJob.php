@@ -16,16 +16,16 @@ class GenerateSocialImagesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $items;
+    public $item;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($items)
+    public function __construct($item)
     {
-        $this->items = $items;
+        $this->item = $item;
     }
 
     /**
@@ -35,49 +35,46 @@ class GenerateSocialImagesJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->items->each(function($item, $key) {
+        $container = AssetContainer::find('social_images');
+        $disk = $container->disk();
 
-            $container = AssetContainer::find('social_images');
-            $disk = $container->disk();
-
-            // Delete any old images/meta remaining.
-            collect([
-                $item->get('og_image'),
-                $item->get('twitter_image'),
-            ])
-            ->filter()
-            ->each(function ($image) use ($container) {
-                if($container->asset($image)->exists()){
-                    $container->asset($image)->delete();
-                }
-            });
-
-            // Prepare.
-            $id = $item->id();
-            $title = Str::of($item->get('title'))->slug('-');
-            $absolute_url = $item->site()->absoluteUrl();
-            $unique = time();
-
-            // Generate, save and set default og image/meta.
-            $file = "{$title}-og-{$unique}.png";
-            $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
-                ->windowSize(1200, 630)
-                ->select('#og')
-                ->waitUntilNetworkIdle()
-                ->save($disk->path($file));
-            $container->makeAsset($file)->save();
-            $item->set('og_image', $file)->save();
-
-            // Generate, save and set default twitter image/meta.
-            $file = "{$title}-twitter-{$unique}.png";
-            $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
-                ->windowSize(1200, 600)
-                ->select('#twitter')
-                ->waitUntilNetworkIdle()
-                ->save($disk->path($file));
-            $container->makeAsset($file)->save();
-            $item->set('twitter_image', $file)->save();
+        // Delete any old images/meta remaining.
+        collect([
+            $this->item->get('og_image'),
+            $this->item->get('twitter_image'),
+        ])
+        ->filter()
+        ->each(function ($image) use ($container) {
+            if($container->asset($image)->exists()){
+                $container->asset($image)->delete();
+            }
         });
+
+        // Prepare.
+        $id = $this->item->id();
+        $title = Str::of($this->item->get('title'))->slug('-');
+        $absolute_url = $this->item->site()->absoluteUrl();
+        $unique = time();
+
+        // Generate, save and set default og image/meta.
+        $file = "{$title}-og-{$unique}.png";
+        $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
+            ->windowSize(1200, 630)
+            ->select('#og')
+            ->waitUntilNetworkIdle()
+            ->save($disk->path($file));
+        $container->makeAsset($file)->save();
+        $this->item->set('og_image', $file)->save();
+
+        // Generate, save and set default twitter image/meta.
+        $file = "{$title}-twitter-{$unique}.png";
+        $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
+            ->windowSize(1200, 600)
+            ->select('#twitter')
+            ->waitUntilNetworkIdle()
+            ->save($disk->path($file));
+        $container->makeAsset($file)->save();
+        $this->item->set('twitter_image', $file)->save();
 
         Artisan::call('cache:clear');
     }
