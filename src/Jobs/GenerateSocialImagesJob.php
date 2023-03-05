@@ -36,7 +36,7 @@ class GenerateSocialImagesJob implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->item->id))->expireAfter(60)];
+        return [(new WithoutOverlapping('generate-social-images'))->expireAfter(60)];
     }
 
     /**
