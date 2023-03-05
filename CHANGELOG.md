@@ -2,6 +2,11 @@
 
 ## v1.6 (2023-03-05)
 
+### What's fixed
+- Use a non unique key for job overlaps. e2587193 by @robdekort
+
+## v1.6 (2023-03-05)
+
 ### What's improved
 - Improve reliability of queued OG image generation by preventing job overlap. #7 by @robdekort
 
