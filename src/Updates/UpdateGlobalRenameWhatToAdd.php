@@ -21,8 +21,10 @@ class UpdateGlobalRenameWhatToAdd extends UpdateScript
 
             if ($changePageTitle) {
                 foreach ($changePageTitle as $index => $values) {
-                    $changePageTitle[$index]['manipulate_title'] = $values['what_to_add'] ?? '';
-                    unset($changePageTitle[$index]['what_to_add']);
+                    if ($values['what_to_add']) {
+                        $changePageTitle[$index]['manipulate_title'] = $values['what_to_add'];
+                        unset($changePageTitle[$index]['what_to_add']);
+                    }
                 }
 
                 $set->set('change_page_title', $changePageTitle);
