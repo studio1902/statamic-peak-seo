@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.6 (2023-03-05)
+## v1.6.1 (2023-03-05)
 
 ### What's fixed
 - Use a non unique key for job overlaps. e2587193 by @robdekort
