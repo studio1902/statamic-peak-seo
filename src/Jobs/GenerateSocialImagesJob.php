@@ -55,6 +55,7 @@ class GenerateSocialImagesJob implements ShouldQueue
             $this->item->get('twitter_image'),
         ])
         ->filter()
+        ->unique()
         ->each(function ($image) use ($container) {
             if($container->asset($image) && $container->asset($image)->exists()){
                 $container->asset($image)->delete();
