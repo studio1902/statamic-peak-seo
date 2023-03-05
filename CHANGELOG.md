@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.6 (2023-03-05)
+
+### What's improved
+- Improve reliability of queued OG image generation by preventing job overlap. #7 by @robdekort
+
 ## v1.5.1 (2023-02-21)
 
 ### What's fixed
