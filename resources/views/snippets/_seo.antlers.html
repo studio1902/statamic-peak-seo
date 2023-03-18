@@ -29,7 +29,7 @@
 {{ if seo_description }}
     <meta name="description" content="{{ seo_description | strip_tags | entities | trim }}">
 {{ elseif seo:collection_defaults }}
-    <meta name="description" content="{{ partial src="statamic-peak-seo::snippets/fallback_description" }}">
+    <meta name="description" content="{{ partial:statamic-peak-seo::snippets/fallback_description }}">
 {{ /if }}
 
 {{# No index and no follow #}}
@@ -134,7 +134,7 @@
 {{ elseif seo_description }}
     <meta property="og:description" content="{{ seo_description | strip_tags | entities | trim }}">
 {{ elseif seo:collection_defaults }}
-    <meta property="og:description" content="{{ partial src="statamic-peak-seo::snippets/fallback_description" }}">
+    <meta property="og:description" content="{{ partial:statamic-peak-seo::snippets/fallback_description }}">
 {{ /if }}
 {{ if og_image }}
     <meta property="og:image" content="{{ glide:og_image width='1200' height='630' fit='crop_focal' absolute="true" }}">
@@ -156,7 +156,7 @@
    {{ elseif seo_description }}
         <meta name="twitter:description" content="{{ seo_description | strip_tags | entities | trim }}">
    {{ elseif seo:collection_defaults }}
-        <meta name="twitter:description" content="{{ partial src="statamic-peak-seo::snippets/fallback_description" }}">
+        <meta name="twitter:description" content="{{ partial:statamic-peak-seo::snippets/fallback_description }}">
    {{ /if }}
    {{ if twitter_image }}
         <meta name="twitter:image" content="{{ glide:twitter_image width='1200' height='600' fit='crop_focal' absolute="true" }}">
@@ -217,7 +217,7 @@
             <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ seo:google_tag_manager }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {{ /if }}
         {{ if seo:use_cookie_banner }}
-            {{ partial src="statamic-peak-seo::components/cookie_banner" }}
+            {{ partial:statamic-peak-seo::components/cookie_banner }}
         {{ /if }}
     {{ /section:seo_body }}
 
