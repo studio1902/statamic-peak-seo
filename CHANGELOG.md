@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.7 (2023-03-18)
+
+### What's improved
+- Use partial tag method. a992800d by @robdekort
+
 ## v1.6.1 (2023-03-05)
 
 ### What's fixed
