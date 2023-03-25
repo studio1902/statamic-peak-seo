@@ -1,0 +1,10 @@
+title: 'Globals SEO: JSON-ld - Breadcrumbs'
+fields:
+  -
+    handle: breadcrumbs
+    field:
+      type: toggle
+      instructions: 'Add JSON-ld breadcrumbs to each entry. Recommended when no visual breadcrumbs are rendered to the page.'
+      listable: false
+      localizable: true
+      display: Breadcrumbs

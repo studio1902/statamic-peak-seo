@@ -1,0 +1,25 @@
+title: 'Globals SEO: Social Sharing - Generate Social Images'
+fields:
+  -
+    handle: use_social_image_generation
+    field:
+      display: 'Use Social Images generation'
+      type: toggle
+      icon: toggle
+      instructions: 'Enable Social Image generation. **Important**: you need to have Puppeteer and Browsershot installed.'
+      instructions_position: below
+      listable: hidden
+      width: 50
+  -
+    handle: social_images_collections
+    field:
+      mode: select
+      display: 'Collections with Social Images'
+      type: collections
+      icon: collections
+      instructions: 'Chosen collections will show a _Generate Social Images_ button in the collections overview.'
+      instructions_position: below
+      listable: hidden
+      width: 50
+      if:
+        use_social_image_generation: 'equals true'

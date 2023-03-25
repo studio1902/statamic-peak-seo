@@ -1,0 +1,21 @@
+title: 'Globals SEO: Trackers Site - Verifications'
+fields:
+  -
+    handle: use_google_site_verification
+    field:
+      type: toggle
+      instructions: 'Add a google-site-verification meta tag to your head.'
+      listable: false
+      display: 'Google site verification'
+  -
+    handle: google_site_verification
+    field:
+      input_type: text
+      type: text
+      listable: hidden
+      width: 66
+      display: 'Verification key'
+      validate:
+        - 'required_if:use_google_site_verification,true'
+      if:
+        use_google_site_verification: 'equals true'

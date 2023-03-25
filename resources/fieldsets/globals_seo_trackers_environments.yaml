@@ -1,0 +1,23 @@
+title: 'Globals SEO: Trackers - Environments'
+fields:
+  -
+    handle: trackers_local
+    field:
+      type: toggle
+      listable: false
+      display: Local
+      width: 33
+  -
+    handle: trackers_staging
+    field:
+      type: toggle
+      listable: false
+      display: Staging
+      width: 33
+  -
+    handle: trackers_production
+    field:
+      type: toggle
+      listable: false
+      display: Production
+      width: 33

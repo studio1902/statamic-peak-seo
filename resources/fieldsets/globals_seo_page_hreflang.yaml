@@ -1,0 +1,11 @@
+title: 'Globals SEO: Page Meta - hreflang'
+fields:
+  -
+    handle: hreflang_auto
+    field:
+      type: toggle
+      display: 'Auto hreflang tags'
+      instructions: 'Auto generate hreflang tags for all sites.'
+      listable: hidden
+      instructions_position: above
+      width: 50
