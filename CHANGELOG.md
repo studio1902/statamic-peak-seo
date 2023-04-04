@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0 (unreleased)
+
+### What's new
+- Statamic v4 support including splitting fieldsets into sections and moving the MissingAltWidget to the Tools addon. #9 by @robdekort
+
 ## v1.7 (2023-03-18)
 
 ### What's improved
