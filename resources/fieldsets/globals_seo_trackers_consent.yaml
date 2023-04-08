@@ -251,6 +251,7 @@ fields:
       if:
         use_cookie_banner: 'equals true'
         embeds: 'equals true'
+        tracker_type: 'equals none'
   -
     handle: display_style
     field:
