@@ -67,18 +67,6 @@ fields:
         display: Fathom
         width: 50
     -
-      handle: fathom_use_custom_domain
-      field:
-        type: toggle
-        instructions: 'Use a custom domain for your Fathom script.'
-        listable: false
-        width: 50
-        display: 'Custom domain'
-        instructions_position: above
-        default: false
-        if:
-          use_fathom: 'equals true'
-    -
       handle: fathom
       field:
         width: 50
@@ -91,22 +79,6 @@ fields:
           - 'required_if:use_fathom,true'
         if:
           use_fathom: 'equals true'
-    -
-      handle: fathom_custom_script_url
-      field:
-        width: 50
-        display: 'Custom domain'
-        instructions: 'Add the full script URL.'
-        input_type: url
-        type: text
-        listable: hidden
-        validate:
-          - 'required_if:fathom_use_custom_domain,true'
-        if:
-          use_fathom: 'equals true'
-          fathom_use_custom_domain: 'equals true'
-        instructions_position: above
-        antlers: false
     -
       handle: section_plausible
       field:
