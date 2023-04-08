@@ -5,6 +5,9 @@
 ### What's new
 - Statamic v4 support including splitting fieldsets into sections and moving the MissingAltWidget to the Tools addon. #9 by @robdekort
 
+### What's improved
+- Show `hide_by_default` (Cookie Banner) only if no trackers are being used. #b01ae61a by @robdekort
+
 ## v1.7 (2023-03-18)
 
 ### What's improved
