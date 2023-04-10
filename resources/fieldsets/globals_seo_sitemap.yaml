@@ -9,3 +9,4 @@ fields:
       listable: hidden
       default: pages
       display: Collections
+      width: 50
