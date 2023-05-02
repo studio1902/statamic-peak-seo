@@ -1,0 +1,26 @@
+title: 'Globals SEO: Page Meta - Environments'
+fields:
+  -
+    handle: noindex_local
+    field:
+      type: toggle
+      instructions_position: below
+      listable: false
+      display: Local
+      width: 33
+  -
+    handle: noindex_staging
+    field:
+      type: toggle
+      instructions_position: below
+      listable: false
+      display: Staging
+      width: 33
+  -
+    handle: noindex_production
+    field:
+      type: toggle
+      instructions_position: below
+      listable: false
+      display: Production
+      width: 33

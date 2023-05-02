@@ -1,0 +1,66 @@
+title: 'Globals SEO: JSON-ld - Knowledge Graph'
+fields:
+  -
+    handle: json_ld_type
+    field:
+      options:
+        none: None
+        organization: Organization
+        person: Person
+        custom: Custom
+      default: none
+      localizable: true
+      type: button_group
+      instructions: 'The type of data to be added on each page.'
+      listable: false
+      display: Type
+  -
+    handle: organization_name
+    field:
+      input_type: text
+      type: text
+      localizable: true
+      listable: hidden
+      display: 'Organization name'
+      width: 66
+      if:
+        json_ld_type: 'equals organization'
+      validate:
+        - 'required_if:json_ld_type,organization'
+  -
+    handle: organization_logo
+    field: common.image
+    config:
+      localizable: true
+      listable: hidden
+      display: 'Organization logo'
+      instructions_position: below
+      instructions: 'Minimum 112px x 112px, will be focal cropped to a square.'
+      width: 33
+      if:
+        json_ld_type: 'equals organization'
+  -
+    handle: person_name
+    field:
+      listable: hidden
+      display: 'Person name'
+      width: 66
+      input_type: text
+      type: text
+      localizable: true
+      if:
+        json_ld_type: 'equals person'
+      validate:
+        - 'required_if:json_ld_type,person'
+  -
+    handle: json_ld
+    field:
+      type: textarea
+      instructions: 'Add custom JSON-LD to be included on each page. This can include stuff like business hours and contact data.'
+      localizable: true
+      listable: false
+      display: JSON-LD
+      if:
+        json_ld_type: 'equals custom'
+      validate:
+        - 'required_if:json_ld_type,custom'
