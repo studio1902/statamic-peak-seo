@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1 (2023-05-22)
+
+### What's new
+- Add the ability to set `reset_cookie_consent_class` to override the default reset link styling. 18f759a4 by @robdekort
+
 ## v2.0 (2023-05-09)
 
 **Breaking changes**: If you upgrade an existing site make sure to apply the [changes made to Peak Core in v12](https://github.com/studio1902/statamic-peak/releases/tag/v12.0).
