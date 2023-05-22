@@ -173,7 +173,7 @@
         {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
         <span x-data x-cloak>
             <span x-show="$store.cookieBanner.consent !== null">
-                <a @click.prevent="$store.cookieBanner.setConsent(null)" class="px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors" href="#">{{ trans:strings.cookie_reset_consent }}</a>
+                <a @click.prevent="$store.cookieBanner.setConsent(null)" class="{{ reset_cookie_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.cookie_reset_consent }}</a>
             </span>
         </span>
     {{ /if }}
