@@ -44,7 +44,7 @@
                 {{ seo:scripts }}
                     if ($store.cookieBanner.consent && customScript{{ count }}) {
                         {{ script_fragments }}
-                            let script{{ index }} = document.createElement('script')
+                            var script{{ index }} = document.createElement('script')
                             {{ if type == 'script_tag' }}
                                 script{{ index }}.src = '{{ source }}'
                             {{ else }}
