@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.1 (2023-05-31)
+
+### What's fixed
+- Use `var` to keep external scripts in function scope to add prevent errors after cookie consent has been revoked and granted again. 6d03a93b by @robdekort
+
 ## v2.1 (2023-05-22)
 
 ### What's new
