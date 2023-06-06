@@ -22,4 +22,30 @@
             {{ /results }}
         {{ /collection }}
     {{ /seo:sitemap_collections }}
+    {{ seo:sitemap_taxonomies }}
+        {{ taxonomy from="{handle}" seo_noindex:isnt="true" as="results" }}
+            {{ results }}
+                <url>
+                    <loc>{{ permalink }}</loc>
+                    <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
+                    <changefreq>{{ sitemap_change_frequency ? sitemap_change_frequency : 'weekly' }}</changefreq>
+                    <priority>{{ sitemap_priority ? sitemap_priority : '0.5' }}</priority>
+                </url>
+            {{ /results }}
+        {{ /taxonomy }}
+    {{ /seo:sitemap_taxonomies }}
+    {{ seo:sitemap_collection_taxonomies }}
+        {{ collections }}
+            {{ taxonomy from="{taxonomy}" collection="{handle}" seo_noindex:isnt="true" as="results" }}
+                {{ results }}
+                    <url>
+                        <loc>{{ permalink }}</loc>
+                        <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
+                        <changefreq>{{ sitemap_change_frequency ? sitemap_change_frequency : 'weekly' }}</changefreq>
+                        <priority>{{ sitemap_priority ? sitemap_priority : '0.5' }}</priority>
+                    </url>
+                {{ /results }}
+            {{ /taxonomy }}
+        {{ /collections }}
+    {{ /seo:sitemap_collection_taxonomies }}
 </urlset>

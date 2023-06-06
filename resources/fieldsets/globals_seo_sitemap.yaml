@@ -10,3 +10,49 @@ fields:
       default: pages
       display: Collections
       width: 50
+  -
+    handle: sitemap_taxonomies
+    field:
+      mode: select
+      type: taxonomies
+      instructions: 'Select which taxonomies to include in the sitemap.xml.'
+      listable: hidden
+      display: Taxonomies
+      width: 50
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: sitemap_collection_taxonomies
+    field:
+      fields:
+        -
+          handle: taxonomy
+          field:
+            max_items: 1
+            mode: select
+            type: taxonomies
+            listable: hidden
+            display: Taxonomy
+            width: 50
+            instructions_position: above
+            visibility: visible
+            hide_display: false
+            instructions: 'Select which taxonomy to use for specified collections.'
+        -
+          handle: collections
+          field:
+            mode: select
+            type: collections
+            listable: hidden
+            display: Collections
+            width: 50
+            instructions: "Select collections to assign the taxonomy's term urls."
+      mode: stacked
+      add_row: 'Add collection taxonomy'
+      reorderable: true
+      display: 'Collection Taxonomies'
+      type: grid
+      icon: grid
+      instructions: 'Select which collection term urls to include in the sitemap.xml. For example: _/blog/tags/retrowave_.'
+      listable: hidden
