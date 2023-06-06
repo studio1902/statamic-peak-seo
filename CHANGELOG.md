@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.2 (2023-06-06)
+
+### What's new
+- Adds taxonomies and collection assigned taxonomies to sitemap. #14 by @mikemartin
+
 ## v2.1.1 (2023-05-31)
 
 ### What's fixed
