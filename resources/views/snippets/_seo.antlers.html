@@ -6,8 +6,8 @@
 <!-- statamic-peak-seo::snippets/_seo.antlers.html -->
 {{# Page title #}}
 <title>
-    {{ seperator = seo:title_separator ? seo:title_separator : " &#124; " }}
-    {{ site_name = seo:site_name ? seo:site_name : config:app:name }}
+    {{ seperator = seo:title_separator ?? " &#124; " }}
+    {{ site_name = seo:site_name ?? config:app:name }}
     {{ if seo_title }}
         {{ seo_title }}
     {{ elseif seo:change_page_title | where('collection', {collection}) }}
