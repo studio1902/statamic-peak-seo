@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.3 (2023-06-14)
+
+### What's improved
+- Use Null Coalescence (variable fallbacks) in SEO partial. a19fce11 by @robdekort
+
 ## v2.2 (2023-06-06)
 
 ### What's new
