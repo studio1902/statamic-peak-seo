@@ -73,8 +73,12 @@ class GenerateSocialImagesJob implements ShouldQueue
         $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
             ->windowSize(1200, 630)
             ->select('#og')
-            ->waitUntilNetworkIdle()
-            ->save($disk->path($file));
+            ->waitUntilNetworkIdle();
+        if (strtolower(config("filesystems.disks.{$container->disk}.driver") == 's3')) {
+            $disk->put($file, $image->screenshot());
+        } else {
+            $image->save($disk->path($file));
+        }
         $container->makeAsset($file)->save();
         $this->item->set('og_image', $file)->save();
 
