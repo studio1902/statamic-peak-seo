@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.4 (2023-06-28)
+
+### What's new
+- Support s3 drivers for social_images disk. #17 by @sandergo
+
 ## v2.3 (2023-06-14)
 
 ### What's improved
