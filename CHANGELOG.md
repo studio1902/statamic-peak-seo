@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.5 (2023-06-29)
+
+### What's new
+- Adds support for s3 driver to store generated Twitter image. #18 by @sandergo
+- Add ability to configure binary paths for social image generation. #19 by @marcorieser
+
 ## v2.4 (2023-06-28)
 
 ### What's new
