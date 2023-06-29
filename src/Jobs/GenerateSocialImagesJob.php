@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot;
@@ -54,23 +54,22 @@ class GenerateSocialImagesJob implements ShouldQueue
             $this->item->get('og_image'),
             $this->item->get('twitter_image'),
         ])
-        ->filter()
-        ->unique()
-        ->each(function ($image) use ($container) {
-            if($container->asset($image) && $container->asset($image)->exists()){
-                $container->asset($image)->delete();
-            }
-        });
+            ->filter()
+            ->unique()
+            ->each(function ($image) use ($container) {
+                if ($container->asset($image) && $container->asset($image)->exists()) {
+                    $container->asset($image)->delete();
+                }
+            });
 
         // Prepare.
-        $id = $this->item->id();
         $title = Str::of($this->item->get('title'))->slug('-');
-        $absolute_url = $this->item->site()->absoluteUrl();
         $unique = time();
 
         // Generate, save and set default og image/meta.
         $file = "{$title}-og-{$unique}.png";
-        $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
+
+        $image = $this->setupBrowsershot()
             ->windowSize(1200, 630)
             ->select('#og')
             ->waitUntilNetworkIdle();
@@ -84,7 +83,7 @@ class GenerateSocialImagesJob implements ShouldQueue
 
         // Generate, save and set default twitter image/meta.
         $file = "{$title}-twitter-{$unique}.png";
-        $image = Browsershot::url("{$absolute_url}/social-images/{$id}")
+        $image = $this->setupBrowsershot()
             ->windowSize(1200, 600)
             ->select('#twitter')
             ->waitUntilNetworkIdle()
@@ -93,5 +92,23 @@ class GenerateSocialImagesJob implements ShouldQueue
         $this->item->set('twitter_image', $file)->save();
 
         Artisan::call('cache:clear');
+    }
+
+    protected function setupBrowsershot(): Browsershot
+    {
+        $id = $this->item->id();
+        $absolute_url = $this->item->site()->absoluteUrl();
+
+        $browsershot = Browsershot::url("{$absolute_url}/social-images/{$id}");
+
+        if (config('statamic.peak-seo.node_binary')) {
+            $browsershot->setNodeBinary(config('statamic.peak-seo.node_binary'));
+        }
+
+        if (config('statamic.peak-seo.npm_binary')) {
+            $browsershot->setNpmBinary(config('statamic.peak-seo.npm_binary'));
+        }
+
+        return $browsershot;
     }
 }
