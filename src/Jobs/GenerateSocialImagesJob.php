@@ -101,12 +101,12 @@ class GenerateSocialImagesJob implements ShouldQueue
 
         $browsershot = Browsershot::url("{$absolute_url}/social-images/{$id}");
 
-        if (config('statamic.peak-seo.node_binary')) {
-            $browsershot->setNodeBinary(config('statamic.peak-seo.node_binary'));
+        if ($nodeBinary = config('statamic-peak-seo.social_image.node_binary')) {
+            $browsershot->setNodeBinary($nodeBinary);
         }
 
-        if (config('statamic.peak-seo.npm_binary')) {
-            $browsershot->setNpmBinary(config('statamic.peak-seo.npm_binary'));
+        if ($npmBinary = config('statamic-peak-seo.social_image.npm_binary')) {
+            $browsershot->setNpmBinary($npmBinary);
         }
 
         return $browsershot;
