@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
+use Statamic\Facades\URL;
 
 // The Sitemap Index route for listing sitemaps of all (multi)sites.
 Route::statamic('/sitemaps.xml', 'statamic-peak-seo::sitemap/sitemaps', [
@@ -24,9 +25,7 @@ Route::statamic('/{site_handle}/sitemap.xml', 'statamic-peak-seo::sitemap/sitema
 
 // The Social Image route to generate social images.
 if (GlobalSet::findByHandle('seo')?->inDefaultSite()?->get('use_social_image_generation')) {
-    Site::all()->each(function ($site) {
-        Route::statamic("{$site->url()}/social-images/{id}", 'statamic-peak-seo::social_images', [
-            'layout' => null,
-        ]);
-    });
+    Route::statamic(URL::makeRelative(Site::current()->url())."/social-images/{id}", 'statamic-peak-seo::social_images', [
+        'layout' => null,
+    ]);
 }
