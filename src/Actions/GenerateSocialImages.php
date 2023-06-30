@@ -45,7 +45,8 @@ class GenerateSocialImages extends Action
     public function run($items, $values)
     {
         $items->each(function ($item, $key) {
-            GenerateSocialImagesJob::dispatch($item);
+            GenerateSocialImagesJob::dispatch($item)
+                ->onQueue(config('statamic-peak-seo.social_image.queue_name'));
         });
 
         $queue = config('queue.default');
