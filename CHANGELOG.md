@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.6 (2023-06-30)
+
+### What's new
+- Adds config option for setting queue name for social images. #22 by @sandergo
+
 ## v2.5 (2023-06-29)
 
 ### What's new
