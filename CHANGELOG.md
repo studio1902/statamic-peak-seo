@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.6.1 (2023-07-01)
+
+### What's fixed
+- Fix to support multisite with absolute urls. #23 by @sandergo
+
+### What's improved
+- Match .env variable name with config. #24 by @marcorieser
+- Optimize sitemap routes #25 by @marcorieser
+
 ## v2.6 (2023-06-30)
 
 ### What's new
