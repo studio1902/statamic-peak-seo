@@ -12,13 +12,7 @@ Route::statamic('/sitemaps.xml', 'statamic-peak-seo::sitemap/sitemaps', [
 ]);
 
 // The Default Site Sitemap route.
-Route::statamic('/sitemap.xml', 'statamic-peak-seo::sitemap/sitemap', [
-    'layout' => null,
-    'content_type' => 'application/xml'
-]);
-
-// The Multisite Site Sitemap route(s).
-Route::statamic('/{site_handle}/sitemap.xml', 'statamic-peak-seo::sitemap/sitemap', [
+Route::statamic(URL::makeRelative(Site::current()->url()).'/sitemap.xml', 'statamic-peak-seo::sitemap/sitemap', [
     'layout' => null,
     'content_type' => 'application/xml'
 ]);
