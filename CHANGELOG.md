@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.6.2 (2023-07-04)
+
+### What's improved
+- Actually merge in "Optimize sitemap routes" this time. #25 by @marcorieser
+
 ## v2.6.1 (2023-07-01)
 
 ### What's fixed
@@ -7,7 +12,6 @@
 
 ### What's improved
 - Match .env variable name with config. #24 by @marcorieser
-- Optimize sitemap routes #25 by @marcorieser
 
 ## v2.6 (2023-06-30)
 
