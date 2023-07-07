@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.0 (2023-07-07)
+
+### What's new
+- Add option to add after body content in the Custom Script option for Trackers. #27 by @robdekort
+
 ## v2.6.2 (2023-07-04)
 
 ### What's improved
