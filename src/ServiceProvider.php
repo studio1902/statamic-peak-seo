@@ -17,6 +17,7 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $updateScripts = [
         \Studio1902\PeakSeo\Updates\UpdateGlobalRenameWhatToAdd::class,
+        \Studio1902\PeakSeo\Updates\LayoutUpdateSectionToStack::class,
     ];
 
     public function bootAddon()
