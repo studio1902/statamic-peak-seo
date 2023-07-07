@@ -127,6 +127,15 @@
                         <span class="text-xs text-neutral/75">{{ explainer }}</span>
                     </span>
                 </label>
+
+                {{# Render this stack in all your layouts after opening the <body>. #}}
+                {{ script_fragments }}
+                    {{ if type == 'body_content' }}
+                        {{ push:seo_body }}
+                            {{ body_content }}
+                        {{ /push:seo_body }}
+                    {{ /if }}
+                {{ /script_fragments }}
             {{ /seo:scripts }}
         {{ /if }}
 
