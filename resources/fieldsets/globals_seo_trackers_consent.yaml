@@ -7,7 +7,7 @@ fields:
         none: None
         gtag: 'Google Analytics'
         gtm: 'Google Tag Manager'
-        scripts: Scripts
+        scripts: Custom scripts
       default: none
       type: button_group
       instructions: 'The type of tracking you want added on each page.'
@@ -83,6 +83,7 @@ fields:
                       options:
                         script_tag: 'Script tag'
                         inline_script: 'Inline script'
+                        body_content: 'Body content'
                       default: script_tag
                       display: Type
                       type: button_group
@@ -163,6 +164,30 @@ fields:
                         - required
                         - sometimes
                       instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags.'
+                  -
+                    handle: body_content
+                    field:
+                      theme: material
+                      mode: javascript
+                      mode_selectable: false
+                      indent_type: tabs
+                      indent_size: 4
+                      key_map: default
+                      line_numbers: true
+                      line_wrapping: true
+                      display: 'Body content'
+                      type: code
+                      icon: code
+                      listable: hidden
+                      instructions_position: above
+                      visibility: visible
+                      always_save: false
+                      if:
+                        type: 'equals body_content'
+                      validate:
+                        - required
+                        - sometimes
+                      instructions: 'HTML that should be rendered after opening `<body>`.'
       display: Scripts
       type: replicator
       icon: replicator
