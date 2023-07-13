@@ -213,9 +213,6 @@
 
     {{# Render this stack in all your layouts after opening the <body>. #}}
     {{ push:seo_body }}
-        {{ if seo:tracker_type == 'gtm' }}
-            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ seo:google_tag_manager }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        {{ /if }}
         {{ if seo:use_cookie_banner }}
             {{ partial:statamic-peak-seo::components/cookie_banner }}
         {{ /if }}
