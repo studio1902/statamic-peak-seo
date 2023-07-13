@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.0 (2023-07-13)
+
+### What's changed
+- Remove noscript GTM tracking. #28 by @marcorieser
+
 ## v3.0 (2023-07-07)
 
 ### What's new
