@@ -8,14 +8,14 @@ fields:
       localizable: true
       listable: hidden
       display: 'Social title'
-      instructions: 'This entries OG title, defaults to custom SEO title and title.'
+      instructions: "This entry's OG title, defaults to custom SEO title and title."
   -
     handle: og_description
     field: common.text_plain
     config:
       listable: hidden
       display: 'Social description'
-      instructions: 'This entries OG description, defaults to meta description.'
+      instructions: "This entry's OG description, defaults to meta description."
       width: 100
   -
     handle: og_image
@@ -25,7 +25,7 @@ fields:
       container: social_images
       listable: true
       display: 'Social image'
-      instructions: 'This entries OG image. Defaults to global site OG image. The recommended size is 1200px x 630px. The image will be focal cropped to this dimension.'
+      instructions: "This entry's OG image. Defaults to global site OG image. The recommended size is 1200px x 630px. The image will be focal cropped to this dimension."
       instructions_position: below
       width: 50
   -
@@ -36,6 +36,6 @@ fields:
       container: social_images
       listable: hidden
       display: 'Twitter image'
-      instructions: 'This entries Twitter image. Defaults to global site Twitter image. Images should have an aspect ratio of 2:1 with minimum dimensions of 300x157. This image will be focal cropped to this dimension.'
+      instructions: "This entry's Twitter image. Defaults to global site Twitter image. Images should have an aspect ratio of 2:1 with minimum dimensions of 300x157. This image will be focal cropped to this dimension."
       instructions_position: below
       width: 50
