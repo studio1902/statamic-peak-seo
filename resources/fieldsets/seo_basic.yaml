@@ -9,7 +9,7 @@ fields:
       listable: hidden
       display: 'Page title'
       character_limit: 70
-      instructions: 'This entries title, defaults to title and site name.'
+      instructions: "This entry's title, defaults to title and site name."
   -
     handle: seo_description
     field: common.text_plain
@@ -17,4 +17,4 @@ fields:
       listable: hidden
       display: 'Meta description'
       character_limit: '160'
-      instructions: 'This entries meta description. Max 160 characters.'
+      instructions: "This entry's meta description. Max 160 characters."
