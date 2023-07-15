@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.0.1 (2023-07-15)
+
+### What's improved
+- Grammar fixes. #29 by @hybridvision
+
 ## v4.0 (2023-07-13)
 
 ### What's changed
