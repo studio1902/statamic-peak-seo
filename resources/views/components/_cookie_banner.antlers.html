@@ -20,8 +20,8 @@
 </script>
 
 <div
-    {{# Persist null as untouched banner state. #}}
     x-data="{
+        {{# Persist null as untouched banner state. #}}
         cookieConsentDate: $persist(null).as('cookieBannerConsentDate'),
         analyticsStorage: $persist(false).as('cookieBannerAnalyticsStorage'),
         adStorage: $persist(false).as('cookieBannerAdStorage'),
@@ -30,6 +30,12 @@
             customScript{{ count }}: $persist(false).as('cookieBannerCustomScript{{ count }}'){{ !last ?= ',' }}
         {{ /seo:scripts }}
     }"
+    x-init="
+        {{# Hide when banner is interacted with, check date for optional consent revoke. If so set state back to initial state. #}}
+        cookieConsentDate < '{{ seo:cookie_revoke_before format="Y-m-d" }}'
+            ? ($store.cookieBanner.setConsent(null), cookieConsentDate = null)
+            : ''
+    "
     {{ if seo:tracker_type !== 'none' || seo:embeds }}
         x-effect="
             {{# Update gtag on state change. #}}
@@ -60,12 +66,6 @@
             $dispatch('embeds')
         "
     {{ /if }}
-    {{# Hide when banner is interacted with, check date for optional consent revoke. If so set state back to initial state. #}}
-    x-init="
-        cookieConsentDate < '{{ seo:cookie_revoke_before format="Y-m-d" }}'
-            ? ($store.cookieBanner.setConsent(null), cookieConsentDate = null)
-            : ''
-        "
     x-show="$store.cookieBanner.consent === null"
     x-transition
     class="
@@ -152,24 +152,42 @@
     </div>
 
     <div class="flex space-x-4">
-        {{# Accept cookies and set current date. #}}
+        {{# Save all options. #}}
         <button
             @click="
                 $store.cookieBanner.setConsent(true),
-                cookieConsentDate = '{{ now format="Y-m-d" }}'"
+                cookieConsentDate = '{{ now format="Y-m-d" }}'
+                {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
+                    , analyticsStorage = true
+                {{ /if }}
+                {{ if seo:tracker_type == 'gtm' }}
+                    , adStorage = true
+                {{ /if }}
+                {{ if seo:tracker_type == 'scripts' }}
+                    {{ seo:scripts }}
+                        , customScript{{ count }} = true
+                    {{ /seo:scripts }}
+                {{ /if }}
+                {{ if seo:embeds }}
+                    , embeds = true
+                {{ /if }}
+            "
             type="button"
             class="px-4 py-2 bg-primary rounded text-sm font-bold text-white focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition"
             >
-            {{ trans:strings.cookie_accept }}
+            {{ trans:strings.cookie_accept_all }}
         </button>
 
-        {{# Ignore consent and hide banner. #}}
+        {{# Save selected options. #}}
         <button
-            @click="$store.cookieBanner.setConsent(false)"
+            @click="
+                $store.cookieBanner.setConsent(true),
+                cookieConsentDate = '{{ now format="Y-m-d" }}'
+            "
             type="button"
             class="px-1 py-2 rounded text-sm font-bold text-neutral focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition"
         >
-            {{ trans:strings.cookie_ignore }}
+            {{ trans:strings.cookie_accept_selected }}
         </button>
     </div>
 </div>
@@ -182,7 +200,7 @@
         {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
         <span x-data x-cloak>
             <span x-show="$store.cookieBanner.consent !== null">
-                <a @click.prevent="$store.cookieBanner.setConsent(null)" class="{{ reset_cookie_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.cookie_reset_consent }}</a>
+                <a @click.prevent="$store.cookieBanner.setConsent(null)" class="{{ reset_cookie_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.cookie_change_preferences }}</a>
             </span>
         </span>
     {{ /if }}
