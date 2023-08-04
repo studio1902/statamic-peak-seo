@@ -9,7 +9,7 @@ fields:
             field:
               input_type: text
               display: 'Old URL'
-              instructions: 'For example: `/my-old-url`.'
+              instructions: 'For example: `/my-old-url`. Make sure to remove any trailing slash.'
               listable: hidden
               placeholder: /old-url
               antlers: false
