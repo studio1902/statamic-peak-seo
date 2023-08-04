@@ -1,5 +1,14 @@
 # Changelog
 
+## v5.0 (2023-08-04)
+
+### What's new
+- Accept all / Accept selected buttons in Cookie Banner. Make sure to update your string translation files. 7c10eb82 by @robdekort
+
+### What's improved
+- Update tracker field instructions. d177e0ab by @robdekort
+- Update redirect field instructions. 47560930 by @robdekort
+
 ## v4.0.1 (2023-07-15)
 
 ### What's improved
