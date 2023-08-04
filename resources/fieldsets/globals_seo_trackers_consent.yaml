@@ -207,8 +207,6 @@ fields:
       display: 'Tracking ID'
       input_type: text
       type: text
-      instructions: "*Note: if you don't anonymize IP's you need cookie consent in the EU."
-      instructions_position: below
       listable: hidden
       validate:
         - 'required_if:tracker_type,gtag'
@@ -222,7 +220,7 @@ fields:
       listable: false
       default: true
       display: "Anonymize IP's"
-      instructions: 'Enable this to be exempt from needing cookie consent.'
+      instructions: "Even if you anonymize IP's you need consent according to the GDPR."
       instructions_position: below
       if:
         tracker_type: 'equals gtag'
@@ -243,7 +241,7 @@ fields:
     handle: use_cookie_banner
     field:
       type: toggle
-      instructions: 'Enable the cookie banner. When you use `Google Analytics` or `Google Tag Manager`, make sure you load all tracking scripts via their service as in this case the banner uses the Google Consent API: https://developers.google.com/tag-manager/consent. When you use `Scripts`, all your scripts will be injected after consent.'
+      instructions: 'Enable the cookie banner. When you use `Google Analytics` or `Google Tag Manager`, make sure you load all tracking scripts via their service as in this case the banner uses the Google Consent API: https://developers.google.com/tag-manager/consent. When you use `Custom scripts`, all your scripts will be injected after consent.'
       instructions_position: below
       listable: false
       display: 'Cookie banner'
