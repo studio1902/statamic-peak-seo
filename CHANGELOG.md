@@ -1,5 +1,10 @@
 # Changelog
 
+## v6.0 (2023-08-22)
+
+### What's changed
+- Removed all Twitter specific meta tags and OG images. `X` will fall back to the default OG meta tags, as long as they choose to keep respecting the spec, which doesn't seem to be the case. ec83c39a by @robdekort
+
 ## v5.0 (2023-08-04)
 
 ### What's new
