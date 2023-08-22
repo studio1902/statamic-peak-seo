@@ -1,6 +1,6 @@
 {{#
     @name Social Images
-    @desc The template for generating Social Images. By default two sizes, one for the regular OG protocol and one for Twitter.
+    @desc The template for generating Social Images. By default it includes the size for the OG protocol.
 #}}
 
 <!-- statamic-peak-seo::social_images.antlers.html -->
@@ -24,11 +24,7 @@
             {{ partial:statamic-peak-seo::components/social_image selector="og" style="width: 1200px; height: 630px" }}
         </div>
 
-        {{# The Twitter template. #}}
-        <div>
-            <h2 class="mb-4 text-xs text-neutral font-bold uppercase tracking-widest">Twitter</h2>
-            {{ partial:statamic-peak-seo::components/social_image selector="twitter" style="width: 1200px; height: 600px" }}
-        </div>
+        {{# Repeat for future OG sizes. RIP Twitter. #}}
     </body>
 </html>
 <!-- End: statamic-peak-seo::social_images.antlers.html -->

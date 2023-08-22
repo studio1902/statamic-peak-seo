@@ -52,7 +52,6 @@ class GenerateSocialImagesJob implements ShouldQueue
         // Delete any old images/meta remaining.
         collect([
             $this->item->get('og_image'),
-            $this->item->get('twitter_image'),
         ])
             ->filter()
             ->unique()
@@ -68,7 +67,6 @@ class GenerateSocialImagesJob implements ShouldQueue
 
         // Generate, save and set default og image/meta.
         $file = "{$title}-og-{$unique}.png";
-
         $image = $this->setupBrowsershot()
             ->windowSize(1200, 630)
             ->select('#og')
@@ -81,19 +79,7 @@ class GenerateSocialImagesJob implements ShouldQueue
         $container->makeAsset($file)->save();
         $this->item->set('og_image', $file)->save();
 
-        // Generate, save and set default twitter image/meta.
-        $file = "{$title}-twitter-{$unique}.png";
-        $image = $this->setupBrowsershot()
-            ->windowSize(1200, 600)
-            ->select('#twitter')
-            ->waitUntilNetworkIdle();
-        if (strtolower(config("filesystems.disks.{$container->disk}.driver") == 's3')) {
-            $disk->put($file, $image->screenshot());
-        } else {
-            $image->save($disk->path($file));
-        }
-        $container->makeAsset($file)->save();
-        $this->item->set('twitter_image', $file)->save();
+        // Repeat for other sizes.
 
         Artisan::call('cache:clear');
     }

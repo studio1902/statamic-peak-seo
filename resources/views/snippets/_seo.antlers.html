@@ -142,39 +142,6 @@
     <meta property="og:image" content="{{ glide:seo:og_image width='1200' height='630' fit='crop_focal' absolute="true" }}">
 {{ /if }}
 
-{{# Twitter #}}
-{{ if twitter_image or seo:twitter_image }}
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="{{ seo:twitter_handle }}">
-    {{ if og_title }}
-        <meta name="twitter:title" content="{{ og_title | strip_tags | entities | trim }}">
-    {{ else }}
-        <meta name="twitter:title" content="{{ seo_title ? (seo_title | strip_tags | entities | trim) : (title  | strip_tags | entities | trim) }}">
-   {{ /if }}
-   {{ if og_description }}
-        <meta name="twitter:description" content="{{ og_description | strip_tags | entities | trim }}">
-   {{ elseif seo_description }}
-        <meta name="twitter:description" content="{{ seo_description | strip_tags | entities | trim }}">
-   {{ elseif seo:collection_defaults }}
-        <meta name="twitter:description" content="{{ partial:statamic-peak-seo::snippets/fallback_description }}">
-   {{ /if }}
-   {{ if twitter_image }}
-        <meta name="twitter:image" content="{{ glide:twitter_image width='1200' height='600' fit='crop_focal' absolute="true" }}">
-        {{ asset :url="twitter_image" }}
-            {{ if alt }}
-                <meta name="twitter:image:alt" content="{{ alt ensure_right='.' }}">
-            {{ /if }}
-        {{ /asset }}
-   {{ elseif seo:twitter_image }}
-        <meta name="twitter:image" content="{{ glide:seo:twitter_image width='1200' height='600' fit='crop_focal' absolute="true" }}">
-        {{ asset :url="seo:twitter_image" }}
-            {{ if alt }}
-                <meta name="twitter:image:alt" content="{{ alt ensure_right='.' }}">
-            {{ /if }}
-        {{ /asset }}
-    {{ /if }}
-{{ /if }}
-
 {{# Trackers #}}
 {{ if
     (environment == 'local' && seo:trackers_local) or
