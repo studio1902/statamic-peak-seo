@@ -2,7 +2,7 @@
 
 ## v6.0.1 (2023-09-04)
 
-### What's changed
+### What's fixed
 - Fix wrong loop ending. #31 by @stefankempf
 
 ## v6.0 (2023-08-22)
