@@ -104,7 +104,7 @@
                     <span class="text-xs text-neutral/75">{{ trans:strings.cookie_analytics_explanation }}</span>
                 </span>
             </label>
-        {{ /unless }}
+        {{ /if }}
 
         {{# x-model adStorage checkbox only when GTM is being used. #}}
         {{ if seo:tracker_type == 'gtm' }}
