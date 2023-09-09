@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.0 (2023-09-09)
+
+### What's new
+- Add Cookie Notice Global and use this Entry or PDF in the Cookie Banner instead of the Privacy Policy. An Update Script will automatically add this to your Globals. #32 by @robdekort
+
 ## v6.0.1 (2023-09-04)
 
 ### What's fixed
