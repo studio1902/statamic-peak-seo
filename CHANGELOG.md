@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.0.1 (2023-09-09)
+
+### What's fixed
+- Fix AddCookieNotice update script version constrainst. 1eb84bd4 by @robdekort
+
 ## v7.0 (2023-09-09)
 
 ### What's new
