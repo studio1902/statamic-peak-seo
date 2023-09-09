@@ -78,10 +78,10 @@
     <h2 class="text-2xl font-bold">{{ trans:strings.cookie_title }}</h2>
     <p class="text-sm font-bold text-neutral">
         {{ trans:strings.cookie_explanation }}
-        {{ if configuration:privacy_statement_type == 'entry' }}
-            <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:privacy_statement_entry:url }}">{{ trans:strings.cookie_learn_more }}</a>
-        {{ elseif configuration:privacy_statement_type == 'pdf' }}
-            <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:privacy_statement_asset }}" target="_blank">{{ trans:strings.cookie_learn_more }}</a>
+        {{ if configuration:cookie_notice_type == 'entry' }}
+            <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:cookie_notice_entry:url }}">{{ trans:strings.cookie_learn_more }}</a>
+        {{ elseif configuration:cookie_notice_type == 'pdf' }}
+            <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:cookie_notice_asset }}" target="_blank">{{ trans:strings.cookie_learn_more }}</a>
         {{ /if }}
     </p>
 
