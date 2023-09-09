@@ -9,8 +9,7 @@ class AddCookieNotice extends UpdateScript
 {
     public function shouldUpdate($newVersion, $oldVersion)
     {
-        // return $this->isUpdatingTo('7.0');
-        return true;
+        return $this->isUpdatingTo('7.0');
     }
 
     public function update()
