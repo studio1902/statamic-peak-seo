@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.0.2 (2023-09-11)
+
+### What's improved
+- Update Privacy Policy and Cookie Notice field instructions. fc2e884c by @robdekort
+
 ## v7.0.1 (2023-09-09)
 
 ### What's fixed
