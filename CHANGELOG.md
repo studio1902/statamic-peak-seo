@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.0.3 (2023-09-21)
+
+### What's improved
+- Only add Cookie notice global fields if they don't exist yet. 28dd3d6e by @robdekort
+
 ## v7.0.2 (2023-09-11)
 
 ### What's improved
