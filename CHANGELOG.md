@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.0.4 (2023-11-01)
+
+### What's fixed
+- Register Sitemap and Social Images routes explicitely per site. #35 by @marcorieser
+
 ## v7.0.3 (2023-09-21)
 
 ### What's improved
