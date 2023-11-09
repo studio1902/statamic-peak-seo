@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.1.0 (2023-11-09)
+
+### What's new
+- Add middle dot page title separator. 4a1310c4 by @robdekort
+
 ## v7.0.4 (2023-11-01)
 
 ### What's fixed
