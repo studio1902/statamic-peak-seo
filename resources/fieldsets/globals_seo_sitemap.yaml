@@ -1,6 +1,16 @@
 title: 'Globals SEO: Sitemap'
 fields:
   -
+    handle: use_sitemap
+    field:
+      display: 'Use Sitemap'
+      type: toggle
+      icon: toggle
+      default: true
+      instructions: 'Enable the Peak Sitemap.'
+      instructions_position: below
+      listable: hidden
+  -
     handle: sitemap_collections
     field:
       mode: select
@@ -10,6 +20,9 @@ fields:
       default: pages
       display: Collections
       width: 50
+      always_save: true
+      if:
+        use_sitemap: 'equals true'
   -
     handle: sitemap_taxonomies
     field:
@@ -22,6 +35,9 @@ fields:
       instructions_position: above
       visibility: visible
       hide_display: false
+      always_save: true
+      if:
+        use_sitemap: 'equals true'
   -
     handle: sitemap_collection_taxonomies
     field:
@@ -56,3 +72,6 @@ fields:
       icon: grid
       instructions: 'Select which collection term urls to include in the sitemap.xml. For example: _/blog/tags/retrowave_.'
       listable: hidden
+      always_save: true
+      if:
+        use_sitemap: 'equals true'
