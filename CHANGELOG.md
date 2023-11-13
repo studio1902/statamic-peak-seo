@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.2.0 (2023-11-13)
+
+### What's new
+- Add an option to disable the Sitemap functionality. f6fca686 by @robdekort
+
 ## v7.1.0 (2023-11-09)
 
 ### What's new
