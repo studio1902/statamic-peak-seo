@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.2.1 (2023-11-13)
+
+### What's improved
+- Prevent loop when both Sitemap and Social Images are disabled. 61667e30 by @robdekort
+
 ## v7.2.0 (2023-11-13)
 
 ### What's new
