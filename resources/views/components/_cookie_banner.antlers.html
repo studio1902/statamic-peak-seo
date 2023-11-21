@@ -155,7 +155,6 @@
         {{# Save all options. #}}
         <button
             @click="
-                $store.cookieBanner.setConsent(true),
                 cookieConsentDate = '{{ now format="Y-m-d" }}'
                 {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
                     , analyticsStorage = true
@@ -171,6 +170,7 @@
                 {{ if seo:embeds }}
                     , embeds = true
                 {{ /if }}
+                , $store.cookieBanner.setConsent(true)
             "
             type="button"
             class="px-4 py-2 bg-primary rounded text-sm font-bold text-white focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition"
