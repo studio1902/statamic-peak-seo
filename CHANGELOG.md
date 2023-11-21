@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.2.2 (2023-11-21)
+
+### What's fixed
+- Fixed a Cookie Banner issue where embed consent required a reload for the embeds to show. 1c9f8f2b by @robdekort
+
 ## v7.2.1 (2023-11-13)
 
 ### What's improved
