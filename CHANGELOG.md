@@ -3,7 +3,7 @@
 ## v7.3.0 (2023-11-22)
 
 ### What's new
-- Adding `og:url`` to SEO partial. #36 by @vannut
+- Added `og:url`` to SEO partial. #36 by @vannut
 
 ## v7.2.2 (2023-11-21)
 
