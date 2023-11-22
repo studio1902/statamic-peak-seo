@@ -124,6 +124,7 @@
 <meta property="og:site_name" content="{{ seo:site_name ? seo:site_name : config:app:name }}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="{{ site:locale }}">
+<meta property="og:url" content="{{ permalink }}">
 {{ if og_title }}
     <meta property="og:title" content="{{ og_title | strip_tags | entities | trim }}">
 {{ else }}
