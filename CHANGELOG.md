@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.3.1 (2023-11-28)
+
+### What's fixed
+- Enforce use of the redirect tag. #38 by @freshface
+
 ## v7.3.0 (2023-11-22)
 
 ### What's new
