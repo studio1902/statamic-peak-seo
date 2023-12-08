@@ -10,8 +10,8 @@
     {{ site_name = seo:site_name ?? config:app:name }}
     {{ if seo_title }}
         {{ seo_title }}
-    {{ elseif seo:change_page_title | where('collection', {collection}) }}
-        {{ seo:change_page_title | where('collection', {collection}) }}
+    {{ elseif seo:change_page_title | where('collection', collection) }}
+        {{ seo:change_page_title | where('collection', collection) }}
             {{ if manipulate_title == 'collection_title' }}
                 {{ title }} {{ seperator }} {{ collection:title }} {{ seperator }} {{ site_name }}
             {{ elseif manipulate_title == 'custom_text' }}
