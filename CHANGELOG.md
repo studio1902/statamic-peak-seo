@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.3.2 (2023-12-08)
+
+### What's fixed
+- Prevent 500 error in Statamic v4.39.0. 327de799 by @robdekort
+
 ## v7.3.1 (2023-11-28)
 
 ### What's fixed
