@@ -158,7 +158,7 @@
         {{ seo:scripts }}
             {{ script_fragments }}
                 {{ if type == 'script_tag' }}
-                    <script {{ async ?= 'async' }} {{ defer ?= 'defer' }} src="{{ source }}"></script>
+                    <script type="text/javascript" {{ async ?= 'async' }} {{ defer ?= 'defer' }} src="{{ source }}"></script>
                 {{ else }}
                     <script>{{ inline_script }}</script>
                 {{ /if }}
