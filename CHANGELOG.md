@@ -2,6 +2,11 @@
 
 ## v7.4.0 (2023-12-14)
 
+### What's fixed
+- Use `entities` modifier for attribute values. d65ff3f1 by @robdekort
+
+## v7.4.0 (2023-12-14)
+
 ### What's new
 - The option to add attributes to an inline script. c0953d63 by @robdekort
 
