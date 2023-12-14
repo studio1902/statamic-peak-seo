@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.4.0 (2023-12-14)
+
+### What's new
+- The option to add attributes to an inline script. c0953d63 by @robdekort
+
 ## v7.3.2 (2023-12-08)
 
 ### What's fixed
