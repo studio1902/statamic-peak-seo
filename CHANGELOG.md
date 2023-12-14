@@ -1,6 +1,6 @@
 # Changelog
 
-## v7.4.0 (2023-12-14)
+## v7.4.1 (2023-12-14)
 
 ### What's fixed
 - Use `entities` modifier for attribute values. d65ff3f1 by @robdekort
