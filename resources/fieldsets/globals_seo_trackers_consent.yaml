@@ -7,7 +7,7 @@ fields:
         none: None
         gtag: 'Google Analytics'
         gtm: 'Google Tag Manager'
-        scripts: Custom scripts
+        scripts: 'Custom scripts'
       default: none
       type: button_group
       instructions: 'The type of tracking you want added on each page.'
@@ -22,172 +22,229 @@ fields:
       collapse: true
       previews: true
       sets:
-        script:
-          display: Script
-          fields:
-            -
-              handle: category
-              field:
-                input_type: text
-                antlers: false
-                display: Category
-                type: text
-                icon: text
-                instructions: 'When you use the cookie banner, scripts will be grouped under this category.'
-                listable: hidden
-                instructions_position: above
-                visibility: visible
-                always_save: false
-                localizable: true
-                validate:
-                  - required
-                  - sometimes
-            -
-              handle: explainer
-              field:
-                input_type: text
-                antlers: false
-                display: Explainer
-                type: text
-                icon: text
-                instructions: 'Explainer for the current category when you use the cookie banner.'
-                listable: hidden
-                instructions_position: above
-                visibility: visible
-                validate: required
-                always_save: false
-                localizable: true
-            -
-              handle: script_fragments
-              field:
-                mode: stacked
-                min_rows: 1
-                add_row: 'Add script fragment'
-                reorderable: true
-                display: 'Script fragments'
-                type: grid
-                replicator_preview: false
-                icon: grid
-                listable: hidden
-                instructions_position: above
-                localizable: false
-                visibility: visible
-                always_save: false
-                validate:
-                  - required
-                  - sometimes
-                fields:
-                  -
-                    handle: type
-                    field:
-                      options:
-                        script_tag: 'Script tag'
-                        inline_script: 'Inline script'
-                        body_content: 'Body content'
-                      default: script_tag
-                      display: Type
-                      type: button_group
-                      icon: button_group
-                      listable: hidden
-                      instructions_position: above
-                      visibility: visible
-                      always_save: false
-                  -
-                    handle: source
-                    field:
-                      input_type: url
-                      antlers: false
-                      display: Source
-                      type: text
-                      icon: text
-                      listable: hidden
-                      instructions_position: above
-                      visibility: visible
-                      always_save: false
-                      validate:
-                        - required
-                        - sometimes
-                      if:
-                        type: 'equals script_tag'
-                      instructions: 'The scripts tag `source` attribute. A URL.'
-                  -
-                    handle: defer
-                    field:
-                      default: false
-                      display: Defer
-                      type: toggle
-                      icon: toggle
-                      width: 50
-                      listable: hidden
-                      instructions_position: above
-                      visibility: visible
-                      always_save: false
-                      if:
-                        type: 'equals script_tag'
-                      instructions: 'If the script tag should be deferred.'
-                  -
-                    handle: async
-                    field:
-                      default: false
-                      display: Async
-                      type: toggle
-                      icon: toggle
-                      width: 50
-                      listable: hidden
-                      instructions_position: above
-                      visibility: visible
-                      always_save: false
-                      if:
-                        type: 'equals script_tag'
-                      instructions: 'If the script tag should load asynchronous.'
-                  -
-                    handle: inline_script
-                    field:
-                      theme: material
-                      mode: javascript
-                      mode_selectable: false
-                      indent_type: tabs
-                      indent_size: 4
-                      key_map: default
-                      line_numbers: true
-                      line_wrapping: true
-                      display: 'Inline script'
-                      type: code
-                      icon: code
-                      listable: hidden
-                      instructions_position: above
-                      visibility: visible
-                      always_save: false
-                      if:
-                        type: 'equals inline_script'
-                      validate:
-                        - required
-                        - sometimes
-                      instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags.'
-                  -
-                    handle: body_content
-                    field:
-                      theme: material
-                      mode: javascript
-                      mode_selectable: false
-                      indent_type: tabs
-                      indent_size: 4
-                      key_map: default
-                      line_numbers: true
-                      line_wrapping: true
-                      display: 'Body content'
-                      type: code
-                      icon: code
-                      listable: hidden
-                      instructions_position: above
-                      visibility: visible
-                      always_save: false
-                      if:
-                        type: 'equals body_content'
-                      validate:
-                        - required
-                        - sometimes
-                      instructions: 'HTML that should be rendered after opening `<body>`.'
+        main:
+          display: Main
+          instructions: null
+          icon: null
+          sets:
+            script:
+              display: Script
+              instructions: null
+              icon: null
+              fields:
+                -
+                  handle: category
+                  field:
+                    input_type: text
+                    antlers: false
+                    display: Category
+                    type: text
+                    icon: text
+                    instructions: 'When you use the cookie banner, scripts will be grouped under this category.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    always_save: false
+                    localizable: true
+                    validate:
+                      - required
+                      - sometimes
+                -
+                  handle: explainer
+                  field:
+                    input_type: text
+                    antlers: false
+                    display: Explainer
+                    type: text
+                    icon: text
+                    instructions: 'Explainer for the current category when you use the cookie banner.'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    validate: required
+                    always_save: false
+                    localizable: true
+                -
+                  handle: script_fragments
+                  field:
+                    mode: stacked
+                    min_rows: 1
+                    add_row: 'Add script fragment'
+                    reorderable: true
+                    display: 'Script fragments'
+                    type: grid
+                    replicator_preview: false
+                    icon: grid
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    always_save: false
+                    validate:
+                      - required
+                      - sometimes
+                    fields:
+                      -
+                        handle: type
+                        field:
+                          options:
+                            script_tag: 'Script tag'
+                            inline_script: 'Inline script'
+                            body_content: 'Body content'
+                          default: script_tag
+                          display: Type
+                          type: button_group
+                          icon: button_group
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                      -
+                        handle: source
+                        field:
+                          input_type: url
+                          antlers: false
+                          display: Source
+                          type: text
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          validate:
+                            - required
+                            - sometimes
+                          if:
+                            type: 'equals script_tag'
+                          instructions: 'The scripts tag `source` attribute. A URL.'
+                      -
+                        handle: defer
+                        field:
+                          default: false
+                          display: Defer
+                          type: toggle
+                          icon: toggle
+                          width: 50
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          if:
+                            type: 'equals script_tag'
+                          instructions: 'If the script tag should be deferred.'
+                      -
+                        handle: async
+                        field:
+                          default: false
+                          display: Async
+                          type: toggle
+                          icon: toggle
+                          width: 50
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          if:
+                            type: 'equals script_tag'
+                          instructions: 'If the script tag should load asynchronous.'
+                      -
+                        handle: inline_script_attributes
+                        field:
+                          fields:
+                            -
+                              handle: attribute
+                              field:
+                                input_type: text
+                                antlers: false
+                                type: text
+                                display: Attribute
+                                icon: text
+                                width: 50
+                                listable: hidden
+                                instructions_position: above
+                                visibility: visible
+                                replicator_preview: true
+                                hide_display: false
+                                validate:
+                                  - required
+                            -
+                              handle: attribute_value
+                              field:
+                                input_type: text
+                                antlers: false
+                                type: text
+                                display: Value
+                                icon: text
+                                width: 50
+                                listable: hidden
+                                instructions_position: above
+                                visibility: visible
+                                replicator_preview: true
+                                hide_display: false
+                          mode: table
+                          add_row: 'Add Attribute'
+                          reorderable: true
+                          fullscreen: true
+                          type: grid
+                          display: Attributes
+                          icon: grid
+                          instructions: 'Add attributes and their values to the `<script>` tag.'
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                          if:
+                            type: 'equals inline_script'
+                      -
+                        handle: inline_script
+                        field:
+                          theme: material
+                          mode: javascript
+                          mode_selectable: false
+                          indent_type: tabs
+                          indent_size: 4
+                          key_map: default
+                          line_numbers: true
+                          line_wrapping: true
+                          display: 'Inline script'
+                          type: code
+                          icon: code
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          if:
+                            type: 'equals inline_script'
+                          validate:
+                            - required
+                            - sometimes
+                          instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags.'
+                      -
+                        handle: body_content
+                        field:
+                          theme: material
+                          mode: javascript
+                          mode_selectable: false
+                          indent_type: tabs
+                          indent_size: 4
+                          key_map: default
+                          line_numbers: true
+                          line_wrapping: true
+                          display: 'Body content'
+                          type: code
+                          icon: code
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          if:
+                            type: 'equals body_content'
+                          validate:
+                            - required
+                            - sometimes
+                          instructions: 'HTML that should be rendered after opening `<body>`.'
+                    fullscreen: true
+                    hide_display: false
       display: Scripts
       type: replicator
       icon: replicator
@@ -200,6 +257,9 @@ fields:
         - 'required_if:tracker_type,scripts'
       if:
         tracker_type: 'equals scripts'
+      replicator_preview: true
+      fullscreen: true
+      hide_display: false
   -
     handle: google_analytics
     field:
@@ -307,5 +367,4 @@ fields:
       width: 50
       icon: date
       listable: hidden
-      if:
       use_cookie_banner: 'equals true'
