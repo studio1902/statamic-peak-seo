@@ -160,7 +160,7 @@
                 {{ if type == 'script_tag' }}
                     <script {{ async ?= 'async' }} {{ defer ?= 'defer' }} src="{{ source }}"></script>
                 {{ else }}
-                    <script {{ inline_script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | add_slashes }"' }}{{ !last ?= ' ' }}{{ /inline_script_attributes }}>{{ inline_script }}</script>
+                    <script {{ inline_script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /inline_script_attributes }}>{{ inline_script }}</script>
                 {{ /if }}
             {{ /script_fragments }}
         {{ /seo:scripts }}
