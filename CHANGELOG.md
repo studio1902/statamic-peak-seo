@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.4.3 (2023-12-15)
+
+### What's fixed
+- Fix attributes field condition. Sorry. 7eca9029 by @robdekort
+
 ## v7.4.2 (2023-12-15)
 
 ### What's improved
