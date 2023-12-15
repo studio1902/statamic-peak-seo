@@ -158,7 +158,7 @@
         {{ seo:scripts }}
             {{ script_fragments }}
                 {{ if type == 'script_tag' }}
-                    <script {{ async ?= 'async' }} {{ defer ?= 'defer' }} src="{{ source }} {{ inline_script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /inline_script_attributes }}"></script>
+                    <script {{ async ?= 'async' }} {{ defer ?= 'defer' }} src="{{ source }}" {{ inline_script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /inline_script_attributes }}></script>
                 {{ else }}
                     <script {{ inline_script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /inline_script_attributes }}>{{ inline_script }}</script>
                 {{ /if }}
