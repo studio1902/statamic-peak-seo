@@ -53,6 +53,10 @@
                             var script{{ index }} = document.createElement('script')
                             {{ if type == 'script_tag' }}
                                 script{{ index }}.src = '{{ source }}'
+                            {{ else }}
+                                script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
+                            {{ /if }}
+                            {{ if type != 'body_content' }}
                                 {{ defer ?= 'script{{ index }}.defer = true' }}
                                 {{ async ?= 'script{{ index }}.async = true' }}
                                 {{ _index = index }}
@@ -62,8 +66,6 @@
                                         '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
                                     )
                                 {{ /inline_script_attributes }}
-                            {{ else }}
-                                script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
                             {{ /if }}
                             document.head.appendChild(script{{ index }})
                         {{ /script_fragments }}
