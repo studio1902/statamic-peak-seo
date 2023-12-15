@@ -194,7 +194,7 @@ fields:
                           replicator_preview: true
                           hide_display: false
                           if:
-                            type: 'not inline_script'
+                            type: 'not body_content'
                       -
                         handle: inline_script
                         field:
