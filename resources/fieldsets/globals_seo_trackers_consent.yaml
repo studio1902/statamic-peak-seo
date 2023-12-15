@@ -194,7 +194,7 @@ fields:
                           replicator_preview: true
                           hide_display: false
                           if:
-                            type: 'equals inline_script'
+                            type: 'not inline_script'
                       -
                         handle: inline_script
                         field:
