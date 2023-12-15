@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.4.2 (2023-12-15)
+
+### What's improved
+- Support attributes on script tags as well. 00f3f63f by @robdekort
+
 ## v7.4.1 (2023-12-14)
 
 ### What's fixed
