@@ -53,6 +53,15 @@
                             var script{{ index }} = document.createElement('script')
                             {{ if type == 'script_tag' }}
                                 script{{ index }}.src = '{{ source }}'
+                                {{ defer ?= 'script{{ index }}.defer = true' }}
+                                {{ async ?= 'script{{ index }}.async = true' }}
+                                {{ _index = index }}
+                                {{ inline_script_attributes }}
+                                    script{{ _index }}.setAttribute(
+                                        '{{ attribute | slugify }}',
+                                        '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
+                                    )
+                                {{ /inline_script_attributes }}
                             {{ else }}
                                 script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
                             {{ /if }}
