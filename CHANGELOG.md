@@ -3,7 +3,7 @@
 ## v7.5.0 (2023-12-15)
 
 ### What's new
-- Support script attributes when using the cookie banner. 9981c660 by @robdekort
+- Support script attributes when using the cookie banner. 9981c660 and bff684d2 by @robdekort
 
 ## v7.4.3 (2023-12-15)
 
