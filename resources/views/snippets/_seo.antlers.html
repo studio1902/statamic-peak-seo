@@ -154,7 +154,7 @@
     {{ elseif seo:tracker_type == 'gtag' }}
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ seo:google_analytics }}"></script>
         <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('set', new Date());gtag('config', '{{ seo:google_analytics }}' {{ if seo:anonymize_ip }}, {'anonymize_ip': true}{{ /if }});</script>
-    {{ elseif seo:tracker_type == 'scripts' && !seo:use_cookie_banner }}
+    {{ elseif seo:tracker_type == 'scripts' && !seo:use_consent_banner }}
         {{ seo:scripts }}
             {{ script_fragments }}
                 {{ if type == 'script_tag' }}
@@ -166,11 +166,13 @@
         {{ /seo:scripts }}
     {{ /if }}
 
-    {{ if seo:use_cookie_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
+    {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
         <script>
             gtag('consent', 'default', {
                 'ad_storage': 'denied',
                 'analytics_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
                 'wait_for_update': 500
             });
             dataLayer.push({
@@ -181,8 +183,8 @@
 
     {{# Render this stack in all your layouts after opening the <body>. #}}
     {{ push:seo_body }}
-        {{ if seo:use_cookie_banner }}
-            {{ partial:statamic-peak-seo::components/cookie_banner }}
+        {{ if seo:use_consent_banner }}
+            {{ partial:statamic-peak-seo::components/consent_banner }}
         {{ /if }}
     {{ /push:seo_body }}
 

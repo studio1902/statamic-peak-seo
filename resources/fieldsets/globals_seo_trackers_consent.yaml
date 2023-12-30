@@ -40,7 +40,7 @@ fields:
                     display: Category
                     type: text
                     icon: text
-                    instructions: 'When you use the cookie banner, scripts will be grouped under this category.'
+                    instructions: 'When you use the consent banner, scripts will be grouped under this category.'
                     listable: hidden
                     instructions_position: above
                     visibility: visible
@@ -57,7 +57,7 @@ fields:
                     display: Explainer
                     type: text
                     icon: text
-                    instructions: 'Explainer for the current category when you use the cookie banner.'
+                    instructions: 'Explainer for the current category when you use the consent banner.'
                     listable: hidden
                     instructions_position: above
                     visibility: visible
@@ -298,13 +298,13 @@ fields:
       if:
         tracker_type: 'equals gtm'
   -
-    handle: use_cookie_banner
+    handle: use_consent_banner
     field:
       type: toggle
-      instructions: 'Enable the cookie banner. When you use `Google Analytics` or `Google Tag Manager`, make sure you load all tracking scripts via their service as in this case the banner uses the Google Consent API: https://developers.google.com/tag-manager/consent. When you use `Custom scripts`, all your scripts will be injected after consent.'
+      instructions: 'Enable the consent banner. When you use `Google Analytics` or `Google Tag Manager`, make sure you load all tracking scripts via their service as in this case the banner uses the Google Consent API: https://developers.google.com/tag-manager/consent. When you use `Custom scripts`, all your scripts will be injected after consent.'
       instructions_position: below
       listable: false
-      display: 'Cookie banner'
+      display: 'Consent banner'
   -
     handle: embeds
     field:
@@ -318,7 +318,7 @@ fields:
       visibility: visible
       always_save: false
       if:
-        use_cookie_banner: 'equals true'
+        use_consent_banner: 'equals true'
   -
     handle: hide_by_default
     field:
@@ -326,13 +326,13 @@ fields:
       display: 'Hide by default'
       type: toggle
       icon: toggle
-      instructions: "Hide the cookie banner by default. You can use this when you're only using it for video embeds."
+      instructions: "Hide the consent banner by default. You can use this when you're only using it for video embeds."
       listable: hidden
       instructions_position: below
       visibility: visible
       always_save: false
       if:
-        use_cookie_banner: 'equals true'
+        use_consent_banner: 'equals true'
         embeds: 'equals true'
         tracker_type: 'equals none'
   -
@@ -348,9 +348,9 @@ fields:
       display: 'Display style'
       width: 50
       if:
-        use_cookie_banner: 'equals true'
+        use_consent_banner: 'equals true'
   -
-    handle: cookie_revoke_before
+    handle: consent_revoke_before
     field:
       mode: single
       time_enabled: false
@@ -361,10 +361,10 @@ fields:
       columns: 1
       rows: 1
       display: 'Revoke consent before'
-      instructions: 'Revoke all users consent before this date. Use this when you added new trackers to GTM and your privacy policy changed. The cookie bar will reappear.'
+      instructions: 'Revoke all users consent before this date. Use this when you added new trackers to GTM and your privacy policy changed. The consent banner will reappear.'
       instructions_position: below
       type: date
       width: 50
       icon: date
       listable: hidden
-      use_cookie_banner: 'equals true'
+      use_consent_banner: 'equals true'
