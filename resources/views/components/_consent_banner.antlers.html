@@ -93,9 +93,9 @@
     <h2 class="text-2xl font-bold">{{ trans:strings.consent_title }}</h2>
     <p class="text-sm font-bold text-neutral">
         {{ trans:strings.consent_explanation }}
-        {{ if configuration:consent_notice_type == 'entry' }}
+        {{ if configuration:cookie_notice_type == 'entry' }}
             <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:consent_notice_entry:url }}">{{ trans:strings.consent_learn_more }}</a>
-        {{ elseif configuration:consent_notice_type == 'pdf' }}
+        {{ elseif configuration:cookie_notice_type == 'pdf' }}
             <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:consent_notice_asset }}" target="_blank">{{ trans:strings.consent_learn_more }}</a>
         {{ /if }}
     </p>
