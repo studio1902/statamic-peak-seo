@@ -3,84 +3,73 @@
     @desc The consent banner component defined in `statamic-peak-seo::snippets/_seo.antlers.html` and yielded in `resources/views/layout.antlers.html`.
 #}}
 
-<!-- statamic-peak-seo::components/_consent_banner.antlers.html -->
-<script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.store('consentBanner', {
-            consent: Alpine.$persist({{ seo:hide_by_default ? true : 'null' }}).as('consentBannerConsent'),
-            embeds: Alpine.$persist(null).as('consentBannerEmbeds'),
-            setConsent(value) {
-                this.consent = value
-            },
-            setEmbeds(value) {
-                this.embeds = value
-            }
-        })
-    })
-</script>
+{{ consent_types = [[
+    'value' => true,
+    'handle' => 'functionalCookies',
+    'title' => '{ trans:strings.consent_functional }',
+    'explanation' => '{ trans:strings.consent_functional_explanation }'
+    'disabled' => true,
+]] }}
 
+{{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
+    {{ consent_types += [
+        'value' => false,
+        'handle' => 'analyticsStorage',
+        'title' => '{ trans:strings.consent_analytics }',
+        'explanation' => '{ trans:strings.consent_analytics_explanation }',
+        'consentAPI' => true
+    ] }}
+{{ /if }}
+
+{{ if seo:tracker_type == 'gtm' }}
+    {{ consent_types += [
+        'value' => false,
+        'handle' => 'adStorage',
+        'title' => '{ trans:strings.consent_ads }',
+        'explanation' => '{ trans:strings.consent_ads_explanation }',
+        'consentAPI' => true
+    ] }}
+    {{ consent_types += [
+        'value' => false,
+        'handle' => 'adUserData',
+        'title' => '{ trans:strings.consent_ad_user_data }',
+        'explanation' => '{ trans:strings.consent_ad_user_data_explanation }',
+        'consentAPI' => true ]
+    }}
+    {{ consent_types += [
+        'value' => false,
+        'handle' => 'adPersonalization',
+        'title' => '{ trans:strings.consent_ad_personalization }',
+        'explanation' => '{ trans:strings.consent_ad_personalization_explanation }',
+        'consentAPI' => true
+    ] }}
+{{ /if }}
+
+{{ if seo:tracker_type == 'scripts' }}
+    {{ seo:scripts }}
+        {{ consent_types += [
+            'value' => false,
+            'handle' => 'customScript' + {count},
+            'title' => '{ category | add_slashes | entities }',
+            'explanation' => '{ explainer | add_slashes | entities }'
+            'custom' => true
+        ] }}
+    {{ /seo:scripts }}
+{{ /if }}
+
+{{ if seo:embeds }}
+    {{ consent_types += [
+        'value' => false,
+        'handle' => 'embeds',
+        'title' => '{ trans:strings.consent_embeds }',
+        'explanation' => '{ trans:strings.consent_embeds_explanation }'
+        'embeds' => true
+    ] }}
+{{ /if }}
+
+<!-- statamic-peak-seo::components/_consent_banner.antlers.html -->
 <div
-    x-data="{
-        {{# Persist null as untouched banner state. #}}
-        consentDate: $persist(null).as('consentBannerDate'),
-        analyticsStorage: $persist(false).as('consentBannerAnalyticsStorage'),
-        adStorage: $persist(false).as('consentBannerAdStorage'),
-        adUserData: $persist(false).as('consentBanneradUserData'),
-        adPersonalization: $persist(false).as('consentBannerAdPersonalization'),
-        embeds: $store.consentBanner.embeds,
-        {{ seo:scripts }}
-            customScript{{ count }}: $persist(false).as('consentBannerCustomScript{{ count }}'){{ !last ?= ',' }}
-        {{ /seo:scripts }}
-    }"
-    x-init="
-        {{# Hide when banner is interacted with, check date for optional consent revoke. If so set state back to initial state. #}}
-        consentDate < '{{ seo:consent_revoke_before format="Y-m-d" }}'
-            ? ($store.consentBanner.setConsent(null), consentDate = null)
-            : ''
-    "
-    {{ if seo:tracker_type !== 'none' || seo:embeds }}
-        x-effect="
-            {{# Update gtag on state change. #}}
-            {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm'}}
-                $store.consentBanner.consent
-                    ? gtag('consent', 'update', {
-                        'analytics_storage': (analyticsStorage ? 'granted' : 'denied'),
-                        'ad_storage': (adStorage ? 'granted' : 'denied'),
-                        'ad_user_data': (adUserData ? 'granted' : 'denied'),
-                        'ad_personalization': (adPersonalization ? 'granted' : 'denied') })
-                    : ''
-            {{# Fire other scripts upon consent. #}}
-            {{ elseif seo:tracker_type == 'scripts' }}
-                {{ seo:scripts }}
-                    if ($store.consentBanner.consent && customScript{{ count }}) {
-                        {{ script_fragments }}
-                            var script{{ index }} = document.createElement('script')
-                            {{ if type == 'script_tag' }}
-                                script{{ index }}.src = '{{ source }}'
-                            {{ else }}
-                                script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
-                            {{ /if }}
-                            {{ if type != 'body_content' }}
-                                {{ defer ?= 'script{{ index }}.defer = true' }}
-                                {{ async ?= 'script{{ index }}.async = true' }}
-                                {{ _index = index }}
-                                {{ inline_script_attributes }}
-                                    script{{ _index }}.setAttribute(
-                                        '{{ attribute | slugify }}',
-                                        '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
-                                    )
-                                {{ /inline_script_attributes }}
-                            {{ /if }}
-                            document.head.appendChild(script{{ index }})
-                        {{ /script_fragments }}
-                    }
-                {{ /seo:scripts }}
-            {{ /if }}
-            {{# Set embeds and dispatch event to embed component(s). #}}
-            $store.consentBanner.setEmbeds(embeds)
-            $dispatch('embeds')
-        "
-    {{ /if }}
+    x-data="consentBanner"
     x-show="$store.consentBanner.consent === null"
     x-transition
     class="
@@ -101,69 +90,27 @@
     </p>
 
     <div class="mt-4 flex flex-col space-y-2">
-        {{# Functional cookies are always on. #}}
-        <label class="inline-flex">
-            <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition opacity-50" type="checkbox" name="functional" checked disabled>
-            <span class="flex flex-col">
-                <span class="font-bold text-xs">{{ trans:strings.consent_functional }}</span>
-                <span class="text-xs text-neutral/75">{{ trans:strings.consent_functional_explanation }}</span>
-            </span>
-        </label>
-
-        {{# x-model analyticsStorage checkbox. #}}
-        {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
+        <template x-for="consentType in $store.consentBanner.consentTypes">
             <label class="inline-flex">
-                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" name="analytics_storage" x-model="analyticsStorage">
+                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" :name="consentType.handle" x-model="consentType.value">
+                {{# opacity-50 :checked="consentType.disabled" :disabled="consentType.disabled" #}}
                 <span class="flex flex-col">
-                    <span class="font-bold text-xs">{{ trans:strings.consent_analytics }}</span>
-                    <span class="text-xs text-neutral/75">{{ trans:strings.consent_analytics_explanation }}</span>
+                    <span class="font-bold text-xs" x-text="consentType.title"></span>
+                    <span class="text-xs text-neutral/75" x-text="consentType.explanation"></span>
                 </span>
             </label>
-        {{ /if }}
-
-        {{# x-model adStorage checkbox only when GTM is being used. #}}
-        {{ if seo:tracker_type == 'gtm' }}
-            <label class="inline-flex">
-                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" name="ad_storage" x-model="adStorage">
-                <span class="flex flex-col">
-                    <span class="font-bold text-xs">{{ trans:strings.consent_ads }}</span>
-                    <span class="text-xs text-neutral/75">{{ trans:strings.consent_ads_explanation }}</span>
-                </span>
-            </label>
-        {{ /if }}
-
-        {{# x-model adUserData checkbox only when GTM is being used. #}}
-        {{ if seo:tracker_type == 'gtm' }}
-            <label class="inline-flex">
-                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" name="ad_user_data" x-model="adUserData">
-                <span class="flex flex-col">
-                    <span class="font-bold text-xs">{{ trans:strings.consent_ad_user_data }}</span>
-                    <span class="text-xs text-neutral/75">{{ trans:strings.consent_ad_user_data_explanation }}</span>
-                </span>
-            </label>
-        {{ /if }}
-
-        {{# x-model adPersonalization checkbox only when GTM is being used. #}}
-        {{ if seo:tracker_type == 'gtm' }}
-            <label class="inline-flex">
-                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" name="ad_personalization" x-model="adPersonalization">
-                <span class="flex flex-col">
-                    <span class="font-bold text-xs">{{ trans:strings.consent_ad_personalization }}</span>
-                    <span class="text-xs text-neutral/75">{{ trans:strings.consent_ad_personalization_explanation }}</span>
-                </span>
-            </label>
-        {{ /if }}
+        </template>
 
         {{# x-model thirdParty checkbox only when scripts is being used. #}}
         {{ if seo:tracker_type == 'scripts' }}
             {{ seo:scripts }}
-                <label class="inline-flex">
+                {{# <label class="inline-flex">
                     <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" name="customScript{{ count }}" x-model="customScript{{ count }}">
                     <span class="flex flex-col">
                         <span class="font-bold text-xs">{{ category }}</span>
                         <span class="text-xs text-neutral/75">{{ explainer }}</span>
                     </span>
-                </label>
+                </label> #}}
 
                 {{# Render this stack in all your layouts after opening the <body>. #}}
                 {{ script_fragments }}
@@ -174,17 +121,6 @@
                     {{ /if }}
                 {{ /script_fragments }}
             {{ /seo:scripts }}
-        {{ /if }}
-
-        {{# x-model embeds checkbox only when embeds is turned on. #}}
-        {{ if seo:embeds }}
-            <label class="inline-flex">
-                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" name="embeds" x-model="embeds">
-                <span class="flex flex-col">
-                    <span class="font-bold text-xs">{{ trans:strings.consent_embeds }}</span>
-                    <span class="text-xs text-neutral/75">{{ trans:strings.consent_embeds_explanation }}</span>
-                </span>
-            </label>
         {{ /if }}
     </div>
 
@@ -233,19 +169,96 @@
             {{ trans:strings.consent_accept_selected }}
         </button>
     </div>
+
+    {{# Yield this section in `resources/layouts/_footer.antlers.html` so users can reset their consent. #}}
+    {{ section:reset_consent }}
+        <!-- statamic-peak-seo::components/_consent_Banner.antlers.html -->
+        {{ if seo:use_consent_banner }}
+            {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
+            <span x-data x-cloak>
+                <span x-show="$store.consentBanner.consent !== null">
+                    <a @click.prevent="$store.consentBanner.setConsent(null)" class="{{ reset_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.consent_change_preferences }}</a>
+                </span>
+            </span>
+        {{ /if }}
+        <!-- End: statamic-peak-seo::components/_consent_Banner.antlers.html -->
+    {{ /section:reset_consent }}
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('consentBanner', {
+                consent: Alpine.$persist({{ seo:hide_by_default ? true : 'null' }}).as('consentBannerConsent'),
+                consentDate: Alpine.$persist(null).as('consentBannerDate'),
+                consentTypes: Alpine.$persist({{ consent_types | to_json }}).as('consentBanner'),
+                setConsent(value) {
+                    this.consent = value
+                },
+                setEmbeds(value) {
+                    this.embeds = value
+                }
+            })
+
+            Alpine.data('consentBanner', () => {
+                return {
+                    consentDate: Alpine.$persist(null).as('consentBannerDate'),
+                    init() {
+                        this.consentDate < '{{ seo:consent_revoke_before format="Y-m-d" }}'
+                            ? (Alpine.store('consentBanner').setConsent(null), this.consentDate = null)
+                            : ''
+                    }
+                }
+            })
+        })
+    </script>
 </div>
 <!-- End: statamic-peak-seo::components/_consent_banner.antlers.html -->
 
-{{# Yield this section in `resources/layouts/_footer.antlers.html` so users can reset their consent. #}}
-{{ section:reset_consent }}
-    <!-- statamic-peak-seo::components/_consent_Banner.antlers.html -->
-    {{ if seo:use_consent_banner }}
-        {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
-        <span x-data x-cloak>
-            <span x-show="$store.consentBanner.consent !== null">
-                <a @click.prevent="$store.consentBanner.setConsent(null)" class="{{ reset_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.consent_change_preferences }}</a>
-            </span>
-        </span>
+{{# analyticsStorage: Alpine.$persist(false).as('consentBannerAnalyticsStorage'),
+adStorage: Alpine.$persist(false).as('consentBannerAdStorage'),
+adUserData: Alpine.$persist(false).as('consentBanneradUserData'),
+adPersonalization: Alpine.$persist(false).as('consentBannerAdPersonalization'),
+embeds: Alpine.store('consentBanner').embeds,
+{{ seo:scripts }}
+    customScript{{ count }}: Alpine.$persist(false).as('consentBannerCustomScript{{ count }}'),
+{{ /seo:scripts }} #}}
+
+{{#
+x-effect="
+    {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm'}}
+        $store.consentBanner.consent
+            ? gtag('consent', 'update', {
+                'analytics_storage': (analyticsStorage ? 'granted' : 'denied'),
+                'ad_storage': (adStorage ? 'granted' : 'denied'),
+                'ad_user_data': (adUserData ? 'granted' : 'denied'),
+                'ad_personalization': (adPersonalization ? 'granted' : 'denied') })
+            : ''
+    {{ elseif seo:tracker_type == 'scripts' }}
+        {{ seo:scripts }}
+            if ($store.consentBanner.consent && customScript{{ count }}) {
+                {{ script_fragments }}
+                    var script{{ index }} = document.createElement('script')
+                    {{ if type == 'script_tag' }}
+                        script{{ index }}.src = '{{ source }}'
+                    {{ else }}
+                        script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
+                    {{ /if }}
+                    {{ if type != 'body_content' }}
+                        {{ defer ?= 'script{{ index }}.defer = true' }}
+                        {{ async ?= 'script{{ index }}.async = true' }}
+                        {{ _index = index }}
+                        {{ inline_script_attributes }}
+                            script{{ _index }}.setAttribute(
+                                '{{ attribute | slugify }}',
+                                '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
+                            )
+                        {{ /inline_script_attributes }}
+                    {{ /if }}
+                    document.head.appendChild(script{{ index }})
+                {{ /script_fragments }}
+            }
+        {{ /seo:scripts }}
     {{ /if }}
-    <!-- End: statamic-peak-seo::components/_consent_Banner.antlers.html -->
-{{ /section:reset_consent }}
+
+    $store.consentBanner.setEmbeds(embeds)
+    $dispatch('embeds')
+" #}}
