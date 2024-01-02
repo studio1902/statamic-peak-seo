@@ -353,15 +353,15 @@ fields:
     handle: consent_revoke_before
     field:
       mode: single
-      time_enabled: false
-      time_required: false
+      time_enabled: true
+      time_required: true
       earliest_date: '1900-01-01'
       full_width: false
       inline: false
       columns: 1
       rows: 1
       display: 'Revoke consent before'
-      instructions: 'Revoke all users consent before this date. Use this when you added new trackers to GTM and your privacy policy changed. The consent banner will reappear.'
+      instructions: 'Revoke all users consent before this date. Use this when you changed consent settings, added scripts, added trackers to GTM or when your privacy policy has changed. The consent banner will reappear.'
       instructions_position: below
       type: date
       width: 50
