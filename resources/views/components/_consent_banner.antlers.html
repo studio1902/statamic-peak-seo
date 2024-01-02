@@ -3,16 +3,20 @@
     @desc The consent banner component defined in `statamic-peak-seo::snippets/_seo.antlers.html` and yielded in `resources/views/layout.antlers.html`.
 #}}
 
-{{ consent_types = [[
-    'value' => true,
-    'handle' => 'functionalCookies',
-    'title' => '{ trans:strings.consent_functional }',
-    'explanation' => '{ trans:strings.consent_functional_explanation }'
-    'disabled' => true,
-]] }}
+{{ consentData = [
+    'consent' => false,
+    'date' => null,
+    'types' => [[
+        'value' => true,
+        'handle' => 'functionalCookies',
+        'title' => '{ trans:strings.consent_functional }',
+        'explanation' => '{ trans:strings.consent_functional_explanation }',
+        'disabled' => true,
+    ]]
+] }}
 
 {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
-    {{ consent_types += [
+    {{ consentData['types'] += [
         'value' => false,
         'handle' => 'analyticsStorage',
         'title' => '{ trans:strings.consent_analytics }',
@@ -22,21 +26,21 @@
 {{ /if }}
 
 {{ if seo:tracker_type == 'gtm' }}
-    {{ consent_types += [
+    {{ consentData['types'] += [
         'value' => false,
         'handle' => 'adStorage',
         'title' => '{ trans:strings.consent_ads }',
         'explanation' => '{ trans:strings.consent_ads_explanation }',
         'consentAPI' => true
     ] }}
-    {{ consent_types += [
+    {{ consentData['types'] += [
         'value' => false,
         'handle' => 'adUserData',
         'title' => '{ trans:strings.consent_ad_user_data }',
         'explanation' => '{ trans:strings.consent_ad_user_data_explanation }',
         'consentAPI' => true ]
     }}
-    {{ consent_types += [
+    {{ consentData['types'] += [
         'value' => false,
         'handle' => 'adPersonalization',
         'title' => '{ trans:strings.consent_ad_personalization }',
@@ -47,7 +51,7 @@
 
 {{ if seo:tracker_type == 'scripts' }}
     {{ seo:scripts }}
-        {{ consent_types += [
+        {{ consentData['types'] += [
             'value' => false,
             'handle' => 'customScript' + {count},
             'title' => '{ category | add_slashes | entities }',
@@ -58,11 +62,11 @@
 {{ /if }}
 
 {{ if seo:embeds }}
-    {{ consent_types += [
+    {{ consentData['types'] += [
         'value' => false,
         'handle' => 'embeds',
         'title' => '{ trans:strings.consent_embeds }',
-        'explanation' => '{ trans:strings.consent_embeds_explanation }'
+        'explanation' => '{ trans:strings.consent_embeds_explanation }',
         'embeds' => true
     ] }}
 {{ /if }}
@@ -70,7 +74,7 @@
 <!-- statamic-peak-seo::components/_consent_banner.antlers.html -->
 <div
     x-data="consentBanner"
-    x-show="$store.consentBanner.consent === null"
+    x-show="$store.consentBanner.data.consent === false"
     x-transition
     class="
         fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] md:w-80 flex flex-col p-6 space-y-4 bg-white border border-neutral/10 rounded shadow-lg
@@ -90,13 +94,17 @@
     </p>
 
     <div class="mt-4 flex flex-col space-y-2">
-        <template x-for="consentType in $store.consentBanner.consentTypes">
+        <template x-for="consent in $store.consentBanner.data.types">
             <label class="inline-flex">
-                <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" :name="consentType.handle" x-model="consentType.value">
-                {{# opacity-50 :checked="consentType.disabled" :disabled="consentType.disabled" #}}
+                <template x-if="consent.disabled">
+                    <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition opacity-50" type="checkbox" :name="consent.handle" checked disabled>
+                </template>
+                <template x-if="!consent.disabled">
+                    <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" :name="consent.handle" x-model="consent.value">
+                </template>
                 <span class="flex flex-col">
-                    <span class="font-bold text-xs" x-text="consentType.title"></span>
-                    <span class="text-xs text-neutral/75" x-text="consentType.explanation"></span>
+                    <span class="font-bold text-xs" x-text="consent.title"></span>
+                    <span class="text-xs text-neutral/75" x-text="consent.explanation"></span>
                 </span>
             </label>
         </template>
@@ -125,44 +133,16 @@
     </div>
 
     <div class="flex space-x-4">
-        {{# Save all options. #}}
         <button
-            @click="
-                consentDate = '{{ now format="Y-m-d" }}'
-                {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
-                    , analyticsStorage = true
-                {{ /if }}
-                {{ if seo:tracker_type == 'gtm' }}
-                    , adStorage = true
-                {{ /if }}
-                {{ if seo:tracker_type == 'gtm' }}
-                    , adUserData = true
-                {{ /if }}
-                {{ if seo:tracker_type == 'gtm' }}
-                    , adPersonalization = true
-                {{ /if }}
-                {{ if seo:tracker_type == 'scripts' }}
-                    {{ seo:scripts }}
-                        , customScript{{ count }} = true
-                    {{ /seo:scripts }}
-                {{ /if }}
-                {{ if seo:embeds }}
-                    , embeds = true
-                {{ /if }}
-                , $store.consentBanner.setConsent(true)
-            "
+            @click="acceptAll({{ now format="Y-m-d" }})"
             type="button"
             class="px-4 py-2 bg-primary rounded text-sm font-bold text-white focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition"
             >
             {{ trans:strings.consent_accept_all }}
         </button>
 
-        {{# Save selected options. #}}
         <button
-            @click="
-                $store.consentBanner.setConsent(true),
-                consentDate = '{{ now format="Y-m-d" }}'
-            "
+            @click="acceptSelected({{ now format="Y-m-d" }})"
             type="button"
             class="px-1 py-2 rounded text-sm font-bold text-neutral focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition"
         >
@@ -176,8 +156,8 @@
         {{ if seo:use_consent_banner }}
             {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
             <span x-data x-cloak>
-                <span x-show="$store.consentBanner.consent !== null">
-                    <a @click.prevent="$store.consentBanner.setConsent(null)" class="{{ reset_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.consent_change_preferences }}</a>
+                <span x-show="$store.consentBanner.data.consent === true">
+                    <a @click.prevent="$store.consentBanner.data.consent = false" class="{{ reset_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.consent_change_preferences }}</a>
                 </span>
             </span>
         {{ /if }}
@@ -187,25 +167,25 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.store('consentBanner', {
-                consent: Alpine.$persist({{ seo:hide_by_default ? true : 'null' }}).as('consentBannerConsent'),
-                consentDate: Alpine.$persist(null).as('consentBannerDate'),
-                consentTypes: Alpine.$persist({{ consent_types | to_json }}).as('consentBanner'),
-                setConsent(value) {
-                    this.consent = value
-                },
-                setEmbeds(value) {
-                    this.embeds = value
-                }
+                data: Alpine.$persist({{ consentData | to_json }}).as('consentBanner'),
             })
 
             Alpine.data('consentBanner', () => {
                 return {
-                    consentDate: Alpine.$persist(null).as('consentBannerDate'),
+                    data: Alpine.store('consentBanner').data,
                     init() {
-                        this.consentDate < '{{ seo:consent_revoke_before format="Y-m-d" }}'
-                            ? (Alpine.store('consentBanner').setConsent(null), this.consentDate = null)
-                            : ''
-                    }
+                        (Alpine.store('consentBanner').data.date < '{{ seo:consent_revoke_before format="Y-m-d" }}') && (Alpine.store('consentBanner').data.consent = false, Alpine.store('consentBanner').data.date = null)
+                    },
+                    acceptAll: function(date) {
+                        this.data.types.forEach((type) => type.value = true);
+                        this.data.consent = true
+                        this.data.date = date
+
+                    },
+                    acceptSelected: function(date) {
+                        this.data.consent = true,
+                        this.data.date = date
+                    },
                 }
             })
         })
