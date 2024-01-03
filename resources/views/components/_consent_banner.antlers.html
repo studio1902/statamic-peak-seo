@@ -37,8 +37,8 @@
                 </template>
 
                 <span class="flex flex-col gap-0.5">
-                    <span class="font-bold text-xs" x-text="type.title"></span>
-                    <span class="text-xs" x-text="type.explanation"></span>
+                    <span class="font-bold text-xs" x-html="type.title"></span>
+                    <span class="text-xs" x-html="type.explanation"></span>
                 </span>
             </label>
         </template>
@@ -161,31 +161,12 @@
         document.addEventListener('alpine:init', () => {
             Alpine.store('consentBanner', {
                 data: Alpine.$persist(consentData).as('consentBanner{{ site:handle | title }}'),
-                invalidate() {
-                    this.data = consentData
+                acceptAll() {
+                    this.data.types.forEach((type) => type.value = true)
+                    this.saveConsent()
                 },
                 getConsent() {
                     return this.data.consent
-                },
-                getConsentValue(handle) {
-                    return this.data.types.filter((type) => {
-                        return type['handle'] === handle
-                    })[0]['value']
-                },
-                useConsentAPI()  {
-                    return this.data.consent_api
-                },
-                useCustomScripts()  {
-                    return this.data.custom_scripts
-                },
-                useEmbeds()  {
-                    return this.data.embeds
-                },
-                getConsentTypes() {
-                    return this.data.types
-                },
-                getConsentDate() {
-                    return this.data.date
                 },
                 getConsentAPIValues() {
                     return this.data.types.filter((type) => {
@@ -195,17 +176,36 @@
                         return acc;
                     }, {});
                 },
-                saveConsent() {
-                    this.data.consent = true
-                    this.data.date = Math.floor(Date.now() / 1000)
+                getConsentDate() {
+                    return this.data.date
+                },
+                getConsentTypes() {
+                    return this.data.types
+                },
+                getConsentValue(handle) {
+                    return this.data.types.filter((type) => {
+                        return type['handle'] === handle
+                    })[0]['value']
+                },
+                invalidate() {
+                    this.data = consentData
                 },
                 revokeConsent() {
                     this.data.consent = false
                     this.data.date = null
                 },
-                acceptAll() {
-                    this.data.types.forEach((type) => type.value = true)
-                    this.saveConsent()
+                saveConsent() {
+                    this.data.consent = true
+                    this.data.date = Math.floor(Date.now() / 1000)
+                },
+                useConsentAPI()  {
+                    return this.data.consent_api
+                },
+                useCustomScripts()  {
+                    return this.data.custom_scripts
+                },
+                useEmbeds()  {
+                    return this.data.embeds
                 }
             })
 
