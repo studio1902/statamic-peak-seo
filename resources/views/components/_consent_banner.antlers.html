@@ -61,7 +61,25 @@
             'handle' => 'customScript' + {count},
             'title' => '{ category | add_slashes | entities }',
             'explanation' => '{ explainer | add_slashes | entities }',
-            'custom' => true
+            'custom_scripts' => [
+                {{# {{ script_fragments }}
+                    [
+                        'type' => '{{ type }}',
+                        'defer' => '{{ defer }}',
+                        'async => '{{ async }}',
+                        'attributes' => [
+                            {{ script_attributes }}
+                                [
+                                    'attribute' => '{{ attribute | slugify }}',
+                                    'attribute_value => '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
+                                ],
+                            {{ /script_attributes }}
+                        ],
+                        'source' => '{{ source }}',
+                        'inline_script' => '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
+                    ],
+                {{ /script_fragments }} #}}
+            ]
         ] }}
     {{ /seo:scripts }}
 {{ /if }}
@@ -215,16 +233,14 @@
     {{ else }}
         script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
     {{ /if }}
-    {{ if type != 'body_content' }}
-        {{ defer ?= 'script{{ index }}.defer = true' }}
-        {{ async ?= 'script{{ index }}.async = true' }}
-        {{ _index = index }}
-        {{ script_attributes }}
-            script{{ _index }}.setAttribute(
-                '{{ attribute | slugify }}',
-                '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
-            )
-        {{ /script_attributes }}
-    {{ /if }}
+    {{ defer ?= 'script{{ index }}.defer = true' }}
+    {{ async ?= 'script{{ index }}.async = true' }}
+    {{ _index = index }}
+    {{ script_attributes }}
+        script{{ _index }}.setAttribute(
+            '{{ attribute | slugify }}',
+            '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
+        )
+    {{ /script_attributes }}
     document.head.appendChild(script{{ index }})
 {{ /script_fragments }} #}}
