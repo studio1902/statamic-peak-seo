@@ -169,10 +169,10 @@
     {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
         <script>
             gtag('consent', 'default', {
+                'analytics_storage': 'denied',{{ if seo:tracker_type == 'gtm' }}
                 'ad_storage': 'denied',
-                'analytics_storage': 'denied',
                 'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
+                'ad_personalization': 'denied',{{ /if }}
                 'wait_for_update': 500
             });
             dataLayer.push({
