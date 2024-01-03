@@ -89,7 +89,6 @@ fields:
                           options:
                             script_tag: 'Script tag'
                             inline_script: 'Inline script'
-                            body_content: 'Body content'
                           default: script_tag
                           display: Type
                           type: button_group
@@ -98,24 +97,6 @@ fields:
                           instructions_position: above
                           visibility: visible
                           always_save: false
-                      -
-                        handle: source
-                        field:
-                          input_type: url
-                          antlers: false
-                          display: Source
-                          type: text
-                          icon: text
-                          listable: hidden
-                          instructions_position: above
-                          visibility: visible
-                          always_save: false
-                          validate:
-                            - required
-                            - sometimes
-                          if:
-                            type: 'equals script_tag'
-                          instructions: 'The scripts tag `source` attribute. A URL.'
                       -
                         handle: defer
                         field:
@@ -147,7 +128,7 @@ fields:
                             type: 'equals script_tag'
                           instructions: 'If the script tag should load asynchronous.'
                       -
-                        handle: inline_script_attributes
+                        handle: script_attributes
                         field:
                           fields:
                             -
@@ -193,8 +174,24 @@ fields:
                           visibility: visible
                           replicator_preview: true
                           hide_display: false
+                      -
+                        handle: source
+                        field:
+                          input_type: url
+                          antlers: false
+                          display: Source
+                          type: text
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          validate:
+                            - required
+                            - sometimes
                           if:
-                            type: 'not body_content'
+                            type: 'equals script_tag'
+                          instructions: 'The scripts tag `source` attribute. A URL.'
                       -
                         handle: inline_script
                         field:
@@ -219,30 +216,6 @@ fields:
                             - required
                             - sometimes
                           instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags.'
-                      -
-                        handle: body_content
-                        field:
-                          theme: material
-                          mode: javascript
-                          mode_selectable: false
-                          indent_type: tabs
-                          indent_size: 4
-                          key_map: default
-                          line_numbers: true
-                          line_wrapping: true
-                          display: 'Body content'
-                          type: code
-                          icon: code
-                          listable: hidden
-                          instructions_position: above
-                          visibility: visible
-                          always_save: false
-                          if:
-                            type: 'equals body_content'
-                          validate:
-                            - required
-                            - sometimes
-                          instructions: 'HTML that should be rendered after opening `<body>`.'
                     fullscreen: true
                     hide_display: false
       display: Scripts

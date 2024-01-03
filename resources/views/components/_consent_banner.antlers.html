@@ -1,11 +1,12 @@
 {{#
-    @name Conmsent banner
+    @name Consent banner
     @desc The consent banner component defined in `statamic-peak-seo::snippets/_seo.antlers.html` and yielded in `resources/views/layout.antlers.html`.
 #}}
 
 {{ consentData = [
     'consent' => false,
     'date' => null,
+    'consent_api' => {{ seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }},
     'types' => [[
         'value' => true,
         'handle' => 'functionalCookies',
@@ -154,6 +155,12 @@
                         return type['handle'] === handle
                     })[0]['value']
                 },
+                useConsentAPI()  {
+                    return this.data.consent_api
+                },
+                useEmbeds()  {
+                    return this.data.embeds
+                },
                 getConsentTypes() {
                     return this.data.types
                 },
@@ -190,8 +197,8 @@
                         if (Alpine.store('consentBanner').getConsentDate() < '{{ seo:consent_revoke_before format="U" }}') {
                             Alpine.store('consentBanner').invalidate()
                         }
-                        if (Object.keys(this.consentAPIValues).length !== 0) {
-                             this.$watch('data.consent', value => value && console.log('ja') && gtag('consent', 'update', this.consentAPIValues))
+                        if (Alpine.store('consentBanner').useConsentAPI()) {
+                             this.$watch('data.consent', value => value && console.log('consent api') && gtag('consent', 'update', this.consentAPIValues))
                         }
                     }
                 }
@@ -200,14 +207,6 @@
     </script>
 </div>
 <!-- End: statamic-peak-seo::components/_consent_banner.antlers.html -->
-
-{{# {{ script_fragments }}
-    {{ if type == 'body_content' }}
-        {{ push:seo_body }}
-            {{ body_content }}
-        {{ /push:seo_body }}
-    {{ /if }}
-{{ /script_fragments }} #}}
 
 {{# {{ script_fragments }}
     var script{{ index }} = document.createElement('script')
@@ -220,12 +219,12 @@
         {{ defer ?= 'script{{ index }}.defer = true' }}
         {{ async ?= 'script{{ index }}.async = true' }}
         {{ _index = index }}
-        {{ inline_script_attributes }}
+        {{ script_attributes }}
             script{{ _index }}.setAttribute(
                 '{{ attribute | slugify }}',
                 '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
             )
-        {{ /inline_script_attributes }}
+        {{ /script_attributes }}
     {{ /if }}
     document.head.appendChild(script{{ index }})
 {{ /script_fragments }} #}}
