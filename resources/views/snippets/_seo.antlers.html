@@ -183,6 +183,16 @@
         {{ /seo:scripts }}
     {{ /if }}
 
+    {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
+        <script>
+            document.addEventListener('alpine:initialized', () => {
+                if (Alpine.store('consentBanner').getConsent()) {
+                    gtag('consent', 'update', Alpine.store('consentBanner').getConsentAPIValues())
+                }
+            });
+        </script>
+    {{ /if }}
+
     {{# Render this stack in all your layouts after opening the <body>. #}}
     {{ push:seo_body }}
         {{ if seo:use_consent_banner }}
