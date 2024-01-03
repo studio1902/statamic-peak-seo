@@ -70,7 +70,7 @@
 
     <script>
         let consentData = {
-            "consent": false,
+            "consent": {{ seo:tracker_type == 'none' && seo:hide_by_default ? 1 : 0 }},
             "date": null,
             "consent_api": {{ seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' ? 1 : 0 }},
             "types": [
