@@ -210,13 +210,15 @@
             Alpine.data('consentBanner', () => {
                 return {
                     data: Alpine.store('consentBanner').data,
-                    consentAPIValues: Alpine.store('consentBanner').getConsentAPIValues(),
                     init() {
                         if (Alpine.store('consentBanner').getConsentDate() < '{{ seo:consent_revoke_before format="U" }}') {
                             Alpine.store('consentBanner').invalidate()
                         }
+                        if (Alpine.store('consentBanner').useConsentAPI() && Alpine.store('consentBanner').getConsent()) {
+                            gtag('consent', 'update', Alpine.store('consentBanner').getConsentAPIValues())
+                        }
                         if (Alpine.store('consentBanner').useConsentAPI()) {
-                             this.$watch('data.consent', value => value && gtag('consent', 'update', this.consentAPIValues))
+                            this.$watch('data.consent', value => value && gtag('consent', 'update', Alpine.store('consentBanner').getConsentAPIValues()))
                         }
                     }
                 }
