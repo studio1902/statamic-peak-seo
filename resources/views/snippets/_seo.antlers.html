@@ -149,6 +149,19 @@
     (environment == 'staging' && seo:trackers_staging) or
     (environment == 'production' && seo:trackers_production)
 }}
+    {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
+        <script>
+            window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+                'analytics_storage': 'denied',{{ if seo:tracker_type == 'gtm' }}
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',{{ /if }}
+                'wait_for_update': 500
+            });
+        </script>
+    {{ /if }}
+
     {{ if seo:tracker_type == 'gtm' }}
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ seo:google_tag_manager }}');function gtag(){dataLayer.push(arguments);}</script>
     {{ elseif seo:tracker_type == 'gtag' }}
@@ -164,21 +177,6 @@
                 {{ /if }}
             {{ /script_fragments }}
         {{ /seo:scripts }}
-    {{ /if }}
-
-    {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
-        <script>
-            gtag('consent', 'default', {
-                'analytics_storage': 'denied',{{ if seo:tracker_type == 'gtm' }}
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',{{ /if }}
-                'wait_for_update': 500
-            });
-            dataLayer.push({
-                'event': 'default_consent'
-            });
-        </script>
     {{ /if }}
 
     {{# Render this stack in all your layouts after opening the <body>. #}}
