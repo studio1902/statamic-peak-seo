@@ -160,7 +160,7 @@
 
         document.addEventListener('alpine:init', () => {
             Alpine.store('consentBanner', {
-                data: Alpine.$persist(consentData).as('consentBanner'),
+                data: Alpine.$persist(consentData).as('consentBanner{{ site:handle | title }}'),
                 invalidate() {
                     this.data = consentData
                 },
