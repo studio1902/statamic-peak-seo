@@ -11,7 +11,7 @@
         'handle' => 'functionalCookies',
         'title' => '{ trans:strings.consent_functional }',
         'explanation' => '{ trans:strings.consent_functional_explanation }',
-        'disabled' => true,
+        'disabled' => true
     ]]
 ] }}
 
@@ -59,7 +59,7 @@
             'value' => false,
             'handle' => 'customScript' + {count},
             'title' => '{ category | add_slashes | entities }',
-            'explanation' => '{ explainer | add_slashes | entities }'
+            'explanation' => '{ explainer | add_slashes | entities }',
             'custom' => true
         ] }}
     {{ /seo:scripts }}
@@ -70,8 +70,7 @@
         'value' => false,
         'handle' => 'embeds',
         'title' => '{ trans:strings.consent_embeds }',
-        'explanation' => '{ trans:strings.consent_embeds_explanation }',
-        'embeds' => true
+        'explanation' => '{ trans:strings.consent_embeds_explanation }'
     ] }}
 {{ /if }}
 
@@ -150,6 +149,11 @@
                 getConsent() {
                     return this.data.consent
                 },
+                getConsentValue(handle) {
+                    return this.data.types.filter((type) => {
+                        return type['handle'] === handle
+                    })[0]['value']
+                },
                 getConsentTypes() {
                     return this.data.types
                 },
@@ -180,14 +184,15 @@
 
             Alpine.data('consentBanner', () => {
                 return {
-                    data: null,
+                    data: Alpine.store('consentBanner').data,
+                    consentAPIValues: Alpine.store('consentBanner').getConsentAPIValues(),
                     init() {
-                        (Alpine.store('consentBanner').getConsentDate() < '{{ seo:consent_revoke_before format="U" }}') && Alpine.store('consentBanner').invalidate()
-                        this.data = Alpine.store('consentBanner').data
-                        this.$watch('data.consent', value => value && this.updateGoogleConsent())
-                    },
-                    updateGoogleConsent() {
-                        gtag('consent', 'update', Alpine.store('consentBanner').getConsentAPIValues())
+                        if (Alpine.store('consentBanner').getConsentDate() < '{{ seo:consent_revoke_before format="U" }}') {
+                            Alpine.store('consentBanner').invalidate()
+                        }
+                        if (Object.keys(this.consentAPIValues).length !== 0) {
+                             this.$watch('data.consent', value => value && console.log('ja') && gtag('consent', 'update', this.consentAPIValues))
+                        }
                     }
                 }
             })
@@ -224,6 +229,3 @@
     {{ /if }}
     document.head.appendChild(script{{ index }})
 {{ /script_fragments }} #}}
-
-{{# $store.consentBanner.setEmbeds(embeds)
-$dispatch('embeds') #}}
