@@ -73,6 +73,7 @@
             "consent": {{ seo:tracker_type == 'none' && seo:hide_by_default ? 1 : 0 }},
             "date": null,
             "consent_api": {{ seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' ? 1 : 0 }},
+            "custom_scripts": {{ seo:tracker_type == 'scripts' ? 1 : 0 }},
             "types": [
                 {
                     "value": true,
@@ -124,7 +125,7 @@
                             "handle": "customScript{{ count }}",
                             "title": "{{ category | add_slashes | entities }}",
                             "explanation": "{{ explainer | add_slashes | entities }}",
-                            "custom_scripts": [
+                            "script_fragments": [
                                 {{ script_fragments }}
                                     {
                                         "type": "{{ type }}",
@@ -174,6 +175,9 @@
                 useConsentAPI()  {
                     return this.data.consent_api
                 },
+                useCustomScripts()  {
+                    return this.data.custom_scripts
+                },
                 useEmbeds()  {
                     return this.data.embeds
                 },
@@ -218,6 +222,15 @@
                         if (Alpine.store('consentBanner').useConsentAPI()) {
                             this.$watch('data.consent', value => value && gtag('consent', 'update', Alpine.store('consentBanner').getConsentAPIValues()))
                         }
+                        if (Alpine.store('consentBanner').useCustomScripts() && Alpine.store('consentBanner').getConsent()) {
+                            this.runCustomScripts()
+                        }
+                        if (Alpine.store('consentBanner').useCustomScripts()) {
+                            this.$watch('data.consent', value => value && this.runCustomScripts())
+                        }
+                    },
+                    runCustomScripts: function() {
+                        // Go
                     }
                 }
             })
