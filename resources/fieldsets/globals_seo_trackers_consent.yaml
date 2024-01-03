@@ -290,6 +290,7 @@ fields:
       instructions_position: below
       visibility: visible
       always_save: false
+      width: 50
       if:
         use_consent_banner: 'equals true'
   -
@@ -299,29 +300,16 @@ fields:
       display: 'Hide by default'
       type: toggle
       icon: toggle
-      instructions: "Hide the consent banner by default. You can use this when you're only using it for video embeds."
+      instructions: "Hide the consent banner by default."
       listable: hidden
       instructions_position: below
       visibility: visible
       always_save: false
+      width: 50
       if:
         use_consent_banner: 'equals true'
         embeds: 'equals true'
         tracker_type: 'equals none'
-  -
-    handle: display_style
-    field:
-      options:
-        left: Left
-        right: Right
-      default: left
-      type: button_group
-      listable: false
-      localizable: true
-      display: 'Display style'
-      width: 50
-      if:
-        use_consent_banner: 'equals true'
   -
     handle: consent_revoke_before
     field:
@@ -334,10 +322,24 @@ fields:
       columns: 1
       rows: 1
       display: 'Revoke consent before'
-      instructions: 'Revoke all users consent before this date. Use this when you changed consent settings, added scripts, added trackers to GTM or when your privacy policy has changed. The consent banner will reappear.'
+      instructions: 'Revoke all users consent before this date and time. Use this when you changed consent settings, added scripts or changed trackers, or when your privacy policy has changed. The consent banner will reappear. Expects a time in the timezone configured for your application.'
       instructions_position: below
       type: date
-      width: 50
+      width: 100
       icon: date
       listable: hidden
       use_consent_banner: 'equals true'
+  -
+    handle: display_style
+    field:
+      options:
+        left: Left
+        right: Right
+      default: left
+      type: button_group
+      listable: false
+      localizable: true
+      display: 'Display style'
+      width: 100
+      if:
+        use_consent_banner: 'equals true'
