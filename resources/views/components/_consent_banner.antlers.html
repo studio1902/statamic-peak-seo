@@ -198,7 +198,7 @@
                             Alpine.store('consentBanner').invalidate()
                         }
                         if (Alpine.store('consentBanner').useConsentAPI()) {
-                             this.$watch('data.consent', value => value && console.log('consent api') && gtag('consent', 'update', this.consentAPIValues))
+                             this.$watch('data.consent', value => value && gtag('consent', 'update', this.consentAPIValues))
                         }
                     }
                 }
