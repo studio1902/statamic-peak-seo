@@ -3,103 +3,13 @@
     @desc The consent banner component defined in `statamic-peak-seo::snippets/_seo.antlers.html` and yielded in `resources/views/layout.antlers.html`.
 #}}
 
-{{ consentData = [
-    'consent' => false,
-    'date' => null,
-    'consent_api' => {{ seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }},
-    'types' => [[
-        'value' => true,
-        'handle' => 'functionalCookies',
-        'title' => '{ trans:strings.consent_functional }',
-        'explanation' => '{ trans:strings.consent_functional_explanation }',
-        'disabled' => true
-    ]]
-] }}
-
-{{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
-    {{ consentData['types'] += [
-        'value' => false,
-        'handle' => 'analyticsStorage',
-        'title' => '{ trans:strings.consent_analytics }',
-        'explanation' => '{ trans:strings.consent_analytics_explanation }',
-        'consent_api' => true,
-        'consent_api_handle' => 'analytics_storage'
-    ] }}
-{{ /if }}
-
-{{ if seo:tracker_type == 'gtm' }}
-    {{ consentData['types'] += [
-        'value' => false,
-        'handle' => 'adStorage',
-        'title' => '{ trans:strings.consent_ads }',
-        'explanation' => '{ trans:strings.consent_ads_explanation }',
-        'consent_api' => true,
-        'consent_api_handle' => 'ad_storage'
-    ] }}
-    {{ consentData['types'] += [
-        'value' => false,
-        'handle' => 'adUserData',
-        'title' => '{ trans:strings.consent_ad_user_data }',
-        'explanation' => '{ trans:strings.consent_ad_user_data_explanation }',
-        'consent_api' => true,
-        'consent_api_handle' => 'ad_user_data'
-    ] }}
-    {{ consentData['types'] += [
-        'value' => false,
-        'handle' => 'adPersonalization',
-        'title' => '{ trans:strings.consent_ad_personalization }',
-        'explanation' => '{ trans:strings.consent_ad_personalization_explanation }',
-        'consent_api' => true,
-        'consent_api_handle' => 'ad_personalization'
-    ] }}
-{{ /if }}
-
-{{ if seo:tracker_type == 'scripts' }}
-    {{ seo:scripts }}
-        {{ consentData['types'] += [
-            'value' => false,
-            'handle' => 'customScript' + {count},
-            'title' => '{ category | add_slashes | entities }',
-            'explanation' => '{ explainer | add_slashes | entities }',
-            'custom_scripts' => [
-                {{# {{ script_fragments }}
-                    [
-                        'type' => '{{ type }}',
-                        'defer' => '{{ defer }}',
-                        'async => '{{ async }}',
-                        'attributes' => [
-                            {{ script_attributes }}
-                                [
-                                    'attribute' => '{{ attribute | slugify }}',
-                                    'attribute_value => '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
-                                ],
-                            {{ /script_attributes }}
-                        ],
-                        'source' => '{{ source }}',
-                        'inline_script' => '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
-                    ],
-                {{ /script_fragments }} #}}
-            ]
-        ] }}
-    {{ /seo:scripts }}
-{{ /if }}
-
-{{ if seo:embeds }}
-    {{ consentData['types'] += [
-        'value' => false,
-        'handle' => 'embeds',
-        'title' => '{ trans:strings.consent_embeds }',
-        'explanation' => '{ trans:strings.consent_embeds_explanation }'
-    ] }}
-{{ /if }}
-
 <!-- statamic-peak-seo::components/_consent_banner.antlers.html -->
 <div
     x-data="consentBanner"
     x-show="!$store.consentBanner.getConsent()"
     x-transition
     class="
-        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-80 flex flex-col p-6 space-y-4 bg-white border border-neutral/10 rounded shadow-lg overflow-scroll overscroll-contain
+        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-80 flex flex-col stack-2 p-6 bg-white border border-neutral/10 rounded shadow-lg overflow-scroll overscroll-contain
         {{ seo:display_style == 'left' ?= 'md:right-auto md:left-[2rem]' }}
         {{ seo:display_style == 'right' ?= 'md:left-auto md:right-[2rem]' }}
     "
@@ -115,7 +25,7 @@
         {{ /if }}
     </p>
 
-    <div class="mt-4 flex flex-col space-y-2">
+    <div class="stack-space-4 flex flex-col gap-3">
         <template x-for="type in $store.consentBanner.getConsentTypes()">
             <label class="inline-flex">
                 <template x-if="type.disabled">
@@ -126,15 +36,15 @@
                     <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" :name="type.handle" x-model="type.value">
                 </template>
 
-                <span class="flex flex-col">
+                <span class="flex flex-col gap-0.5">
                     <span class="font-bold text-xs" x-text="type.title"></span>
-                    <span class="text-xs text-neutral/75" x-text="type.explanation"></span>
+                    <span class="text-xs" x-text="type.explanation"></span>
                 </span>
             </label>
         </template>
     </div>
 
-    <div class="flex space-x-4">
+    <div class="stack-space-4 flex flex-wrap gap-4">
         <button @click="$store.consentBanner.acceptAll()" type="button" class="px-4 py-2 bg-primary rounded text-sm font-bold text-white focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition">
             {{ trans:strings.consent_accept_all }}
         </button>
@@ -159,11 +69,99 @@
     {{ /section:reset_consent }}
 
     <script>
+        let consentData = {
+            "consent": false,
+            "date": null,
+            "consent_api": {{ seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' ? 1 : 0 }},
+            "types": [
+                {
+                    "value": true,
+                    "handle": "functionalCookies",
+                    "title": "{{ trans:strings.consent_functional }}",
+                    "explanation": "{{ trans:strings.consent_functional_explanation }}",
+                    "disabled": true
+                },
+                {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
+                    {
+                        "value": false,
+                        "handle": "analyticsStorage",
+                        "title": "{{ trans:strings.consent_analytics }}",
+                        "explanation": "{{ trans:strings.consent_analytics_explanation }}",
+                        "consent_api": true,
+                        "consent_api_handle": "analytics_storage"
+                    },
+                {{ /if }}
+                {{ if seo:tracker_type == 'gtm' }}
+                    {
+                        "value": false,
+                        "handle": "adStorage",
+                        "title": "{{ trans:strings.consent_ads }}",
+                        "explanation": "{{ trans:strings.consent_ads_explanation }}",
+                        "consent_api": true,
+                        "consent_api_handle": "ad_storage"
+                    },
+                    {
+                        "value": false,
+                        "handle": "adUserData",
+                        "title": "{{ trans:strings.consent_ad_user_data }}",
+                        "explanation": "{{ trans:strings.consent_ad_user_data_explanation }}",
+                        "consent_api": true,
+                        "consent_api_handle": "ad_user_data"
+                    },
+                    {
+                        "value": false,
+                        "handle": "adPersonalization",
+                        "title": "{{ trans:strings.consent_ad_personalization }}",
+                        "explanation": "{{ trans:strings.consent_ad_personalization_explanation }}",
+                        "consent_api": true,
+                        "consent_api_handle": "ad_personalization"
+                    },
+                {{ /if }}
+                {{ if seo:tracker_type == 'scripts' }}
+                    {{ seo:scripts }}
+                        {
+                            "value": false,
+                            "handle": "customScript{{ count }}",
+                            "title": "{{ category | add_slashes | entities }}",
+                            "explanation": "{{ explainer | add_slashes | entities }}",
+                            "custom_scripts": [
+                                {{ script_fragments }}
+                                    {
+                                        "type": "{{ type }}",
+                                        "defer": {{ defer ? 1 : 0 }},
+                                        "async": {{ async ? 1: 0 }},
+                                        "attributes": [
+                                            {{ script_attributes }}
+                                                {
+                                                    "attribute": "{{ attribute | slugify }}",
+                                                    "attribute_value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : '1' }}
+                                                },
+                                            {{ /script_attributes }}
+                                        ],
+                                        "source": "{{ source }}",
+                                        "inline_script": "{{ inline_script | add_slashes | entities | collapse_whitespace }}"
+                                    },
+                                {{ /script_fragments }}
+                            ]
+                        },
+                    {{ /seo:scripts }}
+                {{ /if }}
+                {{ if seo:embeds }}
+                    {
+                        "value": false,
+                        "handle": "embeds",
+                        "title": "{{ trans:strings.consent_embeds }}",
+                        "explanation": "{{ trans:strings.consent_embeds_explanation }}"
+                    },
+                {{ /if }}
+            ]
+        }
+
         document.addEventListener('alpine:init', () => {
             Alpine.store('consentBanner', {
-                data: Alpine.$persist({{ consentData | to_json }}).as('consentBanner'),
+                data: Alpine.$persist(consentData).as('consentBanner'),
                 invalidate() {
-                    this.data = {{ consentData | to_json }}
+                    this.data = consentData
                 },
                 getConsent() {
                     return this.data.consent
@@ -227,6 +225,8 @@
     </script>
 </div>
 <!-- End: statamic-peak-seo::components/_consent_banner.antlers.html -->
+
+{{# Add hide by default #}}
 
 {{# {{ script_fragments }}
     var script{{ index }} = document.createElement('script')
