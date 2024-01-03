@@ -99,7 +99,7 @@
     x-show="!$store.consentBanner.getConsent()"
     x-transition
     class="
-        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] md:w-80 flex flex-col p-6 space-y-4 bg-white border border-neutral/10 rounded shadow-lg
+        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-80 flex flex-col p-6 space-y-4 bg-white border border-neutral/10 rounded shadow-lg overflow-scroll overscroll-contain
         {{ seo:display_style == 'left' ?= 'md:right-auto md:left-[2rem]' }}
         {{ seo:display_style == 'right' ?= 'md:left-auto md:right-[2rem]' }}
     "
