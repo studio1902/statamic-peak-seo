@@ -129,18 +129,18 @@
                                 {{ script_fragments }}
                                     {
                                         "type": "{{ type }}",
-                                        "defer": {{ defer ? 1 : 0 }},
-                                        "async": {{ async ? 1: 0 }},
+                                        "defer": {{ defer | bool_string }},
+                                        "async": {{ async | bool_string }},
                                         "attributes": [
                                             {{ script_attributes }}
                                                 {
-                                                    "attribute": "{{ attribute | slugify }}",
-                                                    "attribute_value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : '1' }}
+                                                    "key": "{{ attribute | slugify }}",
+                                                    "value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : 'true' }}
                                                 },
                                             {{ /script_attributes }}
                                         ],
                                         "source": "{{ source }}",
-                                        "inline_script": "{{ inline_script | add_slashes | entities | collapse_whitespace }}"
+                                        "inline_script": "{{ inline_script }}"
                                     },
                                 {{ /script_fragments }}
                             ]
@@ -175,6 +175,9 @@
                         acc[type.consent_api_handle] = type.value ? 'granted' : 'denied';
                         return acc;
                     }, {});
+                },
+                getCustomScripts() {
+                    return this.data.types.filter((type) => type.hasOwnProperty('script_fragments') && type.value);
                 },
                 getConsentDate() {
                     return this.data.date
@@ -229,8 +232,22 @@
                             this.$watch('data.consent', value => value && this.runCustomScripts())
                         }
                     },
-                    runCustomScripts: function() {
-                        // Go
+                    runCustomScripts() {
+                        Alpine.store('consentBanner')
+                            .getCustomScripts()
+                            .flatMap(script => script.script_fragments)
+                            .forEach(script => {
+                                const tag = document.createElement('script')
+
+                                script.type === 'script_tag' ? tag.src = script.source:tag.text = script.inline_script
+
+                                tag.defer = script.defer
+                                tag.async = script.async
+
+                                script.attributes.forEach(attribute => tag.setAttribute(attribute.key, attribute.value))
+
+                                document.head.appendChild(tag)
+                            })
                     }
                 }
             })
