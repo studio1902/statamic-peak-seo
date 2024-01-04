@@ -142,7 +142,7 @@
                             this.runCustomScripts()
                         }
                         if (Alpine.store('consentBanner').useCustomScripts()) {
-                            this.$watch('data.consent', value => console.log(value) && value && this.runCustomScripts())
+                            this.$watch('data.consent', value => value ? this.runCustomScripts() : this.removeCustomScripts())
                         }
                     },
                     runCustomScripts() {
@@ -165,7 +165,7 @@
                         Alpine.store('consentBanner')
                             .getCustomScripts()
                             .flatMap(script => script.script_fragments)
-                            .forEach((index) => {
+                            .forEach((script, index) => {
                                 document.querySelector(`#customScript${index}`).remove()
                             })
                     }
