@@ -149,9 +149,8 @@
                         Alpine.store('consentBanner')
                             .getCustomScripts()
                             .flatMap(script => script.script_fragments)
-                            .forEach((script, index) => {
+                            .forEach(script => {
                                 const tag = document.createElement('script')
-                                tag.id = `customScript${index}`
                                 script.type === 'script_tag'
                                     ? tag.src = script.source
                                     : tag.text = script.inline_script
@@ -159,15 +158,13 @@
                                 tag.async = script.async
                                 script.attributes.forEach(attribute => tag.setAttribute(attribute.key, attribute.value))
                                 document.head.appendChild(tag)
+                                this.$el.addEventListener(`remove-custom-scripts-${script.category}`, () => tag.remove(), {once: true})
                             })
                     },
                     removeCustomScripts() {
                         Alpine.store('consentBanner')
                             .getCustomScripts()
-                            .flatMap(script => script.script_fragments)
-                            .forEach((script, index) => {
-                                document.querySelector(`#customScript${index}`).remove()
-                            })
+                            .forEach(script => this.$dispatch(`remove-custom-scripts-${script.handle}`))
                     }
                 }
             })
