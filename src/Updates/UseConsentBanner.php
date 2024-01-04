@@ -11,8 +11,7 @@ class UseConsentBanner extends UpdateScript
 {
     public function shouldUpdate($newVersion, $oldVersion)
     {
-        // return $this->isUpdatingTo('8.0.0');
-        return true;
+        return $this->isUpdatingTo('8.0.0');
     }
 
     public function update()
@@ -35,6 +34,7 @@ class UseConsentBanner extends UpdateScript
         if (File::exists($view)) {
             $contents = Str::of(File::get($view))
                 ->replace('seo:use_cookie_banner', 'seo:use_consent_banner')
+                ->replace('{{ partial:statamic-peak-seo::components/cookie_banner }}', '{{ partial:statamic-peak-seo::components/consent_banner }}')
                 ->replace('{{ trans:strings.cookie_', '{{ trans:strings.consent_');
 
             File::put($view, $contents);
@@ -42,10 +42,27 @@ class UseConsentBanner extends UpdateScript
             $this->console()->info('Renamed `seo:use_cookie_banner` to `seo:use_consent_banner` and `{{ trans:strings.cookie_` to `{{ trans:strings.consent_` in `resources/views/vendor/statamic-peak-seo/snippets/_seo.antlers.html`.');
         }
 
+        // Update published cookie banner view.
+        $view = base_path("resources/views/vendor/statamic-peak-seo/components/_cookie_banner.antlers.html");
+
+        if (File::exists($view)) {
+            $contents = Str::of(File::get($view))
+                ->replace('section:reset_cookie_consent }}', 'section:reset_consent }}')
+                ->replace('section:reset_cookie_consent }}', 'section:reset_consent }}')
+                ->replace('seo:use_cookie_banner ', 'seo:use_consent_banner ')
+                ->replace('{{ trans:strings.cookie_', '{{ trans:strings.consent_');
+
+            File::put($view, $contents);
+
+            File::move("resources/views/vendor/statamic-peak-seo/components/_cookie_banner.antlers.html", "resources/views/vendor/statamic-peak-seo/components/_consent_banner.antlers.html");
+
+            $this->console()->info('Renamed `{{ trans:strings.cookie_` to `{{ trans:strings.consent_` in `resources/views/vendor/statamic-peak-seo/components/_cookie_banner.antlers.html` and rename the file to `_cookie_banner.antlers.html`.');
+        }
+
         // Update string files.
         $disk = Storage::build([
             'driver' => 'local',
-            'root' => resource_path('/lang'),
+            'root' => base_path('/lang'),
         ]);
 
         collect($disk->allFiles())
@@ -58,7 +75,7 @@ class UseConsentBanner extends UpdateScript
 
                 $disk->put($file, $contents);
 
-                $this->console()->info("Replaced `'cookie_'` with `'consent_'` in `$file`.");
+                $this->console()->info("Replaced `cookie_` with `consent_` in `$file`.");
             }
         );
 
@@ -80,15 +97,19 @@ class UseConsentBanner extends UpdateScript
 
         // Update video component.
         $view = base_path("resources/views/components/_video.antlers.html");
+        $published_banner = base_path("resources/views/vendor/statamic-peak-seo/components/_cookie_banner.antlers.html");
 
         if (File::exists($view)) {
             $contents = Str::of(File::get($view))
-                ->replace('{{ if cookie_embeds }}', '{{ if consent_embeds }}')
-                ->replace('!$store.cookieBanner.consent || !$store.cookieBanner.embeds', '!$store.consentBanner.getConsent() || !$store.consentBanner.getConsentValue(\'embeds\')')
-                ->replace('$store.cookieBanner.setConsent(null)', '$store.consentBanner.revokeConsent()')
-                ->replace('{{ trans:strings.cookie_', '{{ trans:strings.consent_')
-                ->replace('$store.cookieBanner.consent && $store.cookieBanner.embeds', '$store.consentBanner.getConsent() && $store.consentBanner.getConsentValue(\'embeds\')');
+                ->replace('cookie_embeds', 'consent_embeds');
 
+            if (!File::exists($published_banner)) {
+                $contents = Str::of($contents)
+                    ->replace('!$store.cookieBanner.consent || !$store.cookieBanner.embeds', '!$store.consentBanner.getConsent() || !$store.consentBanner.getConsentValue(\'embeds\')')
+                    ->replace('$store.cookieBanner.setConsent(null)', '$store.consentBanner.revokeConsent()')
+                    ->replace('{{ trans:strings.cookie_', '{{ trans:strings.consent_')
+                    ->replace('$store.cookieBanner.consent && $store.cookieBanner.embeds', '$store.consentBanner.getConsent() && $store.consentBanner.getConsentValue(\'embeds\')');
+            }
 
             File::put($view, $contents);
 
@@ -105,7 +126,7 @@ class UseConsentBanner extends UpdateScript
 
             File::put($view, $contents);
 
-            $this->console()->info('Replace `{{ yield:reset_cookie_consent }}` with `{{ yield:reset_consent }}` in `resources/views/layout/_footer.antlers.html`.');
+            $this->console()->info('Replaced `{{ yield:reset_cookie_consent }}` with `{{ yield:reset_consent }}` in `resources/views/layout/_footer.antlers.html`.');
         }
 
         // Update toggle.
@@ -118,7 +139,9 @@ class UseConsentBanner extends UpdateScript
 
             File::put($view, $contents);
 
-            $this->console()->info('Replace `{{ trans:strings.cookie_` to `{{ trans:strings.consent_` in `resources/views/vendor/statamic/forms/fields/toggle.antlers.html`.');
+            $this->console()->info('Replaced `{{ trans:strings.cookie_` to `{{ trans:strings.consent_` in `resources/views/vendor/statamic/forms/fields/toggle.antlers.html`.');
         }
+
+        $this->console()->warn('Consider updating your translations and update "cookie" references to "consent".');
     }
 }
