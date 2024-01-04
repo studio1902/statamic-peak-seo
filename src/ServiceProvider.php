@@ -20,6 +20,7 @@ class ServiceProvider extends AddonServiceProvider
         \Studio1902\PeakSeo\Updates\LayoutUpdateSectionToStack::class,
         \Studio1902\PeakSeo\Updates\AddCookieNotice::class,
         \Studio1902\PeakSeo\Updates\UpdatePrivacyAndCookieGlobalInstructions::class,
+        \Studio1902\PeakSeo\Updates\UseConsentBanner::class,
     ];
 
     public function bootAddon()
