@@ -70,10 +70,10 @@
 
     <script>
         let consentData = {
-            "consent": {{ seo:tracker_type == 'none' && seo:hide_by_default ? 1 : 0 }},
+            "consent": {{ (seo:tracker_type == 'none' && seo:hide_by_default) | bool_string }},
             "date": null,
-            "consent_api": {{ seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' ? 1 : 0 }},
-            "custom_scripts": {{ seo:tracker_type == 'scripts' ? 1 : 0 }},
+            "consent_api": {{ (seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm') | bool_string }},
+            "custom_scripts": {{ (seo:tracker_type == 'scripts') | bool_string }},
             "types": [
                 {
                     "value": true,
@@ -134,13 +134,13 @@
                                         "attributes": [
                                             {{ script_attributes }}
                                                 {
-                                                    "key": "{{ attribute | slugify }}",
+                                                    "key": "{{ attribute | slugify | entities }}",
                                                     "value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : 'true' }}
                                                 },
                                             {{ /script_attributes }}
                                         ],
                                         "source": "{{ source }}",
-                                        "inline_script": "{{ inline_script }}"
+                                        "inline_script": "{{ inline_script | add_slashes | collapse_whitespace }}"
                                     },
                                 {{ /script_fragments }}
                             ]
@@ -239,7 +239,7 @@
                             .forEach(script => {
                                 const tag = document.createElement('script')
 
-                                script.type === 'script_tag' ? tag.src = script.source:tag.text = script.inline_script
+                                script.type === 'script_tag' ? tag.src = script.source : tag.text = script.inline_script
 
                                 tag.defer = script.defer
                                 tag.async = script.async
@@ -255,24 +255,3 @@
     </script>
 </div>
 <!-- End: statamic-peak-seo::components/_consent_banner.antlers.html -->
-
-{{# Add hide by default #}}
-
-{{# {{ script_fragments }}
-    var script{{ index }} = document.createElement('script')
-    {{ if type == 'script_tag' }}
-        script{{ index }}.src = '{{ source }}'
-    {{ else }}
-        script{{ index }}.text = '{{ inline_script | add_slashes | entities | collapse_whitespace }}'
-    {{ /if }}
-    {{ defer ?= 'script{{ index }}.defer = true' }}
-    {{ async ?= 'script{{ index }}.async = true' }}
-    {{ _index = index }}
-    {{ script_attributes }}
-        script{{ _index }}.setAttribute(
-            '{{ attribute | slugify }}',
-            '{{ attribute_value ? { attribute_value | entities } : 'true' }}'
-        )
-    {{ /script_attributes }}
-    document.head.appendChild(script{{ index }})
-{{ /script_fragments }} #}}
