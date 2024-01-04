@@ -325,7 +325,7 @@ fields:
       instructions: 'Revoke all users consent before this date and time. Use this when you changed consent settings, added scripts or changed trackers, or when your privacy policy has changed. The consent banner will reappear. Expects a time in the timezone configured for your application.'
       instructions_position: below
       type: date
-      width: 100
+      width: 66
       icon: date
       listable: hidden
       use_consent_banner: 'equals true'
