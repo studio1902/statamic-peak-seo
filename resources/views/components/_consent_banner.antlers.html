@@ -9,7 +9,7 @@
     x-show="!$store.consentBanner.getConsent()"
     x-transition
     class="
-        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-80 flex flex-col stack-2 p-6 bg-white border border-neutral/10 rounded shadow-lg overflow-scroll overscroll-contain
+        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-80 flex flex-col stack-2 p-6 bg-white border border-neutral/10 rounded shadow-lg overflow-auto overscroll-contain
         {{ seo:display_style == 'left' ?= 'md:right-auto md:left-[2rem]' }}
         {{ seo:display_style == 'right' ?= 'md:left-auto md:right-[2rem]' }}
     "
@@ -149,9 +149,8 @@
                         Alpine.store('consentBanner')
                             .getCustomScripts()
                             .flatMap(script => script.script_fragments)
-                            .forEach((script, index) => {
+                            .forEach(script => {
                                 const tag = document.createElement('script')
-                                tag.id = `customScript${index}`
                                 script.type === 'script_tag'
                                     ? tag.src = script.source
                                     : tag.text = script.inline_script
@@ -159,15 +158,13 @@
                                 tag.async = script.async
                                 script.attributes.forEach(attribute => tag.setAttribute(attribute.key, attribute.value))
                                 document.head.appendChild(tag)
+                                this.$el.addEventListener(`remove-custom-scripts-${script.category}`, () => tag.remove(), {once: true})
                             })
                     },
                     removeCustomScripts() {
                         Alpine.store('consentBanner')
                             .getCustomScripts()
-                            .flatMap(script => script.script_fragments)
-                            .forEach((script, index) => {
-                                document.querySelector(`#customScript${index}`).remove()
-                            })
+                            .forEach(script => this.$dispatch(`remove-custom-scripts-${script.handle}`))
                     }
                 }
             })

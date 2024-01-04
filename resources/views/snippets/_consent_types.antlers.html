@@ -55,31 +55,34 @@
             {{ /if }}
             {{ if seo:tracker_type == 'scripts' }}
                 {{ seo:scripts }}
-                    {
-                        "value": false,
-                        "handle": "customScript{{ count }}",
-                        "title": "{{ category | add_slashes | entities }}",
-                        "explanation": "{{ explainer | add_slashes | entities }}",
-                        "script_fragments": [
-                            {{ script_fragments }}
-                                {
-                                    "type": "{{ type }}",
-                                    "defer": {{ defer | bool_string }},
-                                    "async": {{ async | bool_string }},
-                                    "attributes": [
-                                        {{ script_attributes }}
-                                            {
-                                                "key": "{{ attribute | slugify | entities }}",
-                                                "value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : 'true' }}
-                                            },
-                                        {{ /script_attributes }}
-                                    ],
-                                    "source": "{{ source }}",
-                                    "inline_script": "{{ inline_script | add_slashes | collapse_whitespace }}"
-                                },
-                            {{ /script_fragments }}
-                        ]
-                    },
+                    {{ scope:scripts }}
+                        {
+                            "value": false,
+                            "handle": "customScript{{ count }}",
+                            "title": "{{ category | add_slashes | entities }}",
+                            "explanation": "{{ explainer | add_slashes | entities }}",
+                            "script_fragments": [
+                                {{ script_fragments }}
+                                    {
+                                        "category": "customScript{{ scripts:count }}",
+                                        "type": "{{ type }}",
+                                        "defer": {{ defer | bool_string }},
+                                        "async": {{ async | bool_string }},
+                                        "attributes": [
+                                            {{ script_attributes }}
+                                                {
+                                                    "key": "{{ attribute | slugify | entities }}",
+                                                    "value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : 'true' }}
+                                                },
+                                            {{ /script_attributes }}
+                                        ],
+                                        "source": "{{ source }}",
+                                        "inline_script": "{{ inline_script | add_slashes | collapse_whitespace }}"
+                                    },
+                                {{ /script_fragments }}
+                            ]
+                        },
+                    {{ /scope:scripts }}
                 {{ /seo:scripts }}
             {{ /if }}
             {{ if seo:embeds }}
