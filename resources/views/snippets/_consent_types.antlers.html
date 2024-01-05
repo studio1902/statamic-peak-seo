@@ -1,0 +1,98 @@
+{{#
+    @name Consent types
+    @desc Get the consent banner consent types.
+#}}
+
+<script>
+    let consentData = {
+        "consent": {{ (seo:tracker_type == 'none' && seo:hide_by_default) | bool_string }},
+        "date": null,
+        "consent_api": {{ (seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm') | bool_string }},
+        "custom_scripts": {{ (seo:tracker_type == 'scripts') | bool_string }},
+        "types": [
+            {
+                "value": true,
+                "handle": "functionalCookies",
+                "title": "{{ trans:strings.consent_functional }}",
+                "explanation": "{{ trans:strings.consent_functional_explanation }}",
+                "disabled": true
+            },
+            {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
+                {
+                    "value": false,
+                    "handle": "analyticsStorage",
+                    "title": "{{ trans:strings.consent_analytics }}",
+                    "explanation": "{{ trans:strings.consent_analytics_explanation }}",
+                    "consent_api": true,
+                    "consent_api_handle": "analytics_storage"
+                },
+            {{ /if }}
+            {{ if seo:tracker_type == 'gtm' }}
+                {
+                    "value": false,
+                    "handle": "adStorage",
+                    "title": "{{ trans:strings.consent_ads }}",
+                    "explanation": "{{ trans:strings.consent_ads_explanation }}",
+                    "consent_api": true,
+                    "consent_api_handle": "ad_storage"
+                },
+                {
+                    "value": false,
+                    "handle": "adUserData",
+                    "title": "{{ trans:strings.consent_ad_user_data }}",
+                    "explanation": "{{ trans:strings.consent_ad_user_data_explanation }}",
+                    "consent_api": true,
+                    "consent_api_handle": "ad_user_data"
+                },
+                {
+                    "value": false,
+                    "handle": "adPersonalization",
+                    "title": "{{ trans:strings.consent_ad_personalization }}",
+                    "explanation": "{{ trans:strings.consent_ad_personalization_explanation }}",
+                    "consent_api": true,
+                    "consent_api_handle": "ad_personalization"
+                },
+            {{ /if }}
+            {{ if seo:tracker_type == 'scripts' }}
+                {{ seo:scripts }}
+                    {{ scope:scripts }}
+                        {
+                            "value": false,
+                            "handle": "customScript{{ count }}",
+                            "title": "{{ category | add_slashes | entities }}",
+                            "explanation": "{{ explainer | add_slashes | entities }}",
+                            "script_fragments": [
+                                {{ script_fragments }}
+                                    {
+                                        "category": "customScript{{ scripts:count }}",
+                                        "type": "{{ type }}",
+                                        "defer": {{ defer | bool_string }},
+                                        "async": {{ async | bool_string }},
+                                        "attributes": [
+                                            {{ script_attributes }}
+                                                {
+                                                    "key": "{{ attribute | slugify | entities }}",
+                                                    "value": {{ attribute_value ? { '"' + (attribute_value | add_slashes | entities) + '"' } : 'true' }}
+                                                },
+                                            {{ /script_attributes }}
+                                        ],
+                                        "source": "{{ source }}",
+                                        "inline_script": "{{ inline_script | add_slashes | collapse_whitespace }}"
+                                    },
+                                {{ /script_fragments }}
+                            ]
+                        },
+                    {{ /scope:scripts }}
+                {{ /seo:scripts }}
+            {{ /if }}
+            {{ if seo:embeds }}
+                {
+                    "value": false,
+                    "handle": "embeds",
+                    "title": "{{ trans:strings.consent_embeds }}",
+                    "explanation": "{{ trans:strings.consent_embeds_explanation }}"
+                },
+            {{ /if }}
+        ]
+    }
+</script>

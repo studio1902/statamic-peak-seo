@@ -40,7 +40,7 @@ fields:
                     display: Category
                     type: text
                     icon: text
-                    instructions: 'When you use the cookie banner, scripts will be grouped under this category.'
+                    instructions: 'When you use the consent banner, scripts will be grouped under this category.'
                     listable: hidden
                     instructions_position: above
                     visibility: visible
@@ -57,7 +57,7 @@ fields:
                     display: Explainer
                     type: text
                     icon: text
-                    instructions: 'Explainer for the current category when you use the cookie banner.'
+                    instructions: 'Explainer for the current category when you use the consent banner.'
                     listable: hidden
                     instructions_position: above
                     visibility: visible
@@ -89,7 +89,6 @@ fields:
                           options:
                             script_tag: 'Script tag'
                             inline_script: 'Inline script'
-                            body_content: 'Body content'
                           default: script_tag
                           display: Type
                           type: button_group
@@ -98,24 +97,6 @@ fields:
                           instructions_position: above
                           visibility: visible
                           always_save: false
-                      -
-                        handle: source
-                        field:
-                          input_type: url
-                          antlers: false
-                          display: Source
-                          type: text
-                          icon: text
-                          listable: hidden
-                          instructions_position: above
-                          visibility: visible
-                          always_save: false
-                          validate:
-                            - required
-                            - sometimes
-                          if:
-                            type: 'equals script_tag'
-                          instructions: 'The scripts tag `source` attribute. A URL.'
                       -
                         handle: defer
                         field:
@@ -147,7 +128,7 @@ fields:
                             type: 'equals script_tag'
                           instructions: 'If the script tag should load asynchronous.'
                       -
-                        handle: inline_script_attributes
+                        handle: script_attributes
                         field:
                           fields:
                             -
@@ -193,8 +174,24 @@ fields:
                           visibility: visible
                           replicator_preview: true
                           hide_display: false
+                      -
+                        handle: source
+                        field:
+                          input_type: url
+                          antlers: false
+                          display: Source
+                          type: text
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          always_save: false
+                          validate:
+                            - required
+                            - sometimes
                           if:
-                            type: 'not body_content'
+                            type: 'equals script_tag'
+                          instructions: 'The scripts tag `source` attribute. A URL.'
                       -
                         handle: inline_script
                         field:
@@ -219,30 +216,6 @@ fields:
                             - required
                             - sometimes
                           instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags.'
-                      -
-                        handle: body_content
-                        field:
-                          theme: material
-                          mode: javascript
-                          mode_selectable: false
-                          indent_type: tabs
-                          indent_size: 4
-                          key_map: default
-                          line_numbers: true
-                          line_wrapping: true
-                          display: 'Body content'
-                          type: code
-                          icon: code
-                          listable: hidden
-                          instructions_position: above
-                          visibility: visible
-                          always_save: false
-                          if:
-                            type: 'equals body_content'
-                          validate:
-                            - required
-                            - sometimes
-                          instructions: 'HTML that should be rendered after opening `<body>`.'
                     fullscreen: true
                     hide_display: false
       display: Scripts
@@ -298,13 +271,13 @@ fields:
       if:
         tracker_type: 'equals gtm'
   -
-    handle: use_cookie_banner
+    handle: use_consent_banner
     field:
       type: toggle
-      instructions: 'Enable the cookie banner. When you use `Google Analytics` or `Google Tag Manager`, make sure you load all tracking scripts via their service as in this case the banner uses the Google Consent API: https://developers.google.com/tag-manager/consent. When you use `Custom scripts`, all your scripts will be injected after consent.'
+      instructions: 'Enable the consent banner. When you use `Google Analytics` or `Google Tag Manager`, make sure you load all tracking scripts via their service as in this case the banner uses the Google Consent API: https://developers.google.com/tag-manager/consent. When you use `Custom scripts`, all your scripts will be injected after consent.'
       instructions_position: below
       listable: false
-      display: 'Cookie banner'
+      display: 'Consent banner'
   -
     handle: embeds
     field:
@@ -317,8 +290,9 @@ fields:
       instructions_position: below
       visibility: visible
       always_save: false
+      width: 50
       if:
-        use_cookie_banner: 'equals true'
+        use_consent_banner: 'equals true'
   -
     handle: hide_by_default
     field:
@@ -326,15 +300,35 @@ fields:
       display: 'Hide by default'
       type: toggle
       icon: toggle
-      instructions: "Hide the cookie banner by default. You can use this when you're only using it for video embeds."
+      instructions: "Hide the consent banner by default."
       listable: hidden
       instructions_position: below
       visibility: visible
       always_save: false
+      width: 50
       if:
-        use_cookie_banner: 'equals true'
+        use_consent_banner: 'equals true'
         embeds: 'equals true'
         tracker_type: 'equals none'
+  -
+    handle: consent_revoke_before
+    field:
+      mode: single
+      time_enabled: true
+      time_required: true
+      earliest_date: '1900-01-01'
+      full_width: false
+      inline: false
+      columns: 1
+      rows: 1
+      display: 'Revoke consent before'
+      instructions: 'Revoke all users consent before this date and time. Use this when you changed consent settings, added scripts or changed trackers, or when your privacy policy has changed. The consent banner will reappear. Expects a time in the timezone configured for your application.'
+      instructions_position: below
+      type: date
+      width: 66
+      icon: date
+      listable: hidden
+      use_consent_banner: 'equals true'
   -
     handle: display_style
     field:
@@ -346,25 +340,6 @@ fields:
       listable: false
       localizable: true
       display: 'Display style'
-      width: 50
+      width: 100
       if:
-        use_cookie_banner: 'equals true'
-  -
-    handle: cookie_revoke_before
-    field:
-      mode: single
-      time_enabled: false
-      time_required: false
-      earliest_date: '1900-01-01'
-      full_width: false
-      inline: false
-      columns: 1
-      rows: 1
-      display: 'Revoke consent before'
-      instructions: 'Revoke all users consent before this date. Use this when you added new trackers to GTM and your privacy policy changed. The cookie bar will reappear.'
-      instructions_position: below
-      type: date
-      width: 50
-      icon: date
-      listable: hidden
-      use_cookie_banner: 'equals true'
+        use_consent_banner: 'equals true'
