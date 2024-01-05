@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.0.0 (2024-01-05)
+
+### What's new
+- The Cookie banner is now called Consent banner and fully rewritten. An update script should automatically take care of all [changes needed in Peak](https://github.com/studio1902/statamic-peak/pull/374). #40 by @robdekort
+
 ## v7.5.0 (2023-12-15)
 
 ### What's new
