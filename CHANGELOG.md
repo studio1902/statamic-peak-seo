@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.1.0 (2024-01-26)
+
+### What's new
+- Ability to use Antlers in inline scripts behind the consent banner. b33c85cb by @robdekort
+
 ## v8.0.0 (2024-01-05)
 
 ### What's new
