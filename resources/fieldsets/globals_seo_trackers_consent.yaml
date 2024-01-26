@@ -215,7 +215,8 @@ fields:
                           validate:
                             - required
                             - sometimes
-                          instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags.'
+                          instructions: 'The inline script tag contents (Javascript). Remove `<script>` and `</script>` tags. You can use Antlers.'
+                          antlers: true
                     fullscreen: true
                     hide_display: false
       display: Scripts
