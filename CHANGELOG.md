@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.1.1 (2024-02-09)
+
+### What's fixed
+- A faulty condition in the SEO snippet. 1fbe159c by @robdekort
+
 ## v8.1.0 (2024-01-26)
 
 ### What's new
