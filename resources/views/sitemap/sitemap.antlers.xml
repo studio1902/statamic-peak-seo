@@ -2,29 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" {{ yield:namespace }}>
     {{ seo:sitemap_collections }}
         {{ collection from="{handle}" seo_noindex:isnt="true" as="results" }}
-            {{ results }}
-                <url>
-                    <loc>{{ permalink }}</loc>
-                    <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
-                    <changefreq>{{ sitemap_change_frequency ? sitemap_change_frequency : 'weekly' }}</changefreq>
-                    <priority>{{ sitemap_priority ? sitemap_priority : '0.5' }}</priority>
-                    {{ if {locales:count} > 1 }}
-                        {{ once }}
-                            {{ section:namespace}}
-                                xmlns:xhtml="http://www.w3.org/1999/xhtml"
-                            {{ /section:namespace}}
-                        {{ /once }}
-                        {{ locales }}
-                            <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
-                        {{ /locales }}
-                    {{ /if }}
-                </url>
+            {{ results where (x => x.permalink !== null) }}
+                {{ if permalink }}
+                    <url>
+                        <loc>{{ permalink }}</loc>
+                        <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
+                        <changefreq>{{ sitemap_change_frequency ? sitemap_change_frequency : 'weekly' }}</changefreq>
+                        <priority>{{ sitemap_priority ? sitemap_priority : '0.5' }}</priority>
+                        {{ if {locales:count} > 1 }}
+                            {{ once }}
+                                {{ section:namespace}}
+                                    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                                {{ /section:namespace}}
+                            {{ /once }}
+                            {{ locales }}
+                                <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
+                            {{ /locales }}
+                        {{ /if }}
+                    </url>
+                {{ /if }}
             {{ /results }}
         {{ /collection }}
     {{ /seo:sitemap_collections }}
     {{ seo:sitemap_taxonomies }}
         {{ taxonomy from="{handle}" seo_noindex:isnt="true" as="results" }}
-            {{ results }}
+            {{ results where (x => x.permalink !== null) }}
                 <url>
                     <loc>{{ permalink }}</loc>
                     <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
