@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.2.0 (2024-02-14)
+
+### What's improved
+- Filter out entries without a permalink from the sitemap. 7a7ec41f by @robdekort
+
 ## v8.1.1 (2024-02-09)
 
 ### What's fixed
