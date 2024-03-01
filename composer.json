@@ -15,5 +15,8 @@
                 "Studio1902\\PeakSeo\\ServiceProvider"
             ]
         }
+    },
+    "require": {
+        "statamic/cms": "^4.0"
     }
 }
