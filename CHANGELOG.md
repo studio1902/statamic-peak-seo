@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.2.1 (2024-03-06)
+
+### What's fixed
+- An issue when migrating to the Eloquent driver. b35d91cf by @robdekort
+
 ## v8.2.0 (2024-02-14)
 
 ### What's improved
