@@ -5,8 +5,15 @@ use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
 use Statamic\Facades\URL;
 
-$useSitemap = (bool)GlobalSet::findByHandle('seo')?->inDefaultSite()?->get('use_sitemap');
-$useSocialImageGeneration = (bool)GlobalSet::findByHandle('seo')?->inDefaultSite()?->get('use_social_image_generation');
+$useSitemap = false;
+$useSocialImageGeneration = false;
+
+try {
+    $useSitemap = (bool)GlobalSet::findByHandle('seo')?->inDefaultSite()?->get('use_sitemap');
+    $useSocialImageGeneration = (bool)GlobalSet::findByHandle('seo')?->inDefaultSite()?->get('use_social_image_generation');
+} catch (\Exception $e) {
+    // no action
+}
 
 // The Sitemap Index route for listing sitemaps of all (multi)sites.
 if ($useSitemap) {
