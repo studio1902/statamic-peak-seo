@@ -1,9 +1,9 @@
 # Changelog
 
-## v8.3.0 (2024-03-06)
+## v8.3.0 (2024-03-12)
 
 ### What's new
-- Add a Reject All button to the Consent Banner. b35d91cf by @robdekort
+- Add a Reject All button to the Consent Banner. 46c35190 by @robdekort
 
 ## v8.2.1 (2024-03-06)
 
