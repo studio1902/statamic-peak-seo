@@ -9,7 +9,7 @@
     x-show="!$store.consentBanner.getConsent()"
     x-transition
     class="
-        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-80 flex flex-col stack-2 p-6 bg-white border border-neutral/10 rounded shadow-lg overflow-auto overscroll-contain
+        fixed z-50 inset-x-[1rem] bottom-[1rem] md:bottom-[2rem] max-h-[calc(100vh-2rem)] md:max-h-[calc(100vh-4rem)] md:w-[21rem] flex flex-col stack-2 p-6 bg-white border border-neutral/10 rounded shadow-lg overflow-auto overscroll-contain
         {{ seo:display_style == 'left' ?= 'md:right-auto md:left-[2rem]' }}
         {{ seo:display_style == 'right' ?= 'md:left-auto md:right-[2rem]' }}
     "
@@ -19,9 +19,9 @@
     <p class="text-sm font-bold text-neutral">
         {{ trans:strings.consent_explanation }}
         {{ if configuration:cookie_notice_type == 'entry' }}
-            <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:consent_notice_entry:url }}">{{ trans:strings.consent_learn_more }}</a>
+            <a class="underline rounded hover:text-primary" href="{{ configuration:consent_notice_entry:url }}">{{ trans:strings.consent_learn_more }}</a>
         {{ elseif configuration:cookie_notice_type == 'pdf' }}
-            <a class="px-1 -m-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" href="{{ configuration:consent_notice_asset }}" target="_blank">{{ trans:strings.consent_learn_more }}</a>
+            <a class="underline rounded hover:text-primary" href="{{ configuration:consent_notice_asset }}" target="_blank">{{ trans:strings.consent_learn_more }}</a>
         {{ /if }}
     </p>
 
@@ -29,12 +29,12 @@
         <template x-for="type in $store.consentBanner.getConsentTypes()">
             <label class="inline-flex">
                 <template x-if="type.disabled">
-                    <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition opacity-50" type="checkbox" :name="type.handle" checked disabled>
+                    <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:border-primary opacity-50" type="checkbox" :name="type.handle" checked disabled>
                 </template>
 
                 <template x-if="!type.disabled">
-                    <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:outline-none focus-visible:ring focus-visible:ring-primary motion-safe:transition" type="checkbox" :name="type.handle" x-model="type.value">
-                </template>
+                    <input class="mr-2 w-4 h-4 rounded border-neutral text-primary focus:border-primary" type="checkbox" :name="type.handle" x-model="type.value">
+            </template>
 
                 <span class="flex flex-col gap-0.5">
                     <span class="font-bold text-xs" x-html="type.title"></span>
@@ -44,13 +44,17 @@
         </template>
     </div>
 
-    <div class="stack-space-4 flex flex-wrap gap-4">
-        <button @click="$store.consentBanner.acceptAll()" type="button" class="px-4 py-2 bg-primary rounded text-sm font-bold text-white focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition">
+    <div class="stack-space-4 flex flex-wrap gap-2">
+        <button @click="$store.consentBanner.acceptAll()" type="button" class="px-2 py-2 rounded text-xs font-bold bg-primary text-white outline-primary">
             {{ trans:strings.consent_accept_all }}
         </button>
 
-        <button @click="$store.consentBanner.saveConsent()" type="button" class="px-1 py-2 rounded text-sm font-bold text-neutral focus:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary motion-safe:transition">
+        <button @click="$store.consentBanner.saveConsent()" type="button" class="px-2 py-2 rounded text-xs font-bold bg-neutral/10 text-neutral">
             {{ trans:strings.consent_accept_selected }}
+        </button>
+
+        <button @click="$store.consentBanner.rejectAll()" type="button" class="px-2 py-2 rounded text-xs font-bold bg-neutral/10 text-neutral">
+            {{ trans:strings.consent_reject_all }}
         </button>
     </div>
 
@@ -61,7 +65,7 @@
             {{# Read out global store consent status and display a reset consent link by saving the initial state. #}}
             <span x-data x-cloak>
                 <span x-show="$store.consentBanner.getConsent()">
-                    <a @click.prevent="$store.consentBanner.revokeConsent()" class="{{ reset_consent_class ?? 'px-1 -mx-1 underline rounded hover:text-primary focus:outline-none focus-visible:ring-2 ring-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.consent_change_preferences }}</a>
+                    <a @click.prevent="$store.consentBanner.revokeConsent()" class="{{ reset_consent_class ?? 'underline hover:text-primary motion-safe:transition-colors' }}" href="#">{{ trans:strings.consent_change_preferences }}</a>
                 </span>
             </span>
         {{ /if }}
@@ -105,6 +109,10 @@
                 },
                 invalidate() {
                     this.data = consentData
+                },
+                rejectAll() {
+                    this.data.types.forEach((type) => type.value = false)
+                    this.saveConsent()
                 },
                 revokeConsent() {
                     this.data.consent = false
