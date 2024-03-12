@@ -10,7 +10,6 @@ class AddRejectAll extends UpdateScript
 {
     public function shouldUpdate($newVersion, $oldVersion)
     {
-        return true;
         return $this->isUpdatingTo('8.3.0');
     }
 
