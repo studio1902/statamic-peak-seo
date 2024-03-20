@@ -19,9 +19,9 @@
     <p class="text-sm font-bold text-neutral">
         {{ trans:strings.consent_explanation }}
         {{ if configuration:cookie_notice_type == 'entry' }}
-            <a class="underline rounded hover:text-primary" href="{{ configuration:consent_notice_entry:url }}">{{ trans:strings.consent_learn_more }}</a>
+            <a class="underline rounded hover:text-primary" href="{{ configuration:cookie_notice_entry:url }}">{{ trans:strings.consent_learn_more }}</a>
         {{ elseif configuration:cookie_notice_type == 'pdf' }}
-            <a class="underline rounded hover:text-primary" href="{{ configuration:consent_notice_asset }}" target="_blank">{{ trans:strings.consent_learn_more }}</a>
+            <a class="underline rounded hover:text-primary" href="{{ configuration:cookie_notice_asset }}" target="_blank">{{ trans:strings.consent_learn_more }}</a>
         {{ /if }}
     </p>
 
