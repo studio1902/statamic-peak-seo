@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.3.1 (2024-03-20)
+
+### What's fixed
+- Fix broken cookie notice links in consent banner. 50e89552 by @robdekort
+
 ## v8.3.0 (2024-03-12)
 
 ### What's new
