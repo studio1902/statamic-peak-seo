@@ -65,6 +65,18 @@ fields:
                     always_save: false
                     localizable: true
                 -
+                  handle: services
+                  field:
+                    type: list
+                    display: 'Services'
+                    instructions: 'List services used to inform the end-user.'
+                    width: 50
+                    listable: hidden
+                    instructions_position: below
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
                   handle: script_fragments
                   field:
                     mode: stacked
@@ -221,7 +233,6 @@ fields:
                     hide_display: false
       display: Scripts
       type: replicator
-      icon: replicator
       listable: hidden
       instructions_position: above
       visibility: visible
@@ -285,7 +296,6 @@ fields:
       default: false
       display: Embeds
       type: toggle
-      icon: toggle
       instructions: "Only load in third party embedded video's from the `video` article set after consent."
       listable: hidden
       instructions_position: below
@@ -295,18 +305,30 @@ fields:
       if:
         use_consent_banner: 'equals true'
   -
+    handle: embed_services
+    field:
+      type: list
+      display: 'Embed Services'
+      instructions: 'List embed services used to inform the end-user.'
+      width: 50
+      listable: hidden
+      instructions_position: below
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        embeds: 'equals true'
+  -
     handle: hide_by_default
     field:
       default: false
       display: 'Hide by default'
       type: toggle
-      icon: toggle
-      instructions: "Hide the consent banner by default."
+      instructions: 'Hide the consent banner by default.'
       listable: hidden
       instructions_position: below
       visibility: visible
       always_save: false
-      width: 50
       if:
         use_consent_banner: 'equals true'
         embeds: 'equals true'
@@ -327,7 +349,6 @@ fields:
       instructions_position: below
       type: date
       width: 66
-      icon: date
       listable: hidden
       use_consent_banner: 'equals true'
   -
@@ -341,6 +362,76 @@ fields:
       listable: false
       localizable: true
       display: 'Display style'
-      width: 100
       if:
+        use_consent_banner: 'equals true'
+  -
+    handle: section_services
+    field:
+      type: section
+      display: Services
+      instructions: 'List services per category loaded through Google Tag Manager to inform the end-user.'
+      icon: section
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: false
+      hide_display: false
+      if:
+        tracker_type: 'equals gtm'
+        use_consent_banner: 'equals true'
+  -
+    handle: analytics_storage_services
+    field:
+      type: list
+      display: 'Analytics'
+      width: 25
+      listable: hidden
+      instructions_position: below
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        tracker_type: 'equals gtm'
+        use_consent_banner: 'equals true'
+  -
+    handle: ad_storage_services
+    field:
+      type: list
+      display: 'Ad Storage'
+      width: 25
+      listable: hidden
+      instructions_position: below
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        tracker_type: 'equals gtm'
+        use_consent_banner: 'equals true'
+  -
+    handle: ad_user_data_services
+    field:
+      type: list
+      display: 'Ad User Data'
+      width: 25
+      listable: hidden
+      instructions_position: below
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        tracker_type: 'equals gtm'
+        use_consent_banner: 'equals true'
+  -
+    handle: ad_personalization_services
+    field:
+      type: list
+      display: 'Ad Personalization'
+      width: 25
+      listable: hidden
+      instructions_position: below
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        tracker_type: 'equals gtm'
         use_consent_banner: 'equals true'

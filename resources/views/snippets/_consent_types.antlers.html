@@ -24,7 +24,13 @@
                     "title": "{{ trans:strings.consent_analytics }}",
                     "explanation": "{{ trans:strings.consent_analytics_explanation }}",
                     "consent_api": true,
-                    "consent_api_handle": "analytics_storage"
+                    "consent_api_handle": "analytics_storage",
+                    "services": [
+                        "Google Analytics",
+                        {{ seo:analytics_services }}
+                            "{{ value }}",
+                        {{ /seo:analytics_services }}
+                    ]
                 },
             {{ /if }}
             {{ if seo:tracker_type == 'gtm' }}
@@ -34,7 +40,13 @@
                     "title": "{{ trans:strings.consent_ads }}",
                     "explanation": "{{ trans:strings.consent_ads_explanation }}",
                     "consent_api": true,
-                    "consent_api_handle": "ad_storage"
+                    "consent_api_handle": "ad_storage",
+                    "services": [
+                        "Google Tag Manager",
+                        {{ seo:ad_storage_services }}
+                            "{{ value }}",
+                        {{ /seo:ad_storage_services }}
+                    ]
                 },
                 {
                     "value": false,
@@ -42,7 +54,13 @@
                     "title": "{{ trans:strings.consent_ad_user_data }}",
                     "explanation": "{{ trans:strings.consent_ad_user_data_explanation }}",
                     "consent_api": true,
-                    "consent_api_handle": "ad_user_data"
+                    "consent_api_handle": "ad_user_data",
+                    "services": [
+                        "Google Tag Manager",
+                        {{ seo:ad_user_data_services }}
+                            "{{ value }}",
+                        {{ /seo:ad_user_data_services }}
+                    ]
                 },
                 {
                     "value": false,
@@ -50,7 +68,13 @@
                     "title": "{{ trans:strings.consent_ad_personalization }}",
                     "explanation": "{{ trans:strings.consent_ad_personalization_explanation }}",
                     "consent_api": true,
-                    "consent_api_handle": "ad_personalization"
+                    "consent_api_handle": "ad_personalization",
+                    "services": [
+                        "Google Tag Manager",
+                        {{ seo:ad_personalization_services }}
+                            "{{ value }}",
+                        {{ /seo:ad_personalization_services }}
+                    ]
                 },
             {{ /if }}
             {{ if seo:tracker_type == 'scripts' }}
@@ -61,6 +85,13 @@
                             "handle": "customScript{{ count }}",
                             "title": "{{ category | add_slashes | entities }}",
                             "explanation": "{{ explainer | add_slashes | entities }}",
+                            {{ if services }}
+                                "services": [
+                                    {{ services }}
+                                        "{{ value }}",
+                                    {{ /services }}
+                                ],
+                            {{ /if }}
                             "script_fragments": [
                                 {{ script_fragments }}
                                     {
@@ -90,7 +121,14 @@
                     "value": false,
                     "handle": "embeds",
                     "title": "{{ trans:strings.consent_embeds }}",
-                    "explanation": "{{ trans:strings.consent_embeds_explanation }}"
+                    "explanation": "{{ trans:strings.consent_embeds_explanation }}",
+                    {{ if seo:embed_services }}
+                        "services": [
+                            {{ seo:embed_services }}
+                                "{{ value }}",
+                            {{ /seo:embed_services }}
+                        ],
+                    {{ /if }}
                 },
             {{ /if }}
         ]
