@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.9.0 (2024-03-21)
+
+### What's new
+- The ability to list services used (per consent category) in the consent banner. 7053062c by @robdekort
+
 ## v8.3.1 (2024-03-20)
 
 ### What's fixed
