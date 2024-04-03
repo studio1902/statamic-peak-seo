@@ -177,7 +177,7 @@
                 {{ if type == 'script_tag' }}
                     <script {{ async ?= 'async' }} {{ defer ?= 'defer' }} src="{{ source }}" {{ script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /script_attributes }}></script>
                 {{ else }}
-                    <script {{ script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /script_attributes }}>{{ inline_script }}</script>
+                    <script {{ script_attributes }}{{ attribute | slugify }}{{ attribute_value ?= '="{ attribute_value | entities }"' }}{{ !last ?= ' ' }}{{ /script_attributes }}>{{ inline_script | remove_left('<script>') | remove_right('</script>') }}</script>
                 {{ /if }}
             {{ /script_fragments }}
         {{ /seo:scripts }}

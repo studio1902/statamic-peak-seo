@@ -108,7 +108,7 @@
                                             {{ /script_attributes }}
                                         ],
                                         "source": "{{ source }}",
-                                        "inline_script": "{{ inline_script | add_slashes | collapse_whitespace }}"
+                                        "inline_script": "{{ inline_script | remove_left('<script>') | remove_right('</script>') | add_slashes | collapse_whitespace }}"
                                     },
                                 {{ /script_fragments }}
                             ]
