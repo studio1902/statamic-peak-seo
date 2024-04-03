@@ -1,6 +1,6 @@
 # Changelog
 
-## v8.9.1 (2024-04-03)
+## v8.10.0 (2024-04-03)
 
 ### What's improved
 - Strip script tags from inline scripts when using custom scripts. 65cf6102 by @robdekort
