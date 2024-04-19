@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.11.0 (2024-04-19)
+
+### What's new
+- Support Statamic v5. #43 by @robdekort
+
 ## v8.10.0 (2024-04-03)
 
 ### What's improved
