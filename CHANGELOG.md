@@ -1,6 +1,6 @@
 # Changelog
 
-## v8.13.0 (2024-05-01)
+## v8.12.0 (2024-05-01)
 
 ### What's improved
 - Use closures for routes for better performance and multisite in Statamic v5. 359e95bb by @jesseleite
