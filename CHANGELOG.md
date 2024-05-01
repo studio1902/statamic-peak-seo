@@ -3,7 +3,7 @@
 ## v8.12.0 (2024-05-01)
 
 ### What's improved
-- Use closures for routes for better performance and multisite in Statamic v5. 359e95bb by @jesseleite
+- Use closures for routes for better performance and multisite in Statamic v5. 359e95bb by @jesseleite and @jasonvarga
 
 ## v8.11.0 (2024-04-19)
 
