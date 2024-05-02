@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.13.1 (2024-05-02)
+
+### What's fixed
+- Simplify routing so they can be cached. 7108d352 by @robdekort
+
 ## v8.13.0 (2024-05-02)
 
 ### What's new
