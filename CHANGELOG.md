@@ -1,6 +1,11 @@
 # Changelog
 
-## v8.12.0 (2024-05-01)
+## v8.13.0 (2024-05-02)
+
+### What's new
+- Add support for the self hosted Matomo Tag Manager. 3e6456ff by @robdekort
+
+## v8.12.0 (2024-05-02)
 
 ### What's improved
 - Use closures for routes for better performance and multisite in Statamic v5. 359e95bb by @jesseleite and @jasonvarga
