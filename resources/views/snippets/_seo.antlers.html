@@ -198,6 +198,10 @@
         <script src="https://cdn.usefathom.com/script.js" site="{{ seo:fathom }}" defer></script>
     {{ /if }}
 
+    {{ if seo:use_matomo }}
+        <script type="text/javascript">var _mtm = _mtm || []; _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'}); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript'; g.async=true; g.defer=true; g.src='{{ seo:matomo_script_url }}'; s.parentNode.insertBefore(g,s);</script>
+    {{ /if }}
+
     {{ if seo:use_plausible && seo:plausible_use_custom_script }}
         <script src="{{ seo:plausible_custom_script_url }}" data-domain="{{ seo:plausible }}" defer></script>
     {{ elseif seo:use_plausible }}
