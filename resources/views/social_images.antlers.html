@@ -3,28 +3,32 @@
     @desc The template for generating Social Images. By default it includes the size for the OG protocol.
 #}}
 
-<!-- statamic-peak-seo::social_images.antlers.html -->
-<!doctype html>
-<html class="h-full">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="robots" content="noindex">
-        <title>Social Images - {{ get_content:id }}{{ title }}{{ /get_content:id }}</title>
-        {{ vite src="resources/css/site.css" }}
-        <style>
-            .phpdebugbar { display: none !important; }
-        </style>
-    </head>
+{{ unless seo:use_social_image_generation }}
+    {{ 404 }}
+{{ else }}
+    <!-- statamic-peak-seo::social_images.antlers.html -->
+    <!doctype html>
+    <html class="h-full">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="robots" content="noindex">
+            <title>Social Images - {{ get_content:id }}{{ title }}{{ /get_content:id }}</title>
+            {{ vite src="resources/css/site.css" }}
+            <style>
+                .phpdebugbar { display: none !important; }
+            </style>
+        </head>
 
-    <body class="py-8 flex flex-col items-center space-y-8">
-        {{# The OG template. #}}
-        <div>
-            <h2 class="mb-4 text-xs text-neutral font-bold uppercase tracking-widest">OG</h2>
-            {{ partial:statamic-peak-seo::components/social_image selector="og" style="width: 1200px; height: 630px" }}
-        </div>
+        <body class="py-8 flex flex-col items-center space-y-8">
+            {{# The OG template. #}}
+            <div>
+                <h2 class="mb-4 text-xs text-neutral font-bold uppercase tracking-widest">OG</h2>
+                {{ partial:statamic-peak-seo::components/social_image selector="og" style="width: 1200px; height: 630px" }}
+            </div>
 
-        {{# Repeat for future OG sizes. RIP Twitter. #}}
-    </body>
-</html>
-<!-- End: statamic-peak-seo::social_images.antlers.html -->
+            {{# Repeat for future OG sizes. RIP Twitter. #}}
+        </body>
+    </html>
+    <!-- End: statamic-peak-seo::social_images.antlers.html -->
+{{ /unless }}
