@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.13.2 (2024-05-14)
+
+### What's fixed
+- Add social image route for default site. 53323541 by @robdekort
+
 ## v8.13.1 (2024-05-02)
 
 ### What's fixed
