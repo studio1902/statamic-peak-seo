@@ -21,6 +21,11 @@ Route::statamic(URL::tidy('{current_site}/sitemap.xml'), 'statamic-peak-seo::sit
 ]);
 
 // The Social Image route to generate social images.
+Route::statamic(URL::tidy('social-images/{id}'), 'statamic-peak-seo::social_images', [
+    'layout' => null,
+]);
+
+// The Social Image route to generate social images.
 Route::statamic(URL::tidy('{current_site}/social-images/{id}'), 'statamic-peak-seo::social_images', [
     'layout' => null,
 ]);
