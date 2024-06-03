@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.14.0 (2024-06-03)
+
+### What's new
+- Added no_Sandbox() option when generating Social Images. #44 by @mbootsman
+
 ## v8.13.2 (2024-05-14)
 
 ### What's fixed
