@@ -23,7 +23,7 @@ fields:
       width: 50
       if:
         use_social_image_generation: 'equals true'
-  -
+  - 
     handle: use_no_sandbox_for_social_image_generation
     field:
       display: 'Use noSandbox() for Social Images generation'
@@ -33,3 +33,5 @@ fields:
       instructions_position: below
       listable: hidden
       width: 100
+      if:
+        use_social_image_generation: 'equals true'
