@@ -23,3 +23,15 @@ fields:
       width: 50
       if:
         use_social_image_generation: 'equals true'
+  - 
+    handle: use_no_sandbox_for_social_image_generation
+    field:
+      display: 'Use noSandbox() for Social Images generation'
+      type: toggle
+      icon: toggle
+      instructions: 'This runs Browsershot with the [noSandbox()](https://spatie.be/docs/browsershot/v4/miscellaneous-options/disable-sandboxing) method. **Important**: Only use this if you have problems with Browsershot/Puppeteer.'
+      instructions_position: below
+      listable: hidden
+      width: 100
+      if:
+        use_social_image_generation: 'equals true'
