@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.15.0 (2024-07-03)
+
+### What's new
+- Added config options for social images `tries` and `release_after` properties to prevent failed jobs when you run queues with multiple workers. 78690c81 by @robdekort
+
 ## v8.14.0 (2024-06-03)
 
 ### What's new
