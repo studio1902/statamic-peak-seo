@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.15.1 (2024-07-03)
+
+### What's fixed
+- Fix env config names for new config options. 106dbb8d by @robdekort
+
 ## v8.15.0 (2024-07-03)
 
 ### What's new
