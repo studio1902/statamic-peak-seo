@@ -18,7 +18,6 @@ class GenerateSocialImagesJob implements ShouldQueue {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $item;
-    public $tries;
 
     /**
      * Create a new job instance.
@@ -27,19 +26,7 @@ class GenerateSocialImagesJob implements ShouldQueue {
      */
     public function __construct($item) {
         $this->item = $item;
-        $this->tries = config('statamic-peak-seo.social_image.tries');
     }
-
-    /**
-     * Middleware to prevent jobs from overlapping.
-     *
-     * @return void
-     */
-    public function middleware(): array {
-        return [(new WithoutOverlapping('generate-social-images'))->releaseAfter(config('statamic-peak-seo.social_image.release_after'))];
-    }
-
-    // Either remove it, or
 
     /**
      * Execute the job.
