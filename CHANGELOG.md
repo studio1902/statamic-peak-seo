@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.15.2 (2024-07-04)
+
+### What's changed
+- Remove withoutOverlapping middleware when generating OG images as it causes failed jobs. Put it on a single process queue if you want to limit resources being used. c24300e0 by @robdekort
+
 ## v8.15.1 (2024-07-03)
 
 ### What's fixed
