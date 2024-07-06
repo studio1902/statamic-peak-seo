@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.15.3 (2024-07-06)
+
+### What's improved
+- Make `GenerateSocialImagesJob` a unique job to prevent redundant tasks. 86399dd3 by @robdekort
+
 ## v8.15.2 (2024-07-04)
 
 ### What's changed
