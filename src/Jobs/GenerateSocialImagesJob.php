@@ -3,18 +3,17 @@
 namespace Studio1902\PeakSeo\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot;
 use Statamic\Facades\AssetContainer;
 use Statamic\Globals\GlobalSet;
 
-class GenerateSocialImagesJob implements ShouldQueue {
+class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $item;
@@ -66,10 +65,6 @@ class GenerateSocialImagesJob implements ShouldQueue {
         }
         $container->makeAsset($file)->save();
         $this->item->set('og_image', $file)->save();
-
-        // Repeat for other sizes.
-
-        Artisan::call('cache:clear');
     }
 
     protected function setupBrowsershot(): Browsershot {
@@ -91,5 +86,10 @@ class GenerateSocialImagesJob implements ShouldQueue {
         }
 
         return $browsershot;
+    }
+
+    public function uniqueId(): string
+    {
+        return $this->item->id();
     }
 }
