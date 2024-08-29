@@ -16,6 +16,7 @@ fields:
       instructions_position: above
       visibility: visible
       always_save: false
+      localizable: true
   -
     handle: scripts
     field:
@@ -253,6 +254,7 @@ fields:
       input_type: text
       type: text
       listable: hidden
+      localizable: true
       validate:
         - 'required_if:tracker_type,gtag'
       if:
@@ -267,6 +269,7 @@ fields:
       display: "Anonymize IP's"
       instructions: "Even if you anonymize IP's you need consent according to the GDPR."
       instructions_position: below
+      localizable: true
       if:
         tracker_type: 'equals gtag'
   -
@@ -278,6 +281,7 @@ fields:
       width: 50
       display: 'Tracking ID'
       instructions_position: below
+      localizable: true
       validate:
         - 'required_if:tracker_type,gtm'
       if:
@@ -290,6 +294,7 @@ fields:
       instructions_position: below
       listable: false
       display: 'Consent banner'
+      localizable: true
   -
     handle: embeds
     field:
@@ -302,6 +307,7 @@ fields:
       visibility: visible
       always_save: false
       width: 50
+      localizable: true
       if:
         use_consent_banner: 'equals true'
   -
@@ -316,6 +322,7 @@ fields:
       visibility: visible
       replicator_preview: true
       hide_display: false
+      localizable: true
       if:
         embeds: 'equals true'
   -
@@ -351,6 +358,7 @@ fields:
       width: 66
       listable: hidden
       use_consent_banner: 'equals true'
+      localizable: true
   -
     handle: display_style
     field:
