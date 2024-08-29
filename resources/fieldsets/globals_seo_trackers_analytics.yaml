@@ -7,6 +7,7 @@ fields:
       instructions: 'Add Fathom tracking code to your head.'
       listable: false
       display: Fathom
+      localizable: true
   -
     handle: fathom
     field:
@@ -16,6 +17,7 @@ fields:
       type: text
       listable: hidden
       width: 50
+      localizable: true
       validate:
         - 'required_if:use_fathom,true'
       if:
@@ -27,6 +29,7 @@ fields:
       instructions: 'Add the Matomo self hosted tag manager to your head.'
       listable: false
       display: Matomo
+      localizable: true
   -
     handle: matomo_script_url
     field:
@@ -36,6 +39,7 @@ fields:
       type: text
       listable: hidden
       width: 50
+      localizable: true
       validate:
         - 'required_if:use_matomo,true'
       if:
@@ -47,6 +51,7 @@ fields:
       instructions: 'Add Plausible tracking code to your head.'
       listable: false
       display: Plausible
+      localizable: true
   -
     handle: plausible_use_custom_script
     field:
@@ -56,6 +61,7 @@ fields:
       display: 'Custom script'
       instructions_position: above
       default: false
+      localizable: true
       if:
         use_plausible: 'equals true'
   -
@@ -67,6 +73,7 @@ fields:
       type: text
       listable: hidden
       width: 50
+      localizable: true
       validate:
         - 'required_if:use_plausible,true'
       if:
@@ -80,6 +87,7 @@ fields:
       type: text
       listable: hidden
       width: 50
+      localizable: true
       validate:
         - 'required_if:plausible_use_custom_domain,true'
       if:
@@ -94,6 +102,7 @@ fields:
       instructions: 'Add Cloudflare tracking code to your head.'
       listable: false
       display: 'Cloudflare Web Analytics'
+      localizable: true
   -
     handle: cloudflare_web_analytics
     field:
@@ -102,6 +111,7 @@ fields:
       width: 50
       type: text
       listable: hidden
+      localizable: true
       validate:
         - 'required_if:use_cloudflare_web_analytics,true'
       if:
