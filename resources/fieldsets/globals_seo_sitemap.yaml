@@ -10,6 +10,7 @@ fields:
       instructions: 'Enable the Peak Sitemap.'
       instructions_position: below
       listable: hidden
+      localizable: true
   -
     handle: sitemap_collections
     field:
@@ -21,6 +22,7 @@ fields:
       display: Collections
       width: 50
       always_save: true
+      localizable: true
       if:
         use_sitemap: 'equals true'
   -
@@ -36,6 +38,7 @@ fields:
       visibility: visible
       hide_display: false
       always_save: true
+      localizable: true
       if:
         use_sitemap: 'equals true'
   -
@@ -55,6 +58,7 @@ fields:
             visibility: visible
             hide_display: false
             instructions: 'Select which taxonomy to use for specified collections.'
+            localizable: true
         -
           handle: collections
           field:
@@ -64,6 +68,7 @@ fields:
             display: Collections
             width: 50
             instructions: "Select collections to assign the taxonomy's term urls."
+            localizable: true
       mode: stacked
       add_row: 'Add collection taxonomy'
       reorderable: true
@@ -73,5 +78,6 @@ fields:
       instructions: 'Select which collection term urls to include in the sitemap.xml. For example: _/blog/tags/retrowave_.'
       listable: hidden
       always_save: true
+      localizable: true
       if:
         use_sitemap: 'equals true'
