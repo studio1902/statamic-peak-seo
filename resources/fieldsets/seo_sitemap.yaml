@@ -24,6 +24,7 @@ fields:
       default: weekly
       listable: hidden
       display: 'Change frequency'
+      localizable: true
   -
     handle: sitemap_priority
     field:
@@ -34,3 +35,4 @@ fields:
       instructions_position: below
       width: 50
       listable: hidden
+      localizable: true
