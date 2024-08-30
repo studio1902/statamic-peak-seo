@@ -58,7 +58,6 @@ fields:
             visibility: visible
             hide_display: false
             instructions: 'Select which taxonomy to use for specified collections.'
-            localizable: true
         -
           handle: collections
           field:
@@ -68,7 +67,6 @@ fields:
             display: Collections
             width: 50
             instructions: "Select collections to assign the taxonomy's term urls."
-            localizable: true
       mode: stacked
       add_row: 'Add collection taxonomy'
       reorderable: true
