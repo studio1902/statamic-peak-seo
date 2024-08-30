@@ -8,6 +8,7 @@ fields:
       listable: false
       display: Local
       width: 33
+      localizable: true
   -
     handle: noindex_staging
     field:
@@ -16,6 +17,7 @@ fields:
       listable: false
       display: Staging
       width: 33
+      localizable: true
   -
     handle: noindex_production
     field:
@@ -24,3 +26,4 @@ fields:
       listable: false
       display: Production
       width: 33
+      localizable: true
