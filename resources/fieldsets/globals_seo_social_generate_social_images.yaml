@@ -10,6 +10,7 @@ fields:
       instructions_position: below
       listable: hidden
       width: 50
+      localizable: true
   -
     handle: social_images_collections
     field:
@@ -21,6 +22,7 @@ fields:
       instructions_position: below
       listable: hidden
       width: 50
+      localizable: true
       if:
         use_social_image_generation: 'equals true'
   - 
@@ -33,5 +35,6 @@ fields:
       instructions_position: below
       listable: hidden
       width: 100
+      localizable: true
       if:
         use_social_image_generation: 'equals true'

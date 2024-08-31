@@ -18,3 +18,4 @@ fields:
       display: 'Meta description'
       character_limit: '160'
       instructions: "This entry's meta description. Max 160 characters."
+      localizable: true

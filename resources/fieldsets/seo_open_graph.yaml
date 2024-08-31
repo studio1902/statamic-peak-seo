@@ -17,6 +17,7 @@ fields:
       display: 'Social description'
       instructions: "This entry's OG description, defaults to meta description."
       width: 100
+      localizable: true
   -
     handle: og_image
     field: common.image
@@ -28,3 +29,4 @@ fields:
       instructions: "This entry's OG image. Defaults to global site OG image. The recommended size is 1200px x 630px. The image will be focal cropped to this dimension."
       instructions_position: below
       width: 50
+      localizable: true

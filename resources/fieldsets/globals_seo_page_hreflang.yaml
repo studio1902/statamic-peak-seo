@@ -9,3 +9,4 @@ fields:
       listable: hidden
       instructions_position: above
       width: 50
+      localizable: true

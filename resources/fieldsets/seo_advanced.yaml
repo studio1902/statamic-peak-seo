@@ -9,6 +9,7 @@ fields:
       listable: hidden
       width: 50
       display: No-index
+      localizable: true
   -
     handle: seo_nofollow
     field:
@@ -18,6 +19,7 @@ fields:
       listable: hidden
       width: 50
       display: No-follow
+      localizable: true
   -
     handle: seo_canonical_type
     field:
@@ -31,6 +33,7 @@ fields:
       icon: button_group
       instructions: 'Where should the canonical URL for this entry point to.'
       listable: hidden
+      localizable: true
   -
     handle: seo_canonical_current
     field: common.entry
@@ -52,6 +55,7 @@ fields:
       type: text
       icon: text
       listable: hidden
+      localizable: true
       validate:
         - 'required_if:seo_canonical_type,external'
       if:
