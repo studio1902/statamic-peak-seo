@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.16.0 (2024-08-31)
+
+### What's new
+- Make all fields localizable by default. #46 by @carstenjaksch
+
 ## v8.15.3 (2024-07-06)
 
 ### What's improved
