@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.17.0 (2024-11-13)
+
+### What's new
+- Translations for generating OG translations moved to this addon. 4938de93 by @robdekort
+
 ## v8.16.1 (2024-11-13)
 
 ### What's fixed
