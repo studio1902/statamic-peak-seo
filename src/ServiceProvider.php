@@ -28,6 +28,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         $this->registerPublishableFieldsets();
         $this->registerPublishableViews();
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'statamic-peak-seo');
     }
 
     protected function registerPublishableFieldsets()

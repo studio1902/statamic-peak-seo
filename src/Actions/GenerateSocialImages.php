@@ -53,7 +53,7 @@ class GenerateSocialImages extends Action
         $driver = config("queue.connections.$queue.driver");
 
         return $driver === 'sync'
-            ? trans_choice('strings.social_images', $items)
-            : trans_choice('strings.social_images_queue', $items);
+            ? trans_choice('statamic-peak-seo::default.social_images', $items)
+            : trans_choice('statamic-peak-seo::default.social_images_queue', $items);
     }
 }
