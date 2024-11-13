@@ -150,7 +150,7 @@
                 return {
                     data: Alpine.store('consentBanner').data,
                     init() {
-                        if (Alpine.store('consentBanner').getConsentDate() < '{{ seo:consent_revoke_before format="U" }}') {
+                        if ({{ seo:consent_revoke_before | bool_string }} && Alpine.store('consentBanner').getConsentDate() < '{{ seo:consent_revoke_before format="U" }}') {
                             Alpine.store('consentBanner').invalidate()
                         }
                         if (Alpine.store('consentBanner').useConsentAPI() && Alpine.store('consentBanner').getConsent()) {
