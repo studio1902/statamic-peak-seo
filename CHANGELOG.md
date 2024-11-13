@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.16.1 (2024-11-13)
+
+### What's fixed
+- Incorrect consent banner invalidation caused by a Statamic change in date field handling. e0f7f6b4 by @dally-dally and @robdekort
+
 ## v8.16.0 (2024-08-31)
 
 ### What's new
