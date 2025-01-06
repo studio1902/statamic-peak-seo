@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.19.0 (2025-01-06)
+
+### What's new
+- Adds a method to accept only one consent type programatically. #51 by @carstenjaksch
+
 ## v8.18.0 (2024-12-06)
 
 ### What's changed
