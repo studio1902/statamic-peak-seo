@@ -95,6 +95,12 @@
                     this.data.types.forEach((type) => type.value = true)
                     this.saveConsent()
                 },
+                accept(handle) {
+                    this.data.types.filter((type) => {
+                        return type['handle'] === handle
+                    }).forEach((type) => type.value = true)
+                    this.saveConsent()
+                },
                 getConsent() {
                     return this.data.consent
                 },
