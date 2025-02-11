@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.19.1 (2025-02-11)
+
+### What's improved
+- Use `show_set_alt: false` on SEO image fields. 2ef29736 by @robdekort
+
 ## v8.19.0 (2025-01-06)
 
 ### What's new
