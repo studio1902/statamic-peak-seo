@@ -39,6 +39,8 @@ fields:
       width: 33
       if:
         json_ld_type: 'equals organization'
+      show_set_alt: false
+
   -
     handle: person_name
     field:

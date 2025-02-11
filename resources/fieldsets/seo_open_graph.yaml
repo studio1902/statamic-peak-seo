@@ -30,3 +30,4 @@ fields:
       instructions_position: below
       width: 50
       localizable: true
+      show_set_alt: false

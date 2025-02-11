@@ -11,3 +11,4 @@ fields:
       instructions_position: below
       instructions: 'The default OG image. Can be overridden per entry. The recommended size is 1200px x 630px. This image will be focal cropped to this dimension.'
       width: 50
+      show_set_alt: false
