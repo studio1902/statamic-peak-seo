@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.20.0 (2025-03-14)
+
+### What's new
+- Added ability to set a custom chromePath for Puppeteer when generating social images. 0139ed9d by @robdekort
+
 ## v8.19.1 (2025-02-11)
 
 ### What's improved
