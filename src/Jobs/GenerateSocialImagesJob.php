@@ -76,13 +76,16 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         } else
             $browsershot = Browsershot::url("{$absolute_url}/social-images/{$id}");
 
-
         if ($nodeBinary = config('statamic-peak-seo.social_image.node_binary')) {
             $browsershot->setNodeBinary($nodeBinary);
         }
 
         if ($npmBinary = config('statamic-peak-seo.social_image.npm_binary')) {
             $browsershot->setNpmBinary($npmBinary);
+        }
+
+        if ($chromePath = config('statamic-peak-seo.social_image.chrome_path')) {
+            $browsershot->setChromePath($chromePath);
         }
 
         return $browsershot;
