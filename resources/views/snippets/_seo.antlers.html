@@ -51,7 +51,7 @@
 
 {{# hreflang tags #}}
 {{ if seo:hreflang_auto }}
-    {{ if not seo_noindex and seo_canonical_type == 'entry' and current_full_url === permalink }}
+    {{ if not seo_noindex and seo_canonical_type == 'entry' and current_url === permalink }}
         {{ locales all="false" }}
             <link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}">
         {{ /locales }}
