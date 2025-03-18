@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.20.1 (2025-03-18)
+
+### What's fixed
+- Don't use URL including parameters for hreflang tags. 5fdf34e2 by @robdekort
+
 ## v8.20.0 (2025-03-14)
 
 ### What's new
