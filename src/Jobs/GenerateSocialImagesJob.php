@@ -52,12 +52,22 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         $title = Str::of($this->item->get('title'))->slug('-');
         $unique = time();
 
+        // Get config.
+        $format = config('statamic-peak-seo.social_image.format');
+        $resolution = explode('x', config('statamic-peak-seo.social_image.resolution'));
+        $selector = config('statamic-peak-seo.social_image.selector');
+
         // Generate, save and set default og image/meta.
-        $file = "{$title}-og-{$unique}.png";
+        $file = "{$title}-og-{$unique}.{$format}";
         $image = $this->setupBrowsershot()
-            ->windowSize(1200, 630)
-            ->select('#og')
+            ->windowSize($resolution[0], $resolution[1])
+            ->select("#{$selector}")
             ->waitUntilNetworkIdle();
+
+        if ($format === 'jpg') {
+            $image->setScreenshotType('jpeg', 100);
+        }
+
         if (strtolower(config("filesystems.disks.{$container->disk}.driver") == 's3')) {
             $disk->put($file, $image->screenshot());
         } else {
