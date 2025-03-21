@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.21.0 (2025-03-21)
+
+### What's new
+- Options to customize OG selector, resolution and format. e54eb7b0 by @robdekort
+
 ## v8.20.1 (2025-03-18)
 
 ### What's fixed
