@@ -56,6 +56,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         $format = config('statamic-peak-seo.social_image.format');
         $resolution = explode('x', config('statamic-peak-seo.social_image.resolution'));
         $selector = config('statamic-peak-seo.social_image.selector');
+        $quality = config('statamic-peak-seo.social_image.jpg-quality');
 
         // Generate, save and set default og image/meta.
         $file = "{$title}-og-{$unique}.{$format}";
@@ -65,7 +66,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
             ->waitUntilNetworkIdle();
 
         if ($format === 'jpg') {
-            $image->setScreenshotType('jpeg', 100);
+            $image->setScreenshotType('jpeg', $quality);
         }
 
         if (strtolower(config("filesystems.disks.{$container->disk}.driver") == 's3')) {
