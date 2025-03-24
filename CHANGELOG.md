@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.21.1 (2025-03-24)
+
+### What's new
+- Add social image JPG quality option. 07a250fa by @robdekort
+
 ## v8.21.0 (2025-03-21)
 
 ### What's new
