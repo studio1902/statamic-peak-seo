@@ -7,7 +7,7 @@
     let consentData = {
         "consent": {{ (seo:tracker_type == 'none' && seo:hide_by_default) | bool_string }},
         "date": null,
-        "consent_api": {{ (seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm') | bool_string }},
+        "consent_api": {{ (seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' || seo:tracker_type == 'sgtm') | bool_string }},
         "custom_scripts": {{ (seo:tracker_type == 'scripts') | bool_string }},
         "types": [
             {
@@ -17,7 +17,7 @@
                 "explanation": "{{ trans:strings.consent_functional_explanation }}",
                 "disabled": true
             },
-            {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' }}
+            {{ if seo:tracker_type == 'gtag' || seo:tracker_type == 'gtm' || seo:tracker_type == 'sgtm' }}
                 {
                     "value": false,
                     "handle": "analyticsStorage",
@@ -33,7 +33,7 @@
                     ]
                 },
             {{ /if }}
-            {{ if seo:tracker_type == 'gtm' }}
+            {{ if seo:tracker_type == 'gtm' || seo:tracker_type == 'sgtm' }}
                 {
                     "value": false,
                     "handle": "adStorage",
