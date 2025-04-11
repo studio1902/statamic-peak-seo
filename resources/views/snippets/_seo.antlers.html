@@ -149,12 +149,12 @@
     (environment == 'staging' && seo:trackers_staging) or
     (environment == 'production' && seo:trackers_production)
 }}
-    {{ if seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag' }}
+    {{ if seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag' || seo:tracker_type == 'sgtm' }}
         <script>
             window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
         </script>
     {{ /if }}
-    {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag') }}
+    {{ if seo:use_consent_banner && (seo:tracker_type == 'gtm' || seo:tracker_type == 'gtag' || seo:tracker_type == 'sgtm') }}
         <script>
             gtag('consent', 'default', {
                 'analytics_storage': 'denied',
@@ -171,6 +171,8 @@
     {{ elseif seo:tracker_type == 'gtag' }}
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ seo:google_analytics }}"></script>
         <script>gtag('js', new Date());gtag('set', new Date());gtag('config', '{{ seo:google_analytics }}' {{ if seo:anonymize_ip }}, {'anonymize_ip': true}{{ /if }});</script>
+    {{ elseif seo:tracker_type == 'sgtm' }}
+        <script>{{ seo:sgtm_script }}</script>
     {{ elseif seo:tracker_type == 'scripts' && !seo:use_consent_banner }}
         {{ seo:scripts }}
             {{ script_fragments }}

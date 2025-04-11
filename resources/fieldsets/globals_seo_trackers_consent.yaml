@@ -7,6 +7,7 @@ fields:
         none: None
         gtag: 'Google Analytics'
         gtm: 'Google Tag Manager'
+        sgtm: 'Server-side Tag Manager'
         scripts: 'Custom scripts'
       default: none
       type: button_group
@@ -286,6 +287,19 @@ fields:
         - 'required_if:tracker_type,gtm'
       if:
         tracker_type: 'equals gtm'
+  -
+    handle: sgtm_script
+    field:
+      type: textarea
+      listable: hidden
+      display: 'sGTM Script'
+      instructions_position: below
+      instructions: 'Add the contents of the `<script>` tag.'
+      localizable: true
+      validate:
+        - 'required_if:tracker_type,sgtm'
+      if:
+        tracker_type: 'equals sgtm'
   -
     handle: use_consent_banner
     field:
