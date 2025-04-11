@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.22.1 (2025-04-11)
+
+### What's fixed
+- Render consent types in banner when using sgtm. 7302f7d5 by @porstendorfer @robdekort
+
 ## v8.22.0 (2025-04-11)
 
 ### What's new
