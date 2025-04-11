@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.22.0 (2025-04-11)
+
+### What's new
+- Add support for server side tracking. c94eb857 by @porstendorfer @robdekort
+
 ## v8.21.1 (2025-03-24)
 
 ### What's new
