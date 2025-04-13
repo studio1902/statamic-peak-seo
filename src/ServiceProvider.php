@@ -4,11 +4,16 @@ namespace Studio1902\PeakSeo;
 
 use Statamic\Providers\AddonServiceProvider;
 use Studio1902\PeakSeo\Actions\GenerateSocialImages;
+use Studio1902\PeakSeo\Tags\PeakSeoFindRedirectRule;
 
 class ServiceProvider extends AddonServiceProvider
 {
     protected $actions = [
         GenerateSocialImages::class
+    ];
+
+    protected $tags = [
+        PeakSeoFindRedirectRule::class,
     ];
 
     protected $routes = [
