@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.23.0 (2025-04-16)
+
+### What's new
+- Add regex handling in the source URL to the redirect feature. #60 by @elowry
+
 ## v8.22.1 (2025-04-11)
 
 ### What's fixed
