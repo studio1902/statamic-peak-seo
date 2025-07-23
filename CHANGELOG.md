@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.24.0 (2025-07-23)
+
+### What's improved
+- Simplify OG asset logic. 888ce5a5 by @robdekort
+
 ## v8.23.0 (2025-04-16)
 
 ### What's new
