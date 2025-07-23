@@ -38,7 +38,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
 
         // Delete any old images/meta remaining.
         $image = $this->item->get('og_image');
-        if ($container->asset($image) && $container->asset($image)->exists()) {
+        if ($image && $container->asset($image)?->exists()) {
             $container->asset($image)->delete();
         }
 
