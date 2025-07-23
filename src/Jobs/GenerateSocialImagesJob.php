@@ -37,16 +37,10 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         $disk = $container->disk();
 
         // Delete any old images/meta remaining.
-        collect([
-            $this->item->get('og_image'),
-        ])
-            ->filter()
-            ->unique()
-            ->each(function ($image) use ($container) {
-                if ($container->asset($image) && $container->asset($image)->exists()) {
-                    $container->asset($image)->delete();
-                }
-            });
+        $image = $this->item->get('og_image');
+        if ($container->asset($image) && $container->asset($image)->exists()) {
+            $container->asset($image)->delete();
+        }
 
         // Prepare.
         $title = Str::of($this->item->get('title'))->slug('-');
@@ -69,7 +63,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
             $image->setScreenshotType('jpeg', $quality);
         }
 
-        if (strtolower(config("filesystems.disks.{$container->disk}.driver") == 's3')) {
+        if (strtolower(config("filesystems.disks.{$container->disk}.driver") === 's3')) {
             $disk->put($file, $image->screenshot());
         } else {
             $image->save($disk->path($file));
