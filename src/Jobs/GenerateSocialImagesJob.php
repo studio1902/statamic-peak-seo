@@ -63,11 +63,13 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
             $image->setScreenshotType('jpeg', $quality);
         }
 
-        if (strtolower(config("filesystems.disks.{$container->disk}.driver") === 's3')) {
+        $driver = strtolower(config("filesystems.disks.{$container->disk}.driver"));
+        if ($driver === 's3') {
             $disk->put($file, $image->screenshot());
         } else {
             $image->save($disk->path($file));
         }
+
         $container->makeAsset($file)->save();
         $this->item->set('og_image', $file)->save();
     }
