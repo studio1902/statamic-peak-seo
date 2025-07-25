@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.25.1 (2025-07-25)
+
+### What's improved
+- Code readability. #61 by @vannut
+
 ## v8.25.0 (2025-07-23)
 
 ### What's improved
