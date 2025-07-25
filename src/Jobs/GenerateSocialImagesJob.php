@@ -38,7 +38,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
 
         // Delete any old images/meta remaining.
         $image = $this->item->get('og_image');
-        if ($container->asset($image) && $container->asset($image)->exists()) {
+        if ($image && $container->asset($image)?->exists()) {
             $container->asset($image)->delete();
         }
 
@@ -46,11 +46,14 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         $title = Str::of($this->item->get('title'))->slug('-');
         $unique = time();
 
-        // Get config.
-        $format = config('statamic-peak-seo.social_image.format');
-        $resolution = explode('x', config('statamic-peak-seo.social_image.resolution'));
-        $selector = config('statamic-peak-seo.social_image.selector');
-        $quality = config('statamic-peak-seo.social_image.jpg-quality');
+        // Get config
+        $socialConfig = config('statamic-peak-seo.social_image');
+        
+        // Usefull for clarity in code.
+        $format = $socialConfig['format'];
+        $resolution = explode('x', $socialConfig['resolution']);
+        $selector = $socialConfig['selector'];
+        $quality = $socialConfig['quality'];
 
         // Generate, save and set default og image/meta.
         $file = "{$title}-og-{$unique}.{$format}";
@@ -80,9 +83,10 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
 
         if (GlobalSet::findByHandle('seo')->inDefaultSite()->get('use_no_sandbox_for_social_image_generation')) {
             $browsershot = Browsershot::url("{$absolute_url}/social-images/{$id}")->noSandbox();
-        } else
+        } else {
             $browsershot = Browsershot::url("{$absolute_url}/social-images/{$id}");
-
+        }
+        
         if ($nodeBinary = config('statamic-peak-seo.social_image.node_binary')) {
             $browsershot->setNodeBinary($nodeBinary);
         }
