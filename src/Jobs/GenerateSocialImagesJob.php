@@ -48,12 +48,12 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
 
         // Get config
         $socialConfig = config('statamic-peak-seo.social_image');
-        
+
         // Usefull for clarity in code.
         $format = $socialConfig['format'];
         $resolution = explode('x', $socialConfig['resolution']);
         $selector = $socialConfig['selector'];
-        $quality = $socialConfig['quality'];
+        $quality = $socialConfig['jpg-quality'];
 
         // Generate, save and set default og image/meta.
         $file = "{$title}-og-{$unique}.{$format}";
@@ -86,7 +86,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         } else {
             $browsershot = Browsershot::url("{$absolute_url}/social-images/{$id}");
         }
-        
+
         if ($nodeBinary = config('statamic-peak-seo.social_image.node_binary')) {
             $browsershot->setNodeBinary($nodeBinary);
         }
