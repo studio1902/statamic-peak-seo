@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.25.2 (2025-10-24)
+
+### What's improved
+- Use stacked layout in redirects for improved legibility. 94123da2 by @robdekort
+
 ## v8.25.1 (2025-07-25)
 
 ### What's improved
