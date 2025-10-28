@@ -58,9 +58,10 @@ fields:
     handle: json_ld
     field:
       type: textarea
-      instructions: 'Add custom JSON-LD to be included on each page. This can include stuff like business hours and contact data.'
+      instructions: 'Add custom JSON-LD to be included on each page. This can include stuff like business hours and contact data. You can use Antlers. The snippet will be wrapped in the appropriate script tag.'
       localizable: true
       listable: false
+      antlers: true
       display: JSON-LD
       if:
         json_ld_type: 'equals custom'
