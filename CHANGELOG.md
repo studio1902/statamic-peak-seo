@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.26.0 (2025-10-28)
+
+### What's improved
+- Support Antlers in JSON-ld snippets. 81fb8818 by @robdekort
+
 ## v8.25.2 (2025-10-24)
 
 ### What's improved
