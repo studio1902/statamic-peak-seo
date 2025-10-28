@@ -6,6 +6,7 @@ fields:
     config:
       listable: false
       display: 'JSON-ld schema'
-      instructions: 'Custom JSON-ld objects. Will be wrapped in the appropriate script tag.'
+      instructions: 'Custom JSON-ld objects. You can use Antlers. The snippet will be wrapped in the appropriate script tag.'
       width: 100
       localizable: true
+      antlers: true
