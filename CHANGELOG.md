@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.26.1 (2025-10-30)
+
+### What's fixed
+- Fix JSON-ld Organization URL. f303ee92 by @robdekort
+
 ## v8.26.0 (2025-10-28)
 
 ### What's improved
