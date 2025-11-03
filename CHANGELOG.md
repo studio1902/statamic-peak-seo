@@ -1,5 +1,10 @@
 # Changelog
 
+## v8.26.2 (2025-11-03)
+
+### What's fixed
+- Fix JSON-ld Organization URL in a multi-domain setup. 4a55b499 by @robdekort
+
 ## v8.26.1 (2025-10-30)
 
 ### What's fixed
