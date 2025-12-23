@@ -1,5 +1,10 @@
 # Changelog
 
+## v9.0.0 (2025-12-23)
+
+### What's new
+- Breaking: Use new tracking script for Plausible. If you use Plausible, update your Global SEO tracking configuration. 22ddb9c4 by @robdekort
+
 ## v8.26.2 (2025-11-03)
 
 ### What's fixed
