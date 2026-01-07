@@ -10,7 +10,7 @@ use Studio1902\PeakSeo\Jobs\GenerateSocialImagesJob;
 class GenerateSocialImages extends Action
 {
     public $available_collections = array();
-    public $icon = 'orientation-image-picture-horizontal-landscape';
+    public $icon = 'share-mega-phone';
 
     public function __construct() {
         if (GlobalSet::findByHandle('seo')->inDefaultSite()->get('use_social_image_generation') && GlobalSet::findByHandle('seo')->inDefaultSite()->get('social_images_collections')) {
