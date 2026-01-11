@@ -39,7 +39,7 @@ fields:
     field: common.entry
     config:
       localizable: true
-      listable: hidden
+      listable: false
       display: 'Canonical URL'
       width: 66
       instructions: 'If this is an entry with duplicate content. Enter the original URL for this content.'
@@ -54,7 +54,7 @@ fields:
       display: 'Canonical URL'
       type: text
       icon: text
-      listable: hidden
+      listable: false
       localizable: true
       validate:
         - 'required_if:seo_canonical_type,external'
