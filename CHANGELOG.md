@@ -1,5 +1,13 @@
 # Changelog
 
+## v10.0.0 (2026-01-25)
+
+### What's new
+- Statamic v6 support. 325e6d2 by @robdekort
+- Hide some canonical fields. 840fd0a1 by @robdekort
+- Update revoke consent instructions. 64ebe45a by @robdekort
+- Use share megaphone icon for OG action. dd9c3288 by @robdekort
+
 ## v9.0.0 (2025-12-23)
 
 ### What's new
