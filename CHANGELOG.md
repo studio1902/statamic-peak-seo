@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.0.0 (2026-02-19)
+
+### What's new
+- Breaking: Add `directory="_build"` to the vite tag in the social images layout file. Opt into this [recent change in Peak](https://github.com/studio1902/statamic-peak/commit/87c8588069f70922717040f1a95512895326c8a5), or publish your the Peak SEO views and remove `directory="_build"` from `social_images.antlers.html`. ffdc696c by @robdekort
+
 ## v10.0.0 (2026-01-25)
 
 ### What's new
