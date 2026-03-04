@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.0.1 (2026-03-04)
+
+### What's improved
+- When generating OG images delete the field reference first to prevent errors when the job fails. 6130bc74 by @robdekort
+
 ## v11.0.0 (2026-02-19)
 
 ### What's new
