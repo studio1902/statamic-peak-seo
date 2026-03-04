@@ -36,10 +36,17 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         $container = AssetContainer::find('social_images');
         $disk = $container->disk();
 
-        // Delete any old images/meta remaining.
-        $image = $this->item->get('og_image');
-        if ($image && $container->asset($image)?->exists()) {
-            $container->asset($image)->delete();
+        // Remove any existing saved reference and image source.
+        if ($this->item->has('og_image')) {
+            $image = $this->item->get('og_image');
+
+            // Trash the reference now in case this job fails later.
+            $this->item->remove('og_image')->save();
+
+            // Trash the image if it exists.
+            if ($container->asset($image)?->exists()) {
+                $container->asset($image)->delete();
+            }
         }
 
         // Prepare.
