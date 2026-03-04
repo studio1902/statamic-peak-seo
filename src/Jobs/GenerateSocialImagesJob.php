@@ -2,6 +2,7 @@
 
 namespace Studio1902\PeakSeo\Jobs;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,17 +38,7 @@ class GenerateSocialImagesJob implements ShouldBeUnique, ShouldQueue {
         $disk = $container->disk();
 
         // Remove any existing saved reference and image source.
-        if ($this->item->has('og_image')) {
-            $image = $this->item->get('og_image');
-
-            // Trash the reference now in case this job fails later.
-            $this->item->remove('og_image')->save();
-
-            // Trash the image if it exists.
-            if ($container->asset($image)?->exists()) {
-                $container->asset($image)->delete();
-            }
-        }
+        $this->item->og_image?->delete();
 
         // Prepare.
         $title = Str::of($this->item->get('title'))->slug('-');
