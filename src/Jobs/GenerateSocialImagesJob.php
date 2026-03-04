@@ -2,7 +2,6 @@
 
 namespace Studio1902\PeakSeo\Jobs;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
