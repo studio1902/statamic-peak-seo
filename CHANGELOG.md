@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.0.2 (2026-03-04)
+
+### What's fixed
+- Improve reliability of OG Job on a queue. 0b402bdb by @marcorieser
+
 ## v11.0.1 (2026-03-04)
 
 ### What's improved
