@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.1.0 (2026-03-25)
+
+### What's new
+- Make sure old redirect URL starts with a slash. 9d07da20 by @robdekort
+
 ## v11.0.2 (2026-03-04)
 
 ### What's fixed
