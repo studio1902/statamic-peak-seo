@@ -18,6 +18,7 @@ fields:
             placeholder: /old-url
             validate:
               - required
+              - 'starts_with:/'
             localizable: false
         -
           handle: internal_url
