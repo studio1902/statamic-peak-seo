@@ -10,7 +10,7 @@ fields:
       type: button_group
       default: default
       icon: button_group
-      instructions: '"Default" uses the global indexing setting for this collection or taxonomy. Also affects sitemap.xml inclusion.'
+      instructions: 'Instruct crawlers not to index this entry. "Default" uses the global indexing setting for this collection or taxonomy. Also affects sitemap.xml inclusion.'
       instructions_position: below
       listable: hidden
       width: 50
