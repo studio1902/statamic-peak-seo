@@ -1,0 +1,36 @@
+title: 'Globals SEO: Indexing - Taxonomies'
+fields:
+  -
+    handle: taxonomy_indexing_defaults
+    field:
+      fields:
+        -
+          handle: taxonomy
+          field:
+            max_items: 1
+            mode: select
+            display: Taxonomy
+            type: taxonomies
+            icon: taxonomies
+            width: 50
+            listable: hidden
+        -
+          handle: noindex
+          field:
+            options:
+              index: Index
+              noindex: Noindex
+            display: Indexing
+            type: button_group
+            icon: button_group
+            default: index
+            width: 50
+            listable: hidden
+      mode: stacked
+      add_row: 'Add taxonomy'
+      reorderable: true
+      display: 'Taxonomy defaults'
+      type: grid
+      icon: grid
+      listable: hidden
+      localizable: true

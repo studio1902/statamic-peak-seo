@@ -32,17 +32,37 @@
     <meta name="description" content="{{ partial:statamic-peak-seo::snippets/fallback_description }}">
 {{ /if }}
 
+{{# Resolve noindex: entry override → global default → index #}}
+{{ resolved_noindex = false }}
+{{ if seo_noindex == 'noindex' || seo_noindex == true }}
+    {{ resolved_noindex = true }}
+{{ elseif seo_noindex == 'default' || !seo_noindex }}
+    {{ if collection }}
+        {{ seo:collection_indexing_defaults | where('collection', collection) }}
+            {{ if noindex == 'noindex' }}
+                {{ resolved_noindex = true }}
+            {{ /if }}
+        {{ /seo:collection_indexing_defaults }}
+    {{ elseif taxonomy }}
+        {{ seo:taxonomy_indexing_defaults | where('taxonomy', taxonomy) }}
+            {{ if noindex == 'noindex' }}
+                {{ resolved_noindex = true }}
+            {{ /if }}
+        {{ /seo:taxonomy_indexing_defaults }}
+    {{ /if }}
+{{ /if }}
+
 {{# No index and no follow #}}
 {{ if
     (environment == 'local' && !seo:noindex_local) or
     (environment == 'staging' && !seo:noindex_staging) or
     (environment == 'production' && !seo:noindex_production)
 }}
-   {{ if seo_noindex && seo_nofollow }}
+   {{ if resolved_noindex && seo_nofollow }}
        <meta name="robots" content="noindex, nofollow">
    {{ elseif seo_nofollow }}
        <meta name="robots" content="nofollow">
-   {{ elseif seo_noindex }}
+   {{ elseif resolved_noindex }}
        <meta name="robots" content="noindex">
    {{ /if }}
 {{ else }}
@@ -51,7 +71,7 @@
 
 {{# hreflang tags #}}
 {{ if seo:hreflang_auto }}
-    {{ if not seo_noindex and seo_canonical_type == 'entry' and current_url === permalink }}
+    {{ if not resolved_noindex and seo_canonical_type == 'entry' and current_url === permalink }}
         {{ locales all="false" }}
             <link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}">
         {{ /locales }}
@@ -59,7 +79,7 @@
 {{ /if }}
 
 {{# Canonical URL #}}
-{{ if not seo_noindex }}
+{{ if not resolved_noindex }}
     {{ if seo_canonical_type == 'current' }}
         <link rel="canonical" href="{{ config:app:url }}{{ seo_canonical_current | url }}">
     {{ elseif seo_canonical_type == 'external' }}
