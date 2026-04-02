@@ -23,7 +23,7 @@ class MigrateNoindexToButtonGroup extends UpdateScript
                 $entry->set('seo_noindex', 'noindex')->saveQuietly();
                 $updated++;
             } elseif ($value === false || is_null($value)) {
-                $entry->set('seo_noindex', 'default')->saveQuietly();
+                $entry->set('seo_noindex', 'inherit')->saveQuietly();
                 $updated++;
             }
         });

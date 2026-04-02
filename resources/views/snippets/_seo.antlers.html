@@ -36,7 +36,7 @@
 {{ resolved_noindex = false }}
 {{ if seo_noindex == 'noindex' || seo_noindex == true }}
     {{ resolved_noindex = true }}
-{{ elseif seo_noindex == 'default' || !seo_noindex }}
+{{ elseif seo_noindex == 'inherit' || !seo_noindex }}
     {{ if collection }}
         {{ seo:collection_indexing_defaults | where('collection', collection) }}
             {{ if noindex == 'noindex' }}
