@@ -15,7 +15,7 @@
                 {{ results where (x => x.permalink !== null) }}
                     {{# Resolve noindex: entry override → global default → index #}}
                     {{ resolved_noindex = false }}
-                    {{ if seo_noindex == 'noindex' || seo_noindex == true }}
+                    {{ if seo_noindex == 'noindex' }}
                         {{ resolved_noindex = true }}
                     {{ elseif seo_noindex == 'index' }}
                         {{ resolved_noindex = false }}
@@ -55,7 +55,7 @@
                 {{ results where (x => x.permalink !== null) }}
                     {{# Resolve noindex: term override → global default → index #}}
                     {{ resolved_noindex = false }}
-                    {{ if seo_noindex == 'noindex' || seo_noindex == true }}
+                    {{ if seo_noindex == 'noindex' }}
                         {{ resolved_noindex = true }}
                     {{ elseif seo_noindex == 'index' }}
                         {{ resolved_noindex = false }}
@@ -86,7 +86,7 @@
                     {{ results }}
                         {{# Resolve noindex: term override → global default → index #}}
                         {{ resolved_noindex = false }}
-                        {{ if seo_noindex == 'noindex' || seo_noindex == true }}
+                        {{ if seo_noindex == 'noindex' }}
                             {{ resolved_noindex = true }}
                         {{ elseif seo_noindex == 'index' }}
                             {{ resolved_noindex = false }}

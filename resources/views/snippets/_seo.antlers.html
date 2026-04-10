@@ -34,7 +34,7 @@
 
 {{# Resolve noindex: entry override → global default → index #}}
 {{ resolved_noindex = false }}
-{{ if seo_noindex == 'noindex' || seo_noindex == true }}
+{{ if seo_noindex == 'noindex' }}
     {{ resolved_noindex = true }}
 {{ elseif seo_noindex == 'inherit' || !seo_noindex }}
     {{ if collection }}
