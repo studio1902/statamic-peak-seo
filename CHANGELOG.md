@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.2.0 (2026-04-13)
+
+### What's new
+- Global indexing defaults per collection and taxonomy. #68 by @jivedig
+
 ## v11.1.0 (2026-03-25)
 
 ### What's new
