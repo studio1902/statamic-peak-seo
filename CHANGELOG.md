@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.3.1 (2026-04-13)
+
+### What's improved
+- Ensure sitemap URL contains `/`. 51433a45 by @robdekort
+
 ## v11.3.0 (2026-04-13)
 
 ### What's new
