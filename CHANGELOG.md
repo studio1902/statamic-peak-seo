@@ -1,11 +1,16 @@
 # Changelog
 
-## v11.3.1 (2026-04-13)
+## v11.4.0 (2026-06-10)
+
+### What's new
+- Explicitely set index when there's no noindex. 236fcaa7 by @robdekort
+
+## v11.3.1 (2026-06-10)
 
 ### What's improved
 - Ensure sitemap URL contains `/`. 51433a45 by @robdekort
 
-## v11.3.0 (2026-04-13)
+## v11.3.0 (2026-06-10)
 
 ### What's new
 - A global SEO option to edit your `robots.txt` content. A sitemap link gets automatically added to the `robots.txt` file. An update script migrates your current robots.txt content. c9c64a1d by @robdekort
