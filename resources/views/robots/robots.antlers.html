@@ -1,3 +1,3 @@
 {{ seo:robots }}
 
-Sitemap: {{ config:app:url }}{{ config:statamic:system:multisite ? 'sitemaps.xml' : 'sitemap.xml' }}
+Sitemap: {{ config:app:url | ensure_right('/') }}{{ config:statamic:system:multisite ? 'sitemaps.xml' : 'sitemap.xml' }}
