@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.3.0 (2026-04-13)
+
+### What's new
+- A global SEO option to edit your `robots.txt` content. A sitemap link gets automatically added to the `robots.txt` file. An update script migrates your current robots.txt content. c9c64a1d by @robdekort
+
 ## v11.2.0 (2026-04-13)
 
 ### What's new
