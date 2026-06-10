@@ -3,6 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Statamic\Facades\URL;
 
+// The Robots route for generating robots.txt
+Route::statamic(URL::tidy('/robots.txt'), 'statamic-peak-seo::robots/robots', [
+    'layout' => null,
+    'content_type' => 'text/plain',
+]);
+
 // The Sitemap Index route for listing sitemaps of all (multi)sites.
 Route::statamic(URL::tidy('/sitemaps.xml'), 'statamic-peak-seo::sitemap/sitemaps', [
     'layout' => null,

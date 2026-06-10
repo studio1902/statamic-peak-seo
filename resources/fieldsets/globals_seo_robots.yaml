@@ -1,0 +1,13 @@
+title: 'Globals SEO: Robots'
+fields:
+  -
+    handle: robots
+    field:
+      type: textarea
+      instructions: 'Allow or block certain blockers and parts of the website. The sitemap URL will be automatically appended. View the result on: `https://yoursite.com/robots.txt`.'
+      localizable: false
+      listable: false
+      display: Robots
+      default: |-
+        User-agent: *
+        Allow: /
