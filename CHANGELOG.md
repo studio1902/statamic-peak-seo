@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.5.0 (2026-06-15)
+
+### What's new
+- Add Umami analytics support. #69 by @eugene-karuna
+
 ## v11.4.0 (2026-06-10)
 
 ### What's new
