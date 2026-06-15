@@ -234,6 +234,10 @@
         </script>
     {{ /if }}
 
+    {{ if seo:use_umami && seo:umami_website_id && seo:umami_script_url }}
+        <script defer src="{{ seo:umami_script_url }}" data-website-id="{{ seo:umami_website_id }}"></script>
+    {{ /if }}
+
     {{ if seo:use_cloudflare_web_analytics }}
         <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "{{ seo:cloudflare_web_analytics }}"}'></script>
     {{ /if }}

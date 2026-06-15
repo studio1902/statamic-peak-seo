@@ -67,6 +67,43 @@ fields:
       if:
         use_plausible: 'equals true'
   -
+    handle: use_umami
+    field:
+      type: toggle
+      instructions: 'Add Umami tracking code to your head.'
+      listable: false
+      display: Umami
+      localizable: true
+  -
+    handle: umami_website_id
+    field:
+      display: 'Website ID'
+      instructions: 'Only add the website ID.'
+      input_type: text
+      type: text
+      listable: hidden
+      width: 50
+      localizable: true
+      validate:
+        - 'required_if:use_umami,true'
+      if:
+        use_umami: 'equals true'
+  -
+    handle: umami_script_url
+    field:
+      display: 'Script URL'
+      instructions: 'The Umami script URL. Use https://cloud.umami.is/script.js for Umami Cloud.'
+      input_type: text
+      type: text
+      listable: hidden
+      width: 50
+      localizable: true
+      default: 'https://cloud.umami.is/script.js'
+      validate:
+        - 'required_if:use_umami,true'
+      if:
+        use_umami: 'equals true'
+  -
     handle: use_cloudflare_web_analytics
     field:
       type: toggle
