@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.6.0 (2026-07-17)
+
+### What's new
+- Programatically add robots.txt to the exlcude from static caching array. efa1a8ab by @robdekort
+
 ## v11.5.0 (2026-06-15)
 
 ### What's new
