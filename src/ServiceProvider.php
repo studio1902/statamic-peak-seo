@@ -29,6 +29,7 @@ class ServiceProvider extends AddonServiceProvider
         \Studio1902\PeakSeo\Updates\AddRejectAll::class,
         \Studio1902\PeakSeo\Updates\MigrateNoindexToButtonGroup::class,
         \Studio1902\PeakSeo\Updates\AddRobots::class,
+        \Studio1902\PeakSeo\Updates\AddRobotsToStaticCaching::class,
     ];
 
     public function bootAddon()
