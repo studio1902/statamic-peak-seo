@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.7.0 (2026-07-28)
+
+### What's improved
+- Only output hreflang tags when locales differ. a41d35b1 by @robdekort
+
 ## v11.6.0 (2026-07-17)
 
 ### What's new
