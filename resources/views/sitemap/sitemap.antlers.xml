@@ -35,7 +35,9 @@
                                     {{ /section:namespace}}
                                 {{ /once }}
                                 {{ locales }}
-                                    <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
+                                    {{ if site:attributes:identifier === locale:attributes:identifier }}
+                                        <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
+                                    {{ /if }}
                                 {{ /locales }}
                             {{ /if }}
                         </url>

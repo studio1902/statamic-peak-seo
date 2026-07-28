@@ -75,9 +75,9 @@
 {{ if seo:hreflang_auto }}
     {{ if not resolved_noindex and seo_canonical_type == 'entry' and current_url === permalink }}
         {{ locales all="false" }}
-            {{ unless site:locale === locale:full }}
+            {{ if site:attributes:identifier === locale:attributes:identifier }}
                 <link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}">
-            {{ /unless }}
+            {{ /if }}
         {{ /locales }}
     {{ /if }}
 {{ /if }}
