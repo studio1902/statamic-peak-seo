@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.7.1 (2026-07-28)
+
+### What's improved
+- Use site attributes to determine site groups instead of locale. 6c5f2e48 by @robdekort
+
 ## v11.7.0 (2026-07-28)
 
 ### What's improved
