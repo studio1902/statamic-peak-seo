@@ -103,6 +103,7 @@
            {
                "@context": "http://schema.org",
                "@type": "Organization",
+               "@id": "{{ site:permalink }}/#organization",
                "name": "{{ seo:organization_name }}",
                "url": "{{ site:permalink }}"{{ if seo:organization_logo }},
                "logo": "{{ config:app:url }}{{ glide:seo:organization_logo width='336' height='336' fit='fill' }}"{{ /if }}
@@ -111,6 +112,7 @@
            {
                "@context": "http://schema.org",
                "@type": "Person",
+               "@id": "{{ site:permalink }}/#{{ seo:person_name | slugify }}",
                "url": "{{ site:permalink }}",
                "name": "{{ seo:person_name }}"
            }
