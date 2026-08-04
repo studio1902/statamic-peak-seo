@@ -1,5 +1,11 @@
 # Changelog
 
+## v11.8.0 (2026-08-04)
+
+### What's new
+- Add @id to JSON-LD for organization and person snippets. c988ebfa by @robdekort
+- Expand JSON-LD organization data. 3f0bdc11 by @robdekort
+
 ## v11.7.1 (2026-07-28)
 
 ### What's improved
