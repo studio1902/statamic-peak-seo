@@ -104,9 +104,22 @@
                "@context": "http://schema.org",
                "@type": "Organization",
                "@id": "{{ site:permalink }}/#organization",
-               "name": "{{ seo:organization_name }}",
-               "url": "{{ site:permalink }}"{{ if seo:organization_logo }},
-               "logo": "{{ config:app:url }}{{ glide:seo:organization_logo width='336' height='336' fit='fill' }}"{{ /if }}
+               "name": "{{ seo:organization_name | strip_tags | entities | trim }}"{{ if seo:organization_alternate_name }},
+               "alternateName": "{{ seo:organization_alternate_name | strip_tags | entities | trim }}"{{ /if }},
+               "url": "{{ site:permalink }}"{{ if configuration:copyright_since }},
+               "foundingDate": "{{ configuration:copyright_since }}"{{ /if }}{{ if seo:organization_description }},
+               "description": "{{ seo:organization_description | strip_tags | entities | trim }}"{{ /if }}{{ if seo:organization:logo }},
+               "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ config:app:url }}{{ glide:seo:organization_logo width='336' height='336' fit='fill' }}",
+                    "width": 336,
+                    "height": 336
+               }{{ /if }}{{ if social_media:social_media }},
+               "sameAs": [
+                {{ social_media:social_media }}
+                    "{{ prefix }}{{ handle }}"{{ !last ?= ',' }}
+                {{ /social_media:social_media }}
+               ]{{ /if }}
            }
        {{ elseif seo:json_ld_type == 'person' }}
            {

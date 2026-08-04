@@ -17,16 +17,32 @@ fields:
   -
     handle: organization_name
     field:
-      input_type: text
       type: text
       localizable: true
-      listable: hidden
       display: 'Organization name'
-      width: 66
+      width: 50
       if:
         json_ld_type: 'equals organization'
       validate:
-        - 'required_if:json_ld_type,organization'
+        - sometimes
+        - required
+  -
+    handle: organization_alternate_name
+    field:
+      type: text
+      localizable: true
+      display: 'Organization alternate name'
+      width: 50
+      if:
+        json_ld_type: 'equals organization'
+  -
+    handle: organization_description
+    field:
+      type: text
+      localizable: true
+      display: 'Organization description'
+      if:
+        json_ld_type: 'equals organization'
   -
     handle: organization_logo
     field: common.image
@@ -36,18 +52,15 @@ fields:
       display: 'Organization logo'
       instructions_position: below
       instructions: 'Minimum 112px x 112px, will be focal cropped to a square.'
-      width: 33
+      width: 50
       if:
         json_ld_type: 'equals organization'
       show_set_alt: false
-
   -
     handle: person_name
     field:
-      listable: hidden
       display: 'Person name'
-      width: 66
-      input_type: text
+      width: 50
       type: text
       localizable: true
       if:
