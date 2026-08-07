@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.9.0 (2026-08-07)
+
+### What's new
+- Use code fields for JSON-ld. 348292f7 by @robdekort
+
 ## v11.8.0 (2026-08-04)
 
 ### What's new
