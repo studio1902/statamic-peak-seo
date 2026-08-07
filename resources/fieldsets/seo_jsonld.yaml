@@ -1,12 +1,12 @@
-title: SEO JSON-ld
+title: 'SEO JSON-ld'
 fields:
   -
     handle: schema_jsonld
-    field: common.text_plain
-    config:
-      listable: false
+    field:
+      mode: application/ld+json
+      mode_selectable: false
+      show_mode_label: false
+      type: code
       display: 'JSON-ld schema'
       instructions: 'Custom JSON-ld objects. You can use Antlers. The snippet will be wrapped in the appropriate script tag.'
-      width: 100
       localizable: true
-      antlers: true
