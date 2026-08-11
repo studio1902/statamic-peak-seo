@@ -1,5 +1,11 @@
 # Changelog
 
+## v11.9.1 (2026-08-11)
+
+### What's improved
+- Use site root for @id in json-ld organization. 3562c372 by @robdekort
+- Fix json-ld organization logo. 3319d504 by @robdekort
+
 ## v11.9.0 (2026-08-07)
 
 ### What's new
