@@ -103,7 +103,7 @@
            {
                "@context": "http://schema.org",
                "@type": "Organization",
-               "@id": "{{ site:permalink }}/#organization",
+               "@id": "{{ config:app:url }}/#organization",
                "name": "{{ seo:organization_name | strip_tags | entities | trim }}"{{ if seo:organization_alternate_name }},
                "alternateName": "{{ seo:organization_alternate_name | strip_tags | entities | trim }}"{{ /if }},
                "url": "{{ site:permalink }}"{{ if configuration:copyright_since }},
