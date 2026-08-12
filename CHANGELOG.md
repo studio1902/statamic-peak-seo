@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.9.2 (2026-08-12)
+
+### What's improved
+- Exclude hreflang tags when localization is noindex. b77d721c by @robdekort
+
 ## v11.9.1 (2026-08-11)
 
 ### What's improved
