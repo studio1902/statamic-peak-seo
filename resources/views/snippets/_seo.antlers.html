@@ -33,57 +33,80 @@
 {{ /if }}
 
 {{# Resolve noindex: entry override → global default → index #}}
-{{ resolved_noindex = false }}
+{{ _resolved_noindex = false }}
 {{ if seo_noindex == 'noindex' }}
-    {{ resolved_noindex = true }}
+    {{ _resolved_noindex = true }}
 {{ elseif seo_noindex == 'inherit' || !seo_noindex }}
     {{ if collection }}
         {{ seo:collection_indexing_defaults | where('collection', collection) }}
             {{ if noindex == 'noindex' }}
-                {{ resolved_noindex = true }}
+                {{ _resolved_noindex = true }}
             {{ /if }}
         {{ /seo:collection_indexing_defaults }}
     {{ elseif taxonomy }}
         {{ seo:taxonomy_indexing_defaults | where('taxonomy', taxonomy) }}
             {{ if noindex == 'noindex' }}
-                {{ resolved_noindex = true }}
+                {{ _resolved_noindex = true }}
             {{ /if }}
         {{ /seo:taxonomy_indexing_defaults }}
     {{ /if }}
 {{ /if }}
 
-{{# No index and no follow #}}
+{{# No index, no follow and hreflang tags. #}}
 {{ if
     (environment == 'local' && !seo:noindex_local) or
     (environment == 'staging' && !seo:noindex_staging) or
     (environment == 'production' && !seo:noindex_production)
 }}
-   {{ if resolved_noindex && seo_nofollow }}
+   {{ if _resolved_noindex && seo_nofollow }}
        <meta name="robots" content="noindex, nofollow">
    {{ elseif seo_nofollow }}
        <meta name="robots" content="nofollow">
-   {{ elseif resolved_noindex }}
+   {{ elseif _resolved_noindex }}
        <meta name="robots" content="noindex">
    {{ else }}
        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+   {{ /if }}
+
+   {{# hreflang tags #}}
+   {{ if seo:hreflang_auto }}
+       {{ if not _resolved_noindex and seo_canonical_type == 'entry' and current_url === permalink }}
+           {{ locales all="false" }}
+                {{ if site:attributes:identifier === locale:attributes:identifier }}
+                    {{# Resolve noindex: entry override → global default → index #}}
+                    {{ _resolved_noindex_alternate = false }}
+                    {{ get_content :url="url" }}
+                        {{ if seo_noindex == 'noindex' }}
+                            {{ _resolved_noindex_alternate = true }}
+                        {{ elseif seo_noindex == 'inherit' || !seo_noindex }}
+                            {{ if collection }}
+                                {{ seo:collection_indexing_defaults | where('collection', collection) }}
+                                    {{ if noindex == 'noindex' }}
+                                        {{ _resolved_noindex_alternate = true }}
+                                    {{ /if }}
+                                {{ /seo:collection_indexing_defaults }}
+                            {{ elseif taxonomy }}
+                                {{ seo:taxonomy_indexing_defaults | where('taxonomy', taxonomy) }}
+                                    {{ if noindex == 'noindex' }}
+                                        {{ _resolved_noindex_alternate = true }}
+                                    {{ /if }}
+                                {{ /seo:taxonomy_indexing_defaults }}
+                            {{ /if }}
+                        {{ /if }}
+                    {{ /get_content }}
+                    {{ unless _resolved_noindex_alternate }}
+                        <link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}">
+                    {{ /unless}}
+               {{ /if }}
+           {{ /locales }}
+       {{ /if }}
    {{ /if }}
 {{ else }}
    <meta name="robots" content="noindex, nofollow">
 {{ /if }}
 
-{{# hreflang tags #}}
-{{ if seo:hreflang_auto }}
-    {{ if not resolved_noindex and seo_canonical_type == 'entry' and current_url === permalink }}
-        {{ locales all="false" }}
-            {{ if site:attributes:identifier === locale:attributes:identifier }}
-                <link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}">
-            {{ /if }}
-        {{ /locales }}
-    {{ /if }}
-{{ /if }}
-
 {{# Canonical URL #}}
-{{ if not resolved_noindex }}
+{{ if not _resolved_noindex }}
     {{ if seo_canonical_type == 'current' }}
         <link rel="canonical" href="{{ config:app:url }}{{ seo_canonical_current | url }}">
     {{ elseif seo_canonical_type == 'external' }}
