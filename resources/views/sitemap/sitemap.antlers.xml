@@ -14,15 +14,15 @@
             {{ collection from="{handle}" as="results" }}
                 {{ results where (x => x.permalink !== null) }}
                     {{# Resolve noindex: entry override → global default → index #}}
-                    {{ resolved_noindex = false }}
+                    {{ _resolved_noindex = false }}
                     {{ if seo_noindex == 'noindex' }}
-                        {{ resolved_noindex = true }}
+                        {{ _resolved_noindex = true }}
                     {{ elseif seo_noindex == 'index' }}
-                        {{ resolved_noindex = false }}
+                        {{ _resolved_noindex = false }}
                     {{ else }}
-                        {{ resolved_noindex = collection_default_noindex }}
+                        {{ _resolved_noindex = collection_default_noindex }}
                     {{ /if }}
-                    {{ if permalink && !resolved_noindex }}
+                    {{ if permalink && !_resolved_noindex }}
                         <url>
                             <loc>{{ permalink }}</loc>
                             <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
@@ -36,7 +36,30 @@
                                 {{ /once }}
                                 {{ locales }}
                                     {{ if site:attributes:identifier === locale:attributes:identifier }}
-                                        <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
+                                        {{# Resolve noindex: entry override → global default → index #}}
+                                        {{ _resolved_noindex_alternate = false }}
+                                        {{ get_content :url="url" }}
+                                            {{ if seo_noindex == 'noindex' }}
+                                                {{ _resolved_noindex_alternate = true }}
+                                            {{ elseif seo_noindex == 'inherit' || !seo_noindex }}
+                                                {{ if collection }}
+                                                    {{ seo:collection_indexing_defaults | where('collection', collection) }}
+                                                        {{ if noindex == 'noindex' }}
+                                                            {{ _resolved_noindex_alternate = true }}
+                                                        {{ /if }}
+                                                    {{ /seo:collection_indexing_defaults }}
+                                                {{ elseif taxonomy }}
+                                                    {{ seo:taxonomy_indexing_defaults | where('taxonomy', taxonomy) }}
+                                                        {{ if noindex == 'noindex' }}
+                                                            {{ _resolved_noindex_alternate = true }}
+                                                        {{ /if }}
+                                                    {{ /seo:taxonomy_indexing_defaults }}
+                                                {{ /if }}
+                                            {{ /if }}
+                                        {{ /get_content }}
+                                        {{ unless _resolved_noindex_alternate }}
+                                            <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
+                                        {{ /unless }}
                                     {{ /if }}
                                 {{ /locales }}
                             {{ /if }}
@@ -56,15 +79,15 @@
             {{ taxonomy from="{handle}" as="results" }}
                 {{ results where (x => x.permalink !== null) }}
                     {{# Resolve noindex: term override → global default → index #}}
-                    {{ resolved_noindex = false }}
+                    {{ _resolved_noindex = false }}
                     {{ if seo_noindex == 'noindex' }}
-                        {{ resolved_noindex = true }}
+                        {{ _resolved_noindex = true }}
                     {{ elseif seo_noindex == 'index' }}
-                        {{ resolved_noindex = false }}
+                        {{ _resolved_noindex = false }}
                     {{ else }}
-                        {{ resolved_noindex = taxonomy_default_noindex }}
+                        {{ _resolved_noindex = taxonomy_default_noindex }}
                     {{ /if }}
-                    {{ unless resolved_noindex }}
+                    {{ unless _resolved_noindex }}
                         <url>
                             <loc>{{ permalink }}</loc>
                             <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
@@ -87,15 +110,15 @@
                 {{ taxonomy from="{taxonomy}" collection="{handle}" as="results" }}
                     {{ results }}
                         {{# Resolve noindex: term override → global default → index #}}
-                        {{ resolved_noindex = false }}
+                        {{ _resolved_noindex = false }}
                         {{ if seo_noindex == 'noindex' }}
-                            {{ resolved_noindex = true }}
+                            {{ _resolved_noindex = true }}
                         {{ elseif seo_noindex == 'index' }}
-                            {{ resolved_noindex = false }}
+                            {{ _resolved_noindex = false }}
                         {{ else }}
-                            {{ resolved_noindex = ct_default_noindex }}
+                            {{ _resolved_noindex = ct_default_noindex }}
                         {{ /if }}
-                        {{ unless resolved_noindex }}
+                        {{ unless _resolved_noindex }}
                             <url>
                                 <loc>{{ permalink }}</loc>
                                 <lastmod>{{ updated_at format="Y-m-d"}}</lastmod>
