@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.9.3 (2026-09-01)
+
+### What's improved
+- Exclude hreflang tags when localization is noindex in the sitemap as well. 93a37e03 by @robdekort
+
 ## v11.9.2 (2026-08-12)
 
 ### What's improved
