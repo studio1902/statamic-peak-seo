@@ -1,5 +1,10 @@
 # Changelog
 
+## v11.9.4 (2026-10-29)
+
+### What's improved
+- Bypass a Statamic issue that returns nothing on `null` using `bool_string`. This broke the consent banner. 90831785 by @robdekort
+
 ## v11.9.3 (2026-09-01)
 
 ### What's improved
