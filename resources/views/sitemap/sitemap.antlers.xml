@@ -58,7 +58,7 @@
                                             {{ /if }}
                                         {{ /get_content }}
                                         {{ unless _resolved_noindex_alternate }}
-                                            <xhtml:link rel="alternate" hreflang="{{ locale:full }}" href="{{ permalink }}"/>
+                                            <xhtml:link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}"/>
                                         {{ /unless }}
                                     {{ /if }}
                                 {{ /locales }}
