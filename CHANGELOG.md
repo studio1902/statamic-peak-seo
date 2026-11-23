@@ -1,5 +1,12 @@
 # Changelog
 
+## v11.9.5 (2026-11-23)
+
+### What's improved
+- Use a hyphen instead of an underscore in `hreflang` sitemap attribute. b4175fd7 by @robdekort
+- Add `<xhtml:link>` with `x-default` attribute to sitemap. 516c1692 by @robdekort
+- Use main site url for organization JSON-LD snippets. a20a6352 by @robdekort
+
 ## v11.9.4 (2026-10-29)
 
 ### What's improved
