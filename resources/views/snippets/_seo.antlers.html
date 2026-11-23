@@ -129,7 +129,7 @@
                "@id": "{{ config:app:url }}/#organization",
                "name": "{{ seo:organization_name | strip_tags | entities | trim }}"{{ if seo:organization_alternate_name }},
                "alternateName": "{{ seo:organization_alternate_name | strip_tags | entities | trim }}"{{ /if }},
-               "url": "{{ site:permalink }}"{{ if configuration:copyright_since }},
+               "url": "{{ config:app:url }}"{{ if configuration:copyright_since }},
                "foundingDate": "{{ configuration:copyright_since }}"{{ /if }}{{ if seo:organization_description }},
                "description": "{{ seo:organization_description | strip_tags | entities | trim }}"{{ /if }}{{ if seo:organization_logo }},
                "logo": {
@@ -148,8 +148,8 @@
            {
                "@context": "http://schema.org",
                "@type": "Person",
-               "@id": "{{ site:permalink }}/#{{ seo:person_name | slugify }}",
-               "url": "{{ site:permalink }}",
+               "@id": "{{ config:app:url }}/#{{ seo:person_name | slugify }}",
+               "url": "{{ config:app:url }}",
                "name": "{{ seo:person_name }}"
            }
        {{ elseif seo:json_ld_type == 'custom' }}
