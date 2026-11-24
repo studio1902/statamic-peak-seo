@@ -1,5 +1,11 @@
 # Changelog
 
+## v11.9.6 (2026-11-24)
+
+### What's improved
+- Use https for `@context`. 4cf28231 by @robdekort
+- Add x-default to `<head>`. acfe78dc by @robdekort
+
 ## v11.9.5 (2026-11-23)
 
 ### What's improved
