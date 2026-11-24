@@ -124,7 +124,7 @@
    <script type="application/ld+json" id="schema">
        {{ if seo:json_ld_type == 'organization'  }}
            {
-               "@context": "http://schema.org",
+               "@context": "https://schema.org",
                "@type": "Organization",
                "@id": "{{ config:app:url }}/#organization",
                "name": "{{ seo:organization_name | strip_tags | entities | trim }}"{{ if seo:organization_alternate_name }},
@@ -146,7 +146,7 @@
            }
        {{ elseif seo:json_ld_type == 'person' }}
            {
-               "@context": "http://schema.org",
+               "@context": "https://schema.org",
                "@type": "Person",
                "@id": "{{ config:app:url }}/#{{ seo:person_name | slugify }}",
                "url": "{{ config:app:url }}",
