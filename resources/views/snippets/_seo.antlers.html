@@ -96,6 +96,9 @@
                     {{ /get_content }}
                     {{ unless _resolved_noindex_alternate }}
                         <link rel="alternate" hreflang="{{ locale:full | replace('_','-') }}" href="{{ permalink }}">
+                        {{ if locale:handle === sites:0:handle }}
+                            <link rel="alternate" hreflang="x-default" href="{{ permalink }}" />
+                        {{ /if }}
                     {{ /unless}}
                {{ /if }}
            {{ /locales }}
